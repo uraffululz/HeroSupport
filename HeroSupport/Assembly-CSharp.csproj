@@ -59,6 +59,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Dialogue.cs" />
+    <Compile Include="Assets\Scripts\DialogueManager.cs" />
+    <Compile Include="Assets\Scripts\DialogueTrigger.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Master/Documents/Git Repositories/Unity Projects/HeroSupport/HeroSupport/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

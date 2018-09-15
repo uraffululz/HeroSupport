@@ -53,6 +53,18 @@ public class PlayerMove : MonoBehaviour {
 					print("You used the " + reached.collider.name);
 				}
 			}
+			else if (reached.collider.tag == "Hero") {
+				GameObject daHero = reached.collider.gameObject;
+				if (daHero.GetComponent<DialogueTrigger>() != null) {
+					DialogueTrigger heroDialogue = daHero.GetComponent<DialogueTrigger>();
+
+					print("Press E to talk to " + heroDialogue.dialogue.name);
+
+					if (Input.GetKeyDown(KeyCode.E)) {
+						heroDialogue.TriggerDialogue();
+					}
+				}
+			}
 		}
 	}
 }
