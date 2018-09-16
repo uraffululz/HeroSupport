@@ -61,7 +61,7 @@ public class PlayerMove : MonoBehaviour {
 					print("Press E to talk to " + heroDialogue.dialogue.name);
 
 					if (Input.GetKeyDown(KeyCode.E)) {
-						heroDialogue.TriggerDialogue();
+						heroDialogue.SetupDialogue();
 					}
 				}
 			}
