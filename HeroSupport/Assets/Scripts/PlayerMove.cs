@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour {
 
+	[SerializeField]Camera mainCam;
+
 	int moveSpeed = 3;
 	int rotSpeed = 10;
+
+	enum levelLevel {above, below };
+	levelLevel myLevel;
 
 
 	void Start () {
@@ -51,6 +56,22 @@ public class PlayerMove : MonoBehaviour {
 
 				if (Input.GetKeyDown(KeyCode.E)) {
 					print("You used the " + reached.collider.name);
+
+					if (reached.collider.name == "SpiralStairs") {
+						CameraController camControl = mainCam.GetComponent<CameraController>();
+
+						if (transform.position.y > 5f) {
+							Vector3 stairPos = new Vector3(reached.transform.position.x, 1f, reached.transform.position.z - 1f);
+							transform.position = stairPos;
+							camControl.myCamState = CameraController.camStates.above;
+							camControl.MoveCam();
+						} else {
+							Vector3 stairPos = new Vector3 (reached.transform.position.x, 6f, reached.transform.position.z - 1f);
+							transform.position = stairPos;
+							camControl.myCamState = CameraController.camStates.below;
+							camControl.MoveCam();
+						}
+					}
 				}
 			}
 			else if (reached.collider.tag == "Hero") {

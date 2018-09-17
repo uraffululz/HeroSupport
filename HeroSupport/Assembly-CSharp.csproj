@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\Dialogue.cs" />
     <Compile Include="Assets\Scripts\DialogueManager.cs" />
     <Compile Include="Assets\Scripts\DialogueTrigger.cs" />
+    <Compile Include="Assets\Scripts\GeneralScriptForEVERYOBJECT.cs" />
     <Compile Include="Assets\Scripts\NPCHero.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Reference Include="UnityEditor.StandardEvents">

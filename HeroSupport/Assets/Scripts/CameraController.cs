@@ -6,8 +6,8 @@ public class CameraController : MonoBehaviour {
 
 	[SerializeField]GameObject player;
 
-	enum camStates {above, below, transitioning};
-	[SerializeField]camStates myCamState;
+	public enum camStates {above, below, transitioning};
+	public camStates myCamState;
 
 	Vector3 camOffset;
 	Vector3 upperPos;
@@ -29,17 +29,25 @@ public class CameraController : MonoBehaviour {
 		}
 
 		if (Input.GetKeyDown(KeyCode.Tab)) {
-			upperPos = new Vector3(transform.position.x, 15f, transform.position.z);
-			lowerPos = new Vector3(transform.position.x, 10f, transform.position.z);
+			MoveCam();
+		}
+	}
 
-			if (myCamState == camStates.below) {
-				StartCoroutine(MoveCamVert(upperPos));
-				myCamState = camStates.transitioning;
-			}
-			else if (myCamState == camStates.above) {
-				StartCoroutine(MoveCamVert(lowerPos));
-				myCamState = camStates.transitioning;
-			}
+	public void MoveCam () {
+		upperPos = new Vector3(transform.position.x, 15f, transform.position.z);
+		lowerPos = new Vector3(transform.position.x, 10f, transform.position.z);
+
+		if (myCamState == camStates.below) {
+			StartCoroutine(MoveCamVert(upperPos));
+			myCamState = camStates.transitioning;
+			//Enables rendering of the upper "House" level of the play area
+			gameObject.GetComponent<Camera>().cullingMask = -1;
+		}
+		else if (myCamState == camStates.above) {
+			StartCoroutine(MoveCamVert(lowerPos));
+			myCamState = camStates.transitioning;
+			//Disables rendering of the upper "House" level of the play area
+			gameObject.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("UpperLevel - House"));
 		}
 	}
 
@@ -48,16 +56,26 @@ public class CameraController : MonoBehaviour {
 
 		while (elapsedTime < 1f) {
 			transform.position = Vector3.Lerp(transform.position, newPos, elapsedTime);
-			elapsedTime += Time.deltaTime;
+			elapsedTime += Time.deltaTime * 1.5f;
 
 			yield return new WaitForEndOfFrame();
 		}
 		if (transform.position.y == upperPos.y) {
 			myCamState = camStates.above;
-			camOffset.y = transform.position.y - 1;
+			if (player.transform.position.y > 5f) {
+				camOffset.y = transform.position.y - 6;
+			}
+			else {
+				camOffset.y = transform.position.y - 1;
+			}
 		} else if (transform.position.y == lowerPos.y) {
 			myCamState = camStates.below;
-			camOffset.y = transform.position.y - 1;
-		}
+			if (player.transform.position.y > 5) {
+				camOffset.y = transform.position.y - 6;
+			}
+			else {
+				camOffset.y = transform.position.y - 1;
+		} }
+
 	}
 }
