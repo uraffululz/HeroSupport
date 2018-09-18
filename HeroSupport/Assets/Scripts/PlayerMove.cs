@@ -45,7 +45,7 @@ public class PlayerMove : MonoBehaviour {
 
 
 	void Interact () {
-		float reachDist = 0.75f;
+		float reachDist = 1f;
 		Ray reachRay = new Ray(transform.position, transform.forward);
 		Debug.DrawRay(transform.position, transform.forward, Color.magenta);
 		RaycastHit reached;

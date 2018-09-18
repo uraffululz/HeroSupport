@@ -4,16 +4,23 @@ using UnityEngine;
 
 public class NPCHero : MonoBehaviour {
 
+	DayNightCycle lightCycle;
+
 	public enum activityStates{idle, busy, patrolling};
 	public activityStates myActiveState;
 
-	// Use this for initialization
+
 	void Start () {
-		
+		lightCycle = GameObject.Find("Day-Night Light").GetComponent<DayNightCycle>();
 	}
-	
-	// Update is called once per frame
+
+
 	void Update () {
-		
+		if (lightCycle.dayTime) {
+			myActiveState = activityStates.idle;
+		}
+		else {
+			myActiveState = activityStates.patrolling;
+		}
 	}
 }

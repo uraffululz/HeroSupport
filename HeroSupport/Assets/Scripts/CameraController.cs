@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
+	Camera thisCam;
+
 	[SerializeField]GameObject player;
 
 	public enum camStates {above, below, transitioning};
@@ -15,6 +17,7 @@ public class CameraController : MonoBehaviour {
 
 
 	void Start () {
+		thisCam = GetComponent<Camera>();
 		myCamState = camStates.below;
 
 		camOffset = new Vector3(0, 10f, -10f);
@@ -40,14 +43,20 @@ public class CameraController : MonoBehaviour {
 		if (myCamState == camStates.below) {
 			StartCoroutine(MoveCamVert(upperPos));
 			myCamState = camStates.transitioning;
-			//Enables rendering of the upper "House" level of the play area
+
+			//Enables rendering of the upper "House" level/rendering layer (as well as ALL other layers) of the play area
 			gameObject.GetComponent<Camera>().cullingMask = -1;
+
+			thisCam.backgroundColor = Color.green / 2f; ;
 		}
 		else if (myCamState == camStates.above) {
 			StartCoroutine(MoveCamVert(lowerPos));
 			myCamState = camStates.transitioning;
+
 			//Disables rendering of the upper "House" level of the play area
 			gameObject.GetComponent<Camera>().cullingMask &= ~(1 << LayerMask.NameToLayer("UpperLevel - House"));
+
+			thisCam.backgroundColor = new Color(.47f, .36f, 0.28f, 1f);
 		}
 	}
 
