@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class GeneralScriptForEVERYOBJECT : MonoBehaviour {
 
-	Material myMat;
+	//Material myMat;
 
 	void Start () {
-		if (gameObject.GetComponent<Material>() != null) {
+/*		if (gameObject.GetComponent<Material>() != null) {
 			myMat = gameObject.GetComponent<Material>();
 		}
+*/
 	}
 
 

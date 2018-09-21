@@ -59,15 +59,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Bookshelf.cs" />
-    <Compile Include="Assets\Scripts\CameraController.cs" />
-    <Compile Include="Assets\Scripts\DayNightCycle.cs" />
-    <Compile Include="Assets\Scripts\Dialogue.cs" />
-    <Compile Include="Assets\Scripts\DialogueManager.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\DayNightCycle.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\Dialogue.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\DialogueManager.cs" />
+    <Compile Include="Assets\Scripts\ConstructScripts\Bookshelf.cs" />
     <Compile Include="Assets\Scripts\GeneralScriptForEVERYOBJECT.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\DialogueTrigger.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\NPCHero.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerMove.cs" />
+    <Compile Include="Assets\ShutterDoor.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Master/Documents/Git Repositories/Unity Projects/HeroSupport/HeroSupport/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
