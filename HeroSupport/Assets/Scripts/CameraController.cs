@@ -10,6 +10,7 @@ public class CameraController : MonoBehaviour {
 
 	public enum camStates {above, below, transitioning};
 	public camStates myCamState;
+	float transitionSpeed = 1.5f;
 
 	Vector3 camOffset;
 	Vector3 upperPos;
@@ -65,7 +66,7 @@ public class CameraController : MonoBehaviour {
 
 		while (elapsedTime < 1f) {
 			transform.position = Vector3.Lerp(transform.position, newPos, elapsedTime);
-			elapsedTime += Time.deltaTime * 1.5f;
+			elapsedTime += Time.deltaTime * transitionSpeed;
 
 			yield return new WaitForEndOfFrame();
 		}
