@@ -8,14 +8,16 @@ public class DayNightCycle : MonoBehaviour {
 
 //	Color nightColor;
 
-	float transition = 0f;
+	public float transition = 0f;
 	float transitionSpeed = .1f;
 
 	float startYRot = 180f;
 	float locYRot = 0f;
 
-	bool sunRising = true;
+	public bool sunRising = true;
 	public bool dayTime = false;
+	public bool isDawn = false;
+	public bool isDusk = false;
 
 	void Start () {
 		cycleLight = GetComponent<Light>();
@@ -29,7 +31,7 @@ public class DayNightCycle : MonoBehaviour {
 
 		//When "transition" reaches its low-point (at a value of 0 (midnight)), the "sun" begins to "rise"
 		//When "transition" reaches its peak (at a value of 1 (noon), it begins to "set"
-		if (transition < 0f | transition > 1f) {
+		if (transition < 0f || transition > 1f) {
 			sunRising = !sunRising;
 		}
 
@@ -40,15 +42,29 @@ public class DayNightCycle : MonoBehaviour {
 		//"dayTime" bool becomes true while light is mostly white, and false while it is mostly blue
 		if (transition >= .5f) {
 			dayTime = true;
+			//During the frame in which it actually BECOMES Day
+			if (!isDawn) {
+
+				isDawn = true;
+				isDusk = false;
+			}
 		}
 		else {
 			dayTime = false;
+			//During the frame in which it actually BECOMES night
+			if (!isDusk) {
+				NightManager.SetCrimeRates();
+				isDusk = true;
+				isDawn = false;
+			}
 		}
 
 		//If you want to rotate the local y-axis in a half-circle during the day, and then cut back across and repeat for the night cycle,
 		//just set startYRot to 0 if daytime is false
 		//NOTE: It's a bit jarring/distracting/breaks immersion, but maybe I can find a way to smooth it out. Maybe use 2 lights?
 
+		//Using Mathf.InverseLerp because otherwise, during the "night", the light reverses direction and rotates back to the starting point
+		//This way, it continues in a full circle while "sunRising" is false
 		float rotLerp = Mathf.Lerp(0f, 1f, transition);
 		float rotLerpInv = Mathf.InverseLerp(1f, 0f, transition);
 

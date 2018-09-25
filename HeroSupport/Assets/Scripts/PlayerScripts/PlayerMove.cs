@@ -72,6 +72,13 @@ public class PlayerMove : MonoBehaviour {
 							camControl.MoveCam();
 						}
 					}
+					else if (reached.collider.name == "Computer") {
+						GameObject compDisplayBox = GameObject.Find("ComputerDisplay");
+						ComputerDisplay display = compDisplayBox.GetComponent<ComputerDisplay>();
+						Animator compDisplayAnim = compDisplayBox.GetComponent<Animator>();
+
+						compDisplayAnim.SetBool("compActivated", true);
+					}
 				}
 			}
 			else if (reached.collider.tag == "Hero") {
