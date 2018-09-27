@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class NPCHero : MonoBehaviour {
 
+	CharacterStats charStats;
+
 	DayNightCycle lightCycle;
 
 	public enum activityStates{idle, busy, patrolling};

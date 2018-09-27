@@ -13,14 +13,13 @@ public static class NightManager {
 	public static string crimeStars2;
 	public static string crimeStars3;
 
-
 	public static string activity1;
 	public static string activity2;
 	public static string activity3;
 	static string[] activities = new string[] { "Arson", "Assault", "Bank Robbery", "Burglary", "Kidnapping", "Mugging", "Robbery", "Runaway Train" };
 
 
-	//Is this STILL updating every frame? (use Debug.Log to determine). If so, that's a lot of unnecessary calculation
+//Is this STILL updating every frame? (use Debug.Log to determine). If so, that's a lot of unnecessary calculation
 	public static void SetCrimeRates () {
 		crimeStars1 = "";
 		crimeStars2 = "";
@@ -56,5 +55,6 @@ public static class NightManager {
 			activity3 = activities[Random.Range(0, activities.Length)];
 		}
 	}
+
 
 }

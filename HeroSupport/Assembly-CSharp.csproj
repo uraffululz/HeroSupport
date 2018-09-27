@@ -59,8 +59,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ComputerDisplay.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\ActivityScript.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\ComputerDisplay.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\DayNightCycle.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\Dialogue.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\DialogueManager.cs" />
@@ -68,8 +69,10 @@
     <Compile Include="Assets\Scripts\_SceneManagementScripts\NightManager.cs" />
     <Compile Include="Assets\Scripts\ConstructScripts\Bookshelf.cs" />
     <Compile Include="Assets\Scripts\ConstructScripts\ShutterDoor.cs" />
+    <Compile Include="Assets\Scripts\NPCScripts\CharacterStats.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\DialogueTrigger.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\NPCHero.cs" />
+    <Compile Include="Assets\Scripts\NPCScripts\Stat.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerMove.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Master/Documents/Git Repositories/Unity Projects/HeroSupport/HeroSupport/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
