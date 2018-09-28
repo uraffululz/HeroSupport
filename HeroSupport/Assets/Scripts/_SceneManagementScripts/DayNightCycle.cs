@@ -5,6 +5,8 @@ using UnityEngine;
 public class DayNightCycle : MonoBehaviour {
 
 	Light cycleLight;
+	[SerializeField] GameObject hero;
+	[SerializeField] GameObject sidekick;
 
 //	Color nightColor;
 
@@ -54,6 +56,11 @@ public class DayNightCycle : MonoBehaviour {
 			//During the frame in which it actually BECOMES night
 			if (!isDusk) {
 				NightManager.SetCrimeRates();
+//TODOLATER If these scripts are the only thing I'm referencing on the Hero and Sidekick, then just change the references directly TO the scripts
+	//rather than the GameObjects. Also, don't forget to make sure to check if they are null, to avoid errors
+				hero.GetComponent<ActivityParticipation>().SetTogglesToDefault();
+				sidekick.GetComponent<ActivityParticipation>().SetTogglesToDefault();
+
 				isDusk = true;
 				isDawn = false;
 			}

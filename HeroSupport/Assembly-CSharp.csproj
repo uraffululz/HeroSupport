@@ -59,7 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\_SceneManagementScripts\ActivityScript.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\ActivityParticipation.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\ComputerDisplay.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\DayNightCycle.cs" />
