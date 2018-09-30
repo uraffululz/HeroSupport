@@ -14,11 +14,6 @@ public class CharacterStats : MonoBehaviour {
 	public int maxStress = 100;
 	public int currentStress {get; private set; }
 
-/*TOMAYBEDO Perhaps the Sidekick(s) get fatigued/stressed faster than the Hero, in which case:
-	public float fatigueRate;
-	public float stressRate;
-*/
-
 
 	private void Awake() {
 		currentFatigue = minFatigue;
@@ -39,48 +34,64 @@ public class CharacterStats : MonoBehaviour {
 	public void DamageFatigue (int fatigueDamage) {
 		//Use strength to resist incoming fatigue damage
 		fatigueDamage -= strength.GetValue();
-		// \/Keeps Hero from GAINING fatigue during activities. May not be necessary, as he could definitely come home feeling good about his accomplishments
+		// \/Keeps Hero from REDUCING fatigue during activities. May not be necessary, as he could definitely come home feeling good about his accomplishments
 		//fatigueDamage = Mathf.Clamp(fatigueDamage, 0, int.MaxValue);
 
 		//Damage the Hero's fatigue
 		currentFatigue += fatigueDamage;
-		Debug.Log(transform.name + "'s FATIGUE reduced by " + fatigueDamage);
+		Debug.Log(transform.name + "'s FATIGUE increased by " + fatigueDamage);
 
 		//If the Hero's fatigue is drained, he becomes physically exhausted
-		if (currentFatigue >= maxFatigue) {
-			currentFatigue = maxFatigue;
+		if (currentFatigue > (maxFatigue * .7)) {
+			if (currentFatigue > maxFatigue) {
+//TOMAYBEDO If the character's fatigue reaches its max, maybe he suffers an EXTREME setback
+	//(Long-term/permanent injury, ability stat point loss, etc)
+	//If he is the Sidekick, maybe he quits the hero game and leaves
+				currentFatigue = maxFatigue;
+			}
 			PhysicallyExhausted();
+		}
+		else if (currentFatigue < 0) {
+			currentFatigue = 0;
 		}
 	}
 
 	public void DamageStress(int stressDamage) {
 		//Use intellect to resist incoming stress damage
 		stressDamage -= intellect.GetValue();
-		// \/Keeps Hero from GAINING stress during activities. May not be necessary, as he could definitely come home feeling good about his accomplishments
+		// \/Keeps Hero from REDUCING stress during activities. May not be necessary, as he could definitely come home feeling good about his accomplishments
 		//stressDamage = Mathf.Clamp(stressDamage, 0, int.MaxValue);
 
 		//Damage the Hero's stress
 		currentStress += stressDamage;
-		Debug.Log(transform.name + "'s STRESS reduced by " + stressDamage);
+		Debug.Log(transform.name + "'s STRESS increased by " + stressDamage);
 
 		//If the Hero's stress is drained, he becomes mentally exhausted
-		if (currentStress >= maxStress) {
-			currentStress = maxStress;
+		if (currentStress > (maxStress * .7)) {
+			if (currentStress > maxStress) {
+//TOMAYBEDO If the character's stress reaches its max, maybe he suffers an EXTREME setback
+	//(PTSD, Long-term/permanent mental problems, ability stat point loss, etc)
+	//If he is the Sidekick, maybe he quits the hero game and leaves
+				currentStress = maxStress;
+			}
 			MentallyExhausted();
+		}
+		else if (currentStress < 0) {
+			currentStress = 0;
 		}
 	}
 
 //TODO Why "virtual"?
 	//The Hero becomes physically exhausted
+//TODO In this state, the character cannot participate in activities. Any activities they are still assigned to attempt during the night are cancelled
 	public virtual void PhysicallyExhausted() {
-		//This method is meant to be overwritten
 		Debug.Log(transform.name + " is PHYSICALLY EXHAUSTED");
 	}
 
 //TODO Why "virtual"?
 	//The Hero becomes mentally exhausted
+//TODO In this state, the character cannot participate in activities. Any activities they are still assigned to attempt during the night are cancelled
 	public virtual void MentallyExhausted() {
-		//This method is meant to be overwritten
 		Debug.Log(transform.name + " is MENTALLY EXHAUSTED");
 	}
 

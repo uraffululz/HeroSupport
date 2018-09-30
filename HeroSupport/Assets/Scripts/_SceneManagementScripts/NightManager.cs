@@ -31,8 +31,15 @@ public static class NightManager {
 	public static int reqAgi3 = 1;
 	public static int reqInt3 = 1;
 
+	public static int baseFatigueDmg1 = 0;
+	public static int baseFatigueDmg2 = 0;
+	public static int baseFatigueDmg3 = 0;
 
-	//Is this STILL updating every frame? (use Debug.Log to determine). If so, that's a lot of unnecessary calculation
+	public static int baseStressDmg1 = 0;
+	public static int baseStressDmg2 = 0;
+	public static int baseStressDmg3 = 0;
+
+
 	public static void SetCrimeRates () {
 		crimeStars1 = "";
 		crimeStars2 = "";
@@ -64,41 +71,49 @@ public static class NightManager {
 			activity3 = activities[Random.Range(0, activities.Length)];
 		}
 
-		SetActivityRequirements(activity1, reqStr1, reqAgi1, reqInt1, crimeRate1);
-		SetActivityRequirements(activity2, reqStr2, reqAgi2, reqInt2, crimeRate2);
-		SetActivityRequirements(activity3, reqStr3, reqAgi3, reqInt3, crimeRate3);
+		SetActivityRequirements(activity1, reqStr1, reqAgi1, reqInt1, crimeRate1, baseFatigueDmg1, baseStressDmg1);
+		SetActivityRequirements(activity2, reqStr2, reqAgi2, reqInt2, crimeRate2, baseFatigueDmg2, baseStressDmg2);
+		SetActivityRequirements(activity3, reqStr3, reqAgi3, reqInt3, crimeRate3, baseFatigueDmg3, baseStressDmg3);
 
-		Debug.Log(activity1 + " requires: " + reqStr1 + ", " + reqAgi1 + ", " + reqInt1);
-		Debug.Log(activity2 + " requires: " + reqStr2 + ", " + reqAgi2 + ", " + reqInt2);
-		Debug.Log(activity3 + " requires: " + reqStr3 + ", " + reqAgi3 + ", " + reqInt3);
-
+		Debug.Log(activity1 + " requires: " + reqStr1 + ", " + reqAgi1 + ", " + reqInt1 + ". Will damage Fatigue: " + baseFatigueDmg1 + " Stress: " + baseStressDmg1);
+		Debug.Log(activity2 + " requires: " + reqStr2 + ", " + reqAgi2 + ", " + reqInt2 + ". Will damage Fatigue: " + baseFatigueDmg2 + " Stress: " + baseStressDmg2);
+		Debug.Log(activity3 + " requires: " + reqStr3 + ", " + reqAgi3 + ", " + reqInt3 + ". Will damage Fatigue: " + baseFatigueDmg3 + " Stress: " + baseStressDmg3);
 	}
 
 
-	public static void SetActivityRequirements (string thisActivity, int reqStr, int reqAgi, int reqInt, int difficulty) {
+	public static void SetActivityRequirements (string thisActivity, int reqStr, int reqAgi, int reqInt, int difficulty, int fatigue, int stress) {
+		//TODO I don't think I need to pass in all these variables ^, since they don't immediately adjust when declaring the local-variable-versions
+		//The locals could probably just be set at the start of this method (here), and later assigned (like they are now), without much difficulty
+		//For now, I just want to keep going, but it's something to keep in mind
+
+		//Use to adjust the stress of the activity, according to how many people die through action/inaction
+		int casualties = 0;
+
+		//Declaring values for the activity's requirements, and subsequent "base damage" to fatigue and stress
 		if (thisActivity == "Arson") {
-			reqStr = 1; reqAgi = 2; reqInt = 3;
+			reqStr = 1; reqAgi = 2; reqInt = 3; fatigue = 5 * difficulty; stress = 2 * difficulty; casualties = 20 * difficulty;
 		}
 		if (thisActivity == "Assault") {
-			reqStr = 3; reqAgi = 2; reqInt = 1;
+			reqStr = 3; reqAgi = 2; reqInt = 1; fatigue = 2 * difficulty; stress = 1 * difficulty; casualties = (1 * difficulty) / 2;
 		}
 		if (thisActivity == "Bank Robbery") {
-			reqStr = 1; reqAgi = 1; reqInt = 3;
+			reqStr = 1; reqAgi = 1; reqInt = 3; fatigue = 3 * difficulty; stress = 3 * difficulty; casualties = 2 * difficulty;
 		}
 		if (thisActivity == "Burglary") {
-			reqStr = 1; reqAgi = 2; reqInt = 3;
+			reqStr = 1; reqAgi = 2; reqInt = 3; fatigue = 1 * difficulty; stress = 3 * difficulty; casualties = (1 * difficulty) / 2;
 		}
 		if (thisActivity == "Kidnapping") {
-			reqStr = 1; reqAgi = 1; reqInt = 3;
+			reqStr = 1; reqAgi = 1; reqInt = 3; fatigue = 1 * difficulty; stress = 10 * difficulty; casualties = 1;
 		}
 		if (thisActivity == "Mugging") {
-			reqStr = 2; reqAgi = 2; reqInt = 1;
+			reqStr = 2; reqAgi = 2; reqInt = 1; fatigue =  2 * difficulty; stress = 2 * difficulty; casualties = 1 * difficulty;
 		}
 		if (thisActivity == "Robbery") {
-			reqStr = 2; reqAgi = 2; reqInt = 1;
+			reqStr = 2; reqAgi = 2; reqInt = 1; fatigue = 3 * difficulty; stress = 1 * difficulty; casualties = 1 * difficulty;
 		}
 		if (thisActivity == "Runaway Train") {
-			reqStr = 1; reqAgi = 1; reqInt = 3;
+			//Stuff like this might be considered "mass casualties", which may severely damage the character's stress
+			reqStr = 1; reqAgi = 1; reqInt = 3; fatigue = 5 * difficulty; stress = 5 * difficulty; casualties = 100 * difficulty;
 		}
 
 		reqStr += difficulty;
@@ -114,18 +129,22 @@ public static class NightManager {
 			reqStr1 = reqStr;
 			reqAgi1 = reqAgi;
 			reqInt1 = reqInt;
+			baseFatigueDmg1 = fatigue;
+			baseStressDmg1 = stress;
 		}
 		else if (thisActivity == activity2) {
 			reqStr2 = reqStr;
 			reqAgi2 = reqAgi;
 			reqInt2 = reqInt;
+			baseFatigueDmg2 = fatigue;
+			baseStressDmg2 = stress;
 		}
 		else if (thisActivity == activity3) {
 			reqStr3 = reqStr;
 			reqAgi3 = reqAgi;
 			reqInt3 = reqInt;
+			baseFatigueDmg3 = fatigue;
+			baseStressDmg3 = stress;
 		}
-
-		//Debug.Log(thisActivity + " requires: " + reqStr + ", " + reqAgi + ", " + reqInt);
 	}
 }

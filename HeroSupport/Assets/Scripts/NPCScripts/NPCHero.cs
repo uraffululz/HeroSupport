@@ -8,7 +8,7 @@ public class NPCHero : MonoBehaviour {
 
 	DayNightCycle lightCycle;
 
-	public enum activityStates{idle, busy, patrolling};
+	public enum activityStates{Idle, Busy, Patrolling};
 	public activityStates myActiveState;
 
 
@@ -19,10 +19,10 @@ public class NPCHero : MonoBehaviour {
 
 	void Update () {
 		if (lightCycle.dayTime) {
-			myActiveState = activityStates.idle;
+			myActiveState = activityStates.Idle;
 		}
 		else {
-			myActiveState = activityStates.patrolling;
+			myActiveState = activityStates.Patrolling;
 		}
 	}
 }

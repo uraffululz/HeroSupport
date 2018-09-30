@@ -19,6 +19,7 @@ public class ComputerDisplay : MonoBehaviour {
 	public Toggle selector1;
 	//public Toggle selector2;
 	//public Toggle selector3;
+	public Button commenceButton;
 	public Button backButton;
 
 
@@ -42,6 +43,7 @@ public class ComputerDisplay : MonoBehaviour {
 			activity2.text = ("Activity 2: " + NightManager.activity2 + NightManager.crimeStars2);
 			activity3.text = ("Activity 3: " + NightManager.activity3 + NightManager.crimeStars3);
 
+//TODO If the hero and sidekick's "Taking night off" toggles are BOTH on, disable the commenceButton
 		}
 	}
 

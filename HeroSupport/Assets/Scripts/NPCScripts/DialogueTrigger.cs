@@ -14,7 +14,7 @@ public class DialogueTrigger : MonoBehaviour {
 			//Dialogue options for Deek
 			if (dialogue.name == "Hero") {
 				//During Idle state
-				if (heroScript.myActiveState == NPCHero.activityStates.idle) {
+				if (heroScript.myActiveState == NPCHero.activityStates.Idle) {
 					int randomDialogue = Random.Range(0, 3);
 
 					switch (randomDialogue) {
@@ -34,7 +34,7 @@ public class DialogueTrigger : MonoBehaviour {
 			//Dialogue options for Tiffany
 			if (dialogue.name == "Tiffany") {
 				//During Idle state
-				if (heroScript.myActiveState == NPCHero.activityStates.idle) {
+				if (heroScript.myActiveState == NPCHero.activityStates.Idle) {
 					int randomDialogue = Random.Range(0, 3);
 					switch (randomDialogue) {
 						case 0:
