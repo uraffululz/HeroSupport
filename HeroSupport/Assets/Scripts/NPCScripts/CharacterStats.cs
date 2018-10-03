@@ -9,10 +9,12 @@ public class CharacterStats : MonoBehaviour {
 	public int minFatigue = 0;
 	public int maxFatigue = 100;
 	public int currentFatigue { get; private set; }
+	public bool isFullyFatigued = false;
 
 	public int minStress = 0;
 	public int maxStress = 100;
 	public int currentStress {get; private set; }
+	public bool isFullyStressed = false;
 
 
 	private void Awake() {
@@ -42,8 +44,8 @@ public class CharacterStats : MonoBehaviour {
 		Debug.Log(transform.name + "'s FATIGUE increased by " + fatigueDamage);
 
 		//If the Hero's fatigue is drained, he becomes physically exhausted
-		if (currentFatigue > (maxFatigue * .7)) {
-			if (currentFatigue > maxFatigue) {
+		if (currentFatigue > (maxFatigue * .8)) {
+			if (currentFatigue >= maxFatigue) {
 //TOMAYBEDO If the character's fatigue reaches its max, maybe he suffers an EXTREME setback
 	//(Long-term/permanent injury, ability stat point loss, etc)
 	//If he is the Sidekick, maybe he quits the hero game and leaves
@@ -67,8 +69,8 @@ public class CharacterStats : MonoBehaviour {
 		Debug.Log(transform.name + "'s STRESS increased by " + stressDamage);
 
 		//If the Hero's stress is drained, he becomes mentally exhausted
-		if (currentStress > (maxStress * .7)) {
-			if (currentStress > maxStress) {
+		if (currentStress > (maxStress * .8)) {
+			if (currentStress >= maxStress) {
 //TOMAYBEDO If the character's stress reaches its max, maybe he suffers an EXTREME setback
 	//(PTSD, Long-term/permanent mental problems, ability stat point loss, etc)
 	//If he is the Sidekick, maybe he quits the hero game and leaves
@@ -86,6 +88,8 @@ public class CharacterStats : MonoBehaviour {
 //TODO In this state, the character cannot participate in activities. Any activities they are still assigned to attempt during the night are cancelled
 	public virtual void PhysicallyExhausted() {
 		Debug.Log(transform.name + " is PHYSICALLY EXHAUSTED");
+		isFullyFatigued = true;
+		GetComponent<NPCHero>().myActiveState = NPCHero.activityStates.Fatigued;
 	}
 
 //TODO Why "virtual"?
@@ -93,6 +97,8 @@ public class CharacterStats : MonoBehaviour {
 //TODO In this state, the character cannot participate in activities. Any activities they are still assigned to attempt during the night are cancelled
 	public virtual void MentallyExhausted() {
 		Debug.Log(transform.name + " is MENTALLY EXHAUSTED");
+		isFullyStressed = true;
+		GetComponent<NPCHero>().myActiveState = NPCHero.activityStates.Stressed;
 	}
 
 }

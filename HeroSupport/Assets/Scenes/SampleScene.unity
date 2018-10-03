@@ -2773,7 +2773,6 @@ GameObject:
   - component: {fileID: 170076735}
   - component: {fileID: 170076734}
   - component: {fileID: 170076736}
-  - component: {fileID: 170076737}
   m_Layer: 0
   m_Name: Day-Night Light
   m_TagString: Untagged
@@ -2828,7 +2827,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &170076736
 MonoBehaviour:
@@ -2848,19 +2847,6 @@ MonoBehaviour:
   dayTime: 0
   isDawn: 0
   isDusk: 0
---- !u!114 &170076737
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 170076733}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3687fd8c97b12f40ac4ed32e61a266c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hero: {fileID: 1557692795}
-  sidekick: {fileID: 868614547}
 --- !u!1 &173696409
 GameObject:
   m_ObjectHideFlags: 0
@@ -3921,7 +3907,7 @@ RectTransform:
   - {fileID: 1229852219}
   - {fileID: 20073582}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -14001,7 +13987,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1060296251
 GameObject:
@@ -20983,7 +20969,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4917099877881324, guid: e3e000543ee78ee43b5e49e62b0b644b, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e3e000543ee78ee43b5e49e62b0b644b, type: 2}
@@ -21424,7 +21410,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 170076737}
+      - m_Target: {fileID: 2010254378}
         m_MethodName: CommenceActivities
         m_Mode: 1
         m_Arguments:
@@ -28548,8 +28534,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2010254377}
   - component: {fileID: 2010254376}
+  - component: {fileID: 2010254378}
   m_Layer: 0
-  m_Name: DialogueManager
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28580,8 +28567,21 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2010254378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2010254375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3687fd8c97b12f40ac4ed32e61a266c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hero: {fileID: 1557692795}
+  sidekick: {fileID: 868614547}
 --- !u!1 &2030681868
 GameObject:
   m_ObjectHideFlags: 0

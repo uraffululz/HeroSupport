@@ -22,7 +22,7 @@ public class CommenceNightly : MonoBehaviour {
 
 
 	private void Start() {
-		//TOMAYBEDO Just declare these in the inspector?
+//TOMAYBEDO Just declare these in the inspector?
 		heroActPart = hero.GetComponent<ActivityParticipation>();
 		heroStats = hero.GetComponent<CharacterStats>();
 
@@ -39,21 +39,26 @@ public class CommenceNightly : MonoBehaviour {
 		}
 //Just an "else" statement? If there are only two options
 		else if (!heroActPart.toggleNightOff.isOn || !sideActPart.toggleNightOff.isOn) {
-			KickSomeAss();
+			StartCoroutine ("KickSomeAss");
 		}
 	}
 
 
-	public void KickSomeAss() {
+	IEnumerator KickSomeAss() {
 		//Determine in which activities the hero and/or sidekick will be partipating
-//TOMAYBEDO Do I want the sidekick to be able to participate in a particular activity if the hero is not also participating in it?
+		//TOMAYBEDO Do I want the sidekick to be able to participate in a particular activity if the hero is not also participating in it?
 
-		ProcessActivity(heroActPart.toggle1, sideActPart.toggle1, NightManager.activity1, NightManager.reqStr1, NightManager.reqAgi1, NightManager.reqInt1,
-			NightManager.baseFatigueDmg1, NightManager.baseStressDmg1);
-		ProcessActivity(heroActPart.toggle2, sideActPart.toggle2, NightManager.activity2, NightManager.reqStr2, NightManager.reqAgi2, NightManager.reqInt2,
-			NightManager.baseFatigueDmg2, NightManager.baseStressDmg2);
-		ProcessActivity(heroActPart.toggle3, sideActPart.toggle3, NightManager.activity3, NightManager.reqStr3, NightManager.reqAgi3, NightManager.reqInt3,
-			NightManager.baseFatigueDmg3, NightManager.baseStressDmg3);
+		yield return new WaitForSeconds(3.0f);
+		ProcessActivity(heroActPart.toggle1, sideActPart.toggle1, NightManager.activity1,
+			NightManager.reqStr1, NightManager.reqAgi1, NightManager.reqInt1, NightManager.baseFatigueDmg1, NightManager.baseStressDmg1);
+
+		yield return new WaitForSeconds(3.0f);
+		ProcessActivity(heroActPart.toggle2, sideActPart.toggle2, NightManager.activity2,
+			NightManager.reqStr2, NightManager.reqAgi2, NightManager.reqInt2, NightManager.baseFatigueDmg2, NightManager.baseStressDmg2);
+
+		yield return new WaitForSeconds(3.0f);
+		ProcessActivity(heroActPart.toggle3, sideActPart.toggle3, NightManager.activity3,
+			NightManager.reqStr3, NightManager.reqAgi3, NightManager.reqInt3, NightManager.baseFatigueDmg3, NightManager.baseStressDmg3);
 	}
 
 
@@ -82,11 +87,11 @@ public class CommenceNightly : MonoBehaviour {
 				Debug.Log("Requirements: " + strReq + ", " + agiReq + ", " + intReq);
 				Debug.Log(activitySelected + ": Hero did it? " + heroDidIt + ", Sidekick did it? " + sideDidIt); //Both should be true
 			}
-			else if (heroTog.isOn && !sideActPart.toggle1.isOn) {
+			else if (heroTog.isOn && !sideTog.isOn) {
 				heroDidIt = true;
 
-//TODO This is where I should set the Hero's status to "Patrolling", and keep the Sidekick(s) "Idle"
-	//OR maybe I do so in the ActivityParticipation script, according to which toggles are ON there
+//TODO This is where I should set the Hero's status to "Crimefighting", and keep the Sidekick(s) "Idle" (or whatever he's already doing)
+
 				//Combining and randomizing stats from participating heroes
 				totalStr = (int)(heroStats.strength.GetValue() * Random.Range(0.75f, 1.25f));
 				totalAgi = (int)(heroStats.agility.GetValue() * Random.Range(0.75f, 1.25f));
@@ -101,8 +106,7 @@ public class CommenceNightly : MonoBehaviour {
 			else if (!heroTog.isOn && sideTog.isOn) {
 				sideDidIt = true;
 
-//TODO This is where I should set the Hero's status to "Idle", and keep the Sidekick(s) "Patrolling"
-	//OR maybe I do so in the ActivityParticipation script, according to which toggles are ON there
+//TODO This is where I should set the Hero's status to "Idle", and keep the Sidekick(s) "Crimefighting" (or whatever he's already doing)
 
 				//Combining and randomizing stats from participating heroes
 				totalStr = (int)(sideStats.strength.GetValue() * Random.Range(0.75f, 1.25f));
@@ -140,7 +144,7 @@ public class CommenceNightly : MonoBehaviour {
 		//Resetting local participation bools
 		heroDidIt = false;
 		sideDidIt = false;
-		Debug.Log(activitySelected + ": Hero did it? " + heroDidIt + ", Sidekick did it? " + sideDidIt); //Both should always be false at this point
+		//Debug.Log(activitySelected + ": Hero did it? " + heroDidIt + ", Sidekick did it? " + sideDidIt); //Both should always be false at this point
 	}
 
 

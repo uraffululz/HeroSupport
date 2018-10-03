@@ -19,6 +19,11 @@ public class ActivityParticipation : MonoBehaviour {
 	}
 
 	public void ParticipatingInActivity1 (bool isParticipating1) {
+		//If the character (this script is on) is fully fatigued or fully stressed, do not allow this toggle to be turned on
+		if (gameObject.GetComponent<CharacterStats>().isFullyFatigued || gameObject.GetComponent<CharacterStats>().isFullyStressed) {
+			isParticipating1 = false;
+		}
+
 		if (isParticipating1) {
 			TakingNightOff(false);
 			toggle1.isOn = true;
@@ -32,6 +37,11 @@ public class ActivityParticipation : MonoBehaviour {
 	}
 
 	public void ParticipatingInActivity2 (bool isParticipating2) {
+		//If the character (this script is on) is fully fatigued or fully stressed, do not allow this toggle to be turned on
+		if (gameObject.GetComponent<CharacterStats>().isFullyFatigued || gameObject.GetComponent<CharacterStats>().isFullyStressed) {
+			isParticipating2 = false;
+		}
+
 		if (isParticipating2) {
 			TakingNightOff(false);
 			toggle2.isOn = true;
@@ -45,6 +55,11 @@ public class ActivityParticipation : MonoBehaviour {
 	}
 
 	public void ParticipatingInActivity3 (bool isParticipating3) {
+		//If the character (this script is on) is fully fatigued or fully stressed, do not allow this toggle to be turned on
+		if (gameObject.GetComponent<CharacterStats>().isFullyFatigued || gameObject.GetComponent<CharacterStats>().isFullyStressed) {
+			isParticipating3 = false;
+		}
+
 		if (isParticipating3) {
 			TakingNightOff(false);
 			toggle3.isOn = true;

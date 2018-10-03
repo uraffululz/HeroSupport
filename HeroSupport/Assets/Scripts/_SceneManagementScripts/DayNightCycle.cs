@@ -11,7 +11,7 @@ public class DayNightCycle : MonoBehaviour {
 //	Color nightColor;
 
 	public float transition = 0f;
-	float transitionSpeed = .1f;
+	float transitionSpeed = .01f;
 
 	float startYRot = 180f;
 	float locYRot = 0f;
@@ -20,6 +20,7 @@ public class DayNightCycle : MonoBehaviour {
 	public bool dayTime = false;
 	public bool isDawn = false;
 	public bool isDusk = false;
+
 
 	void Start () {
 		cycleLight = GetComponent<Light>();
@@ -46,7 +47,6 @@ public class DayNightCycle : MonoBehaviour {
 			dayTime = true;
 			//During the frame in which it actually BECOMES Day
 			if (!isDawn) {
-
 				isDawn = true;
 				isDusk = false;
 			}

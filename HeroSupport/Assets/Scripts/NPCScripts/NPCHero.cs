@@ -8,7 +8,7 @@ public class NPCHero : MonoBehaviour {
 
 	DayNightCycle lightCycle;
 
-	public enum activityStates{Idle, Busy, Patrolling};
+	public enum activityStates{Idle, Busy, Patrolling, Crimefighting, Fatigued, Stressed};
 	public activityStates myActiveState;
 
 
