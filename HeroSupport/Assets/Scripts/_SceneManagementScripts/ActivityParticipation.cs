@@ -5,6 +5,10 @@ using UnityEngine.UI;
 
 public class ActivityParticipation : MonoBehaviour {
 
+	public GameObject activityText1;
+	public GameObject activityText2;
+	public GameObject activityText3;
+
 	public Toggle toggle1;
 	public Toggle toggle2;
 	public Toggle toggle3;
@@ -27,6 +31,7 @@ public class ActivityParticipation : MonoBehaviour {
 		if (isParticipating1) {
 			TakingNightOff(false);
 			toggle1.isOn = true;
+			toggle2.isOn = false;
 		} else {
 			toggle1.isOn = false;
 			if (!toggle2.isOn && !toggle3.isOn) {
@@ -45,6 +50,7 @@ public class ActivityParticipation : MonoBehaviour {
 		if (isParticipating2) {
 			TakingNightOff(false);
 			toggle2.isOn = true;
+			toggle1.isOn = false;
 		} else {
 			toggle2.isOn = false;
 			if (!toggle1.isOn && !toggle3.isOn) {

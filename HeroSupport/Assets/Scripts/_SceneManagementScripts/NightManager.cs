@@ -7,60 +7,61 @@ using UnityEngine.UI;
 public static class NightManager {
 
 	public static int crimeRate1;
-	public static int crimeRate2;
-	public static int crimeRate3;
+	//public static int crimeRate2;
+	//public static int crimeRate3;
 
 	public static string crimeStars1;
-	public static string crimeStars2;
-	public static string crimeStars3;
+	//public static string crimeStars2;
+	//public static string crimeStars3;
 
 	public static string activity1;
-	public static string activity2;
-	public static string activity3;
+	//public static string activity2;
+	//public static string activity3;
 	static string[] activities = new string[] { "Arson", "Assault", "Bank Robbery", "Burglary", "Kidnapping", "Mugging", "Robbery", "Runaway Train" };
 
 	public static int reqStr1 = 1;
 	public static int reqAgi1 = 1;
 	public static int reqInt1 = 1;
 
-	public static int reqStr2 = 1;
-	public static int reqAgi2 = 1;
-	public static int reqInt2 = 1;
+	//public static int reqStr2 = 1;
+	//public static int reqAgi2 = 1;
+	//public static int reqInt2 = 1;
 
-	public static int reqStr3 = 1;
-	public static int reqAgi3 = 1;
-	public static int reqInt3 = 1;
+	//public static int reqStr3 = 1;
+	//public static int reqAgi3 = 1;
+	//public static int reqInt3 = 1;
 
 	public static int baseFatigueDmg1 = 0;
-	public static int baseFatigueDmg2 = 0;
-	public static int baseFatigueDmg3 = 0;
+	//public static int baseFatigueDmg2 = 0;
+	//public static int baseFatigueDmg3 = 0;
 
 	public static int baseStressDmg1 = 0;
-	public static int baseStressDmg2 = 0;
-	public static int baseStressDmg3 = 0;
+	//public static int baseStressDmg2 = 0;
+	//public static int baseStressDmg3 = 0;
 
 
 	public static void SetCrimeRates () {
 		crimeStars1 = "";
-		crimeStars2 = "";
-		crimeStars3 = "";
+		//crimeStars2 = "";
+		//crimeStars3 = "";
 
 		crimeRate1 = Random.Range(1, 6);
-		crimeRate2 = Random.Range(1, 6);
-		crimeRate3 = Random.Range(1, 6);
+		//crimeRate2 = Random.Range(1, 6);
+		//crimeRate3 = Random.Range(1, 6);
 
 		for (int i = 1; i <= crimeRate1; i++) {
 			crimeStars1 += "*";
 		}
+		/*
 		for (int i = 1; i <= crimeRate2; i++) {
 			crimeStars2 += "*";
 		}
 		for (int i = 1; i <= crimeRate3; i++) {
 			crimeStars3 += "*";
 		}
-
+		*/
 		activity1 = activities[Random.Range(0, activities.Length)];
-		activity2 = activities[Random.Range(0, activities.Length)];
+		/*activity2 = activities[Random.Range(0, activities.Length)];
 		while (activity2 == activity1) {
 			//Debug.Log("Activity2 is duplicate. Re-rolling");
 			activity2 = activities[Random.Range(0, activities.Length)];
@@ -70,14 +71,15 @@ public static class NightManager {
 			//Debug.Log("Activity3 is duplicate. Re-rolling");
 			activity3 = activities[Random.Range(0, activities.Length)];
 		}
+		*/
 
 		SetActivityRequirements(activity1, reqStr1, reqAgi1, reqInt1, crimeRate1, baseFatigueDmg1, baseStressDmg1);
-		SetActivityRequirements(activity2, reqStr2, reqAgi2, reqInt2, crimeRate2, baseFatigueDmg2, baseStressDmg2);
-		SetActivityRequirements(activity3, reqStr3, reqAgi3, reqInt3, crimeRate3, baseFatigueDmg3, baseStressDmg3);
+		//SetActivityRequirements(activity2, reqStr2, reqAgi2, reqInt2, crimeRate2, baseFatigueDmg2, baseStressDmg2);
+		//SetActivityRequirements(activity3, reqStr3, reqAgi3, reqInt3, crimeRate3, baseFatigueDmg3, baseStressDmg3);
 
-		Debug.Log(activity1 + " requires: " + reqStr1 + ", " + reqAgi1 + ", " + reqInt1 + ". Will damage Fatigue: " + baseFatigueDmg1 + " Stress: " + baseStressDmg1);
-		Debug.Log(activity2 + " requires: " + reqStr2 + ", " + reqAgi2 + ", " + reqInt2 + ". Will damage Fatigue: " + baseFatigueDmg2 + " Stress: " + baseStressDmg2);
-		Debug.Log(activity3 + " requires: " + reqStr3 + ", " + reqAgi3 + ", " + reqInt3 + ". Will damage Fatigue: " + baseFatigueDmg3 + " Stress: " + baseStressDmg3);
+		//Debug.Log(activity1 + " requires: " + reqStr1 + ", " + reqAgi1 + ", " + reqInt1 + ". Will damage Fatigue: " + baseFatigueDmg1 + " Stress: " + baseStressDmg1);
+		//Debug.Log(activity2 + " requires: " + reqStr2 + ", " + reqAgi2 + ", " + reqInt2 + ". Will damage Fatigue: " + baseFatigueDmg2 + " Stress: " + baseStressDmg2);
+		//Debug.Log(activity3 + " requires: " + reqStr3 + ", " + reqAgi3 + ", " + reqInt3 + ". Will damage Fatigue: " + baseFatigueDmg3 + " Stress: " + baseStressDmg3);
 	}
 
 
@@ -124,7 +126,7 @@ public static class NightManager {
 
 //TOMAYBEDO The required stats can be further randomized by Random.Range-ing them between 50% and 150% (or whatever range works)
 
-
+//TODO Actually, if getting rid of the activity2 and activity3 variables, this \/ may be obsolete
 //TODO See if there is a more efficient way to return/apply these values to their proper variables
 //Maybe by altering the return-type of the function or whatever. This works for now.
 		if (thisActivity == activity1) {
@@ -134,7 +136,7 @@ public static class NightManager {
 			baseFatigueDmg1 = fatigue;
 			baseStressDmg1 = stress;
 		}
-		else if (thisActivity == activity2) {
+		/*else if (thisActivity == activity2) {
 			reqStr2 = reqStr;
 			reqAgi2 = reqAgi;
 			reqInt2 = reqInt;
@@ -148,5 +150,6 @@ public static class NightManager {
 			baseFatigueDmg3 = fatigue;
 			baseStressDmg3 = stress;
 		}
+		*/
 	}
 }

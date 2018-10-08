@@ -41,7 +41,7 @@ public class CharacterStats : MonoBehaviour {
 
 		//Damage the Hero's fatigue
 		currentFatigue += fatigueDamage;
-		Debug.Log(transform.name + "'s FATIGUE increased by " + fatigueDamage);
+		//Debug.Log(transform.name + "'s FATIGUE increased by " + fatigueDamage);
 
 		//If the Hero's fatigue is drained, he becomes physically exhausted
 		if (currentFatigue > (maxFatigue * .8)) {
@@ -66,7 +66,7 @@ public class CharacterStats : MonoBehaviour {
 
 		//Damage the Hero's stress
 		currentStress += stressDamage;
-		Debug.Log(transform.name + "'s STRESS increased by " + stressDamage);
+		//Debug.Log(transform.name + "'s STRESS increased by " + stressDamage);
 
 		//If the Hero's stress is drained, he becomes mentally exhausted
 		if (currentStress > (maxStress * .8)) {

@@ -39,9 +39,9 @@ public class ComputerDisplay : MonoBehaviour {
 				"Str " + heroStats.currentStress.ToString();
 			
 			//These text components display the various activities available during the current night
-			activity1.text = ("Activity 1: " + NightManager.activity1 + NightManager.crimeStars1);
-			activity2.text = ("Activity 2: " + NightManager.activity2 + NightManager.crimeStars2);
-			activity3.text = ("Activity 3: " + NightManager.activity3 + NightManager.crimeStars3);
+			activity1.text = ("Activity 1: Stop the " + NightManager.activity1 + NightManager.crimeStars1);
+			//activity2.text = ("Activity 2: " + NightManager.activity2 + NightManager.crimeStars2);
+			//activity3.text = ("Activity 3: " + NightManager.activity3 + NightManager.crimeStars3);
 
 //TODO If the hero and sidekick's "Taking night off" toggles are BOTH on, disable the commenceButton
 		}

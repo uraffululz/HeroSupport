@@ -20,6 +20,11 @@ public class CommenceNightly : MonoBehaviour {
 	bool heroDidIt = false;
 	bool sideDidIt = false;
 
+	//Clue-Finding variables
+	ClueMaster clueMaster;
+	bool eventOngoing = false;
+
+
 
 	private void Start() {
 //TOMAYBEDO Just declare these in the inspector?
@@ -28,6 +33,8 @@ public class CommenceNightly : MonoBehaviour {
 
 		sideActPart = sidekick.GetComponent<ActivityParticipation>();
 		sideStats = sidekick.GetComponent<CharacterStats>();
+
+		clueMaster = GetComponent<ClueMaster>();
 	}
 
 
@@ -38,27 +45,24 @@ public class CommenceNightly : MonoBehaviour {
 			print("The heroes are taking the night off. Good luck, citizens!");
 		}
 //Just an "else" statement? If there are only two options
-		else if (!heroActPart.toggleNightOff.isOn || !sideActPart.toggleNightOff.isOn) {
-			StartCoroutine ("KickSomeAss");
+		else {
+			if (heroActPart.toggle1.isOn || sideActPart.toggle1.isOn) {
+				StartCoroutine("KickSomeAss");
+			}
+			if (heroActPart.toggle2.isOn || sideActPart.toggle2.isOn) {
+				StartCoroutine(clueMaster.ObtainAdditionalClues());
+			}
 		}
 	}
 
 
 	IEnumerator KickSomeAss() {
 		//Determine in which activities the hero and/or sidekick will be partipating
-		//TOMAYBEDO Do I want the sidekick to be able to participate in a particular activity if the hero is not also participating in it?
+//TOMAYBEDO Do I want the sidekick to be able to participate in a particular activity if the hero is not also participating in it?
 
 		yield return new WaitForSeconds(3.0f);
 		ProcessActivity(heroActPart.toggle1, sideActPart.toggle1, NightManager.activity1,
 			NightManager.reqStr1, NightManager.reqAgi1, NightManager.reqInt1, NightManager.baseFatigueDmg1, NightManager.baseStressDmg1);
-
-		yield return new WaitForSeconds(3.0f);
-		ProcessActivity(heroActPart.toggle2, sideActPart.toggle2, NightManager.activity2,
-			NightManager.reqStr2, NightManager.reqAgi2, NightManager.reqInt2, NightManager.baseFatigueDmg2, NightManager.baseStressDmg2);
-
-		yield return new WaitForSeconds(3.0f);
-		ProcessActivity(heroActPart.toggle3, sideActPart.toggle3, NightManager.activity3,
-			NightManager.reqStr3, NightManager.reqAgi3, NightManager.reqInt3, NightManager.baseFatigueDmg3, NightManager.baseStressDmg3);
 	}
 
 
@@ -81,11 +85,11 @@ public class CommenceNightly : MonoBehaviour {
 				totalAgi = (int)((heroStats.agility.GetValue() + sideStats.agility.GetValue()) * Random.Range(0.75f, 1.25f));
 				totalInt = (int)((heroStats.intellect.GetValue() + sideStats.intellect.GetValue()) * Random.Range(0.75f, 1.25f));
 
-				Debug.Log(totalStr);
-				Debug.Log(totalAgi);
-				Debug.Log(totalInt);
-				Debug.Log("Requirements: " + strReq + ", " + agiReq + ", " + intReq);
-				Debug.Log(activitySelected + ": Hero did it? " + heroDidIt + ", Sidekick did it? " + sideDidIt); //Both should be true
+				//Debug.Log(totalStr);
+				//Debug.Log(totalAgi);
+				//Debug.Log(totalInt);
+				//Debug.Log("Requirements: " + strReq + ", " + agiReq + ", " + intReq);
+				//Debug.Log(activitySelected + ": Hero did it? " + heroDidIt + ", Sidekick did it? " + sideDidIt); //Both should be true
 			}
 			else if (heroTog.isOn && !sideTog.isOn) {
 				heroDidIt = true;
@@ -97,11 +101,11 @@ public class CommenceNightly : MonoBehaviour {
 				totalAgi = (int)(heroStats.agility.GetValue() * Random.Range(0.75f, 1.25f));
 				totalInt = (int)(heroStats.intellect.GetValue() * Random.Range(0.75f, 1.25f));
 
-				Debug.Log(totalStr);
-				Debug.Log(totalAgi);
-				Debug.Log(totalInt);
-				Debug.Log("Requirements: " + strReq + ", " + agiReq + ", " + intReq);
-				Debug.Log(activitySelected + ": Hero did it? " + heroDidIt + ", Sidekick did it? " + sideDidIt); //Hero should be true, Side should be false
+				//Debug.Log(totalStr);
+				//Debug.Log(totalAgi);
+				//Debug.Log(totalInt);
+				//Debug.Log("Requirements: " + strReq + ", " + agiReq + ", " + intReq);
+				//Debug.Log(activitySelected + ": Hero did it? " + heroDidIt + ", Sidekick did it? " + sideDidIt); //Hero should be true, Side should be false
 			}
 			else if (!heroTog.isOn && sideTog.isOn) {
 				sideDidIt = true;
@@ -113,11 +117,11 @@ public class CommenceNightly : MonoBehaviour {
 				totalAgi = (int)(sideStats.agility.GetValue() * Random.Range(0.75f, 1.25f));
 				totalInt = (int)(sideStats.intellect.GetValue() * Random.Range(0.75f, 1.25f));
 
-				Debug.Log(totalStr);
-				Debug.Log(totalAgi);
-				Debug.Log(totalInt);
-				Debug.Log("Requirements: " + strReq + ", " + agiReq + ", " + intReq);
-				Debug.Log(activitySelected + ": Hero did it? " + heroDidIt + ", Sidekick did it? " + sideDidIt); //Hero should be false, Side should be true
+				//Debug.Log(totalStr);
+				//Debug.Log(totalAgi);
+				//Debug.Log(totalInt);
+				//Debug.Log("Requirements: " + strReq + ", " + agiReq + ", " + intReq);
+				//Debug.Log(activitySelected + ": Hero did it? " + heroDidIt + ", Sidekick did it? " + sideDidIt); //Hero should be false, Side should be true
 			}
 			//After determining the total stats for the characters
 			//If any of the total stats is below "1", set them to "1". They should never be "0", probably.
@@ -160,6 +164,20 @@ public class CommenceNightly : MonoBehaviour {
 		if (sideDidIt) {
 			DamageSidekick(baseFatigueDamage, baseStressDamage, Random.Range(0, .5f));
 		}
+
+		if (!eventOngoing) {
+			int chanceFirstClueFound = Random.Range(0, 100);
+
+			//50% chance of finding a "First Clue" on accomplishing the activity
+//TODO Knock down to 10% or so later
+			if (chanceFirstClueFound < 100) {
+				Debug.Log("You found your FIRST CLUE");
+				eventOngoing = true;
+				clueMaster.ChooseEventParameters();
+				clueMaster.GetAClue();
+			}
+		}
+		
 	}
 
 
