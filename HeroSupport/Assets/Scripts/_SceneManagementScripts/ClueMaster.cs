@@ -8,6 +8,8 @@ public class ClueMaster : MonoBehaviour {
 	[SerializeField] GameObject hero;
 	[SerializeField] GameObject sidekick;
 
+	public bool eventOngoing = false;
+
 	[SerializeField] Image compDisplay;
 	[SerializeField] Image clueDisplay;
 	[SerializeField] Text locationClueText1;
@@ -19,7 +21,16 @@ public class ClueMaster : MonoBehaviour {
 	[SerializeField] Text attackTypeClueText1;
 	[SerializeField] Text attackTypeClueText2;
 	[SerializeField] Text attackTypeClueText3;
+	[SerializeField] Image solveDisplay1;
+	[SerializeField] Image solveDisplay2;
+	[SerializeField] Image solveDisplay3;
+	[SerializeField] Toggle[] solveLocationToggles;
+	[SerializeField] Toggle[] solveTargetToggles;
+	[SerializeField] Toggle[] solveAttackTypeToggles;
 
+	bool matchLocation = false;
+	bool matchTarget = false;
+	bool matchAttackType = false;
 
 	//Hero script references
 	ActivityParticipation heroActPart;
@@ -43,7 +54,7 @@ public class ClueMaster : MonoBehaviour {
 	//with the location NAME taking the place of the [0] index of the second dimension, and the clues taking the places of [1] - [4]
 	//I would just need to switch some 0's to 1's below, when "finding clues" and change the array references of the deleted array to the new one
 	string[] locations = new string[6]
-		{"Bridge", "City Hall", "College Campus","First Bank", "International Corp. HQ", "Police Station" };
+		{"Bridge", "City Hall", "College Campus","First Bank", "Int. Corp. HQ", "Police Station" };
 	string [,] locationClues = new string[6/*Same # as locations[]*/,3]
 		{/*[0] Bridge*/{"Bridge clue #1", "Bridge clue #2", "Bridge clue #3" },
 			/*[1] City Hall*/{"Government Building", "City Hall clue #2", "City Hall clue #3" },
@@ -83,7 +94,6 @@ public class ClueMaster : MonoBehaviour {
 	public string[] knownAttackTypeClues = new string[3] { "", "", "" };
 	int attackTypeCluesFound = 0;
 
-
 	public string location = "";
 	public string target = "";
 	public string attackType = "";
@@ -110,6 +120,7 @@ public class ClueMaster : MonoBehaviour {
 
 	//This is run when the player finds their FIRST CLUE during random nightly activities, and the event is initialized
 	public void ChooseEventParameters () {
+		eventOngoing = true;
 		//Determine WHERE the event will take place
 		whichLocation = Random.Range(0, locations.Length);
 		//Debug.Log("Location # " + whichLocation);
@@ -302,6 +313,107 @@ public class ClueMaster : MonoBehaviour {
 
 	public void CloseClueDisplay () {
 		clueDisplay.GetComponent<Animator>().SetBool("compActivated", false);
+		compDisplay.GetComponent<Animator>().SetBool("compActivated", true);
+	}
+
+
+	public void OpenSolver() {
+		clueDisplay.GetComponent<Animator>().SetBool("compActivated", false);
+		StartCoroutine("OpenSolveDisplay");
+	}
+
+
+	public IEnumerator OpenSolveDisplay() {
+		solveDisplay1.GetComponent<Animator>().SetBool("compActivated", true);
+		yield return new WaitForSeconds(0.1f);
+		solveDisplay2.GetComponent<Animator>().SetBool("compActivated", true);
+		yield return new WaitForSeconds(0.1f);
+		solveDisplay3.GetComponent<Animator>().SetBool("compActivated", true);
+	}
+
+
+	public void CloseSolver () {
+		clueDisplay.GetComponent<Animator>().SetBool("compActivated", true);
+		StartCoroutine("CloseSolveDisplay");
+	}
+
+
+	public IEnumerator CloseSolveDisplay() {
+		solveDisplay1.GetComponent<Animator>().SetBool("compActivated", false);
+		yield return new WaitForSeconds(0.1f);
+		solveDisplay2.GetComponent<Animator>().SetBool("compActivated", false);
+		yield return new WaitForSeconds(0.1f);
+		solveDisplay3.GetComponent<Animator>().SetBool("compActivated", false);
+	}
+
+	public void DeselectOtherToggles () {
+		
+	}
+
+
+	public void CompareEventSolution() {
+		print("Comparing event solution...");
+
+		foreach (Toggle locationToggle in solveLocationToggles) {
+			if (locationToggle.isOn) {
+				string locationText = locationToggle.GetComponentInChildren<Text>().text;
+				if (locationText == location) {
+					matchLocation = true;
+				}
+				print(locationText + ": " + location);
+			}
+		}
+		foreach (Toggle targetToggle in solveTargetToggles) {
+			if (targetToggle.isOn) {
+				string targetText = targetToggle.GetComponentInChildren<Text>().text;
+				if (targetText == target) {
+					matchTarget = true;
+				}
+				print(targetText + ": " + target);
+			}
+		}
+		foreach (Toggle attackTypeToggle in solveAttackTypeToggles) {
+			if (attackTypeToggle.isOn) {
+				string attackTypeText = attackTypeToggle.GetComponentInChildren<Text>().text;
+				if (attackTypeText == attackType) {
+					matchAttackType = true;
+				}
+				print(attackTypeText + ": " + attackType);
+			}
+		}
+
+		if (matchLocation && matchTarget && matchAttackType) {
+			EventSuccess();
+		}
+		else {
+			EventFailure();
+		}
+	}
+
+
+	void EventSuccess() {
+		print("You completed the event!");
+
+		EndEvent();
+	}
+
+
+	void EventFailure() {
+		print("You failed the event");
+
+		EndEvent();
+	}
+
+	void EndEvent() {
+		matchLocation = false;
+		matchTarget = false;
+		matchAttackType = false;
+		eventOngoing = false;
+
+		heroActPart.activityText2.SetActive(false);
+		sideActPart.activityText2.SetActive(false);
+
+		StartCoroutine("CloseSolveDisplay");
 		compDisplay.GetComponent<Animator>().SetBool("compActivated", true);
 	}
 }

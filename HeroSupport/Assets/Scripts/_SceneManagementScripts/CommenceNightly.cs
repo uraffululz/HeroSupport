@@ -165,14 +165,13 @@ public class CommenceNightly : MonoBehaviour {
 			DamageSidekick(baseFatigueDamage, baseStressDamage, Random.Range(0, .5f));
 		}
 
-		if (!eventOngoing) {
+		if (!clueMaster.eventOngoing) {
 			int chanceFirstClueFound = Random.Range(0, 100);
 
 			//50% chance of finding a "First Clue" on accomplishing the activity
 //TODO Knock down to 10% or so later
 			if (chanceFirstClueFound < 100) {
 				Debug.Log("You found your FIRST CLUE");
-				eventOngoing = true;
 				clueMaster.ChooseEventParameters();
 				clueMaster.GetAClue();
 			}
