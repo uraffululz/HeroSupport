@@ -87,37 +87,35 @@ public static class NightManager {
 //TODO I don't think I need to pass in all these variables ^, since they don't immediately adjust when declaring the local-variable-versions
 		//The locals could probably just be set at the start of this method (here), and later assigned (like they are now), without much difficulty
 		//For now, I just want to keep going, but it's something to keep in mind
-
-		//Use to adjust the stress of the activity, according to how many people die through action/inaction
-		int casualties = 0;
+		
 
 		//Declaring values for the activity's requirements, and subsequent "base damage" to fatigue and stress
 //TODO If the activity requires more STRENGTH (OR AGILITY?), it should cause more FATIGUE DAMAGE
 	//If it requires more INTELLECT, it should cause more STRESS
 		if (thisActivity == "Arson") {
-			reqStr = 1; reqAgi = 2; reqInt = 3; fatigue = 5 * difficulty; stress = 2 * difficulty; casualties = 20 * difficulty;
+			reqStr = 1; reqAgi = 2; reqInt = 3; fatigue = 5 * difficulty; stress = 2 * difficulty;
 		}
 		if (thisActivity == "Assault") {
-			reqStr = 3; reqAgi = 2; reqInt = 1; fatigue = 2 * difficulty; stress = 1 * difficulty; casualties = (1 * difficulty) / 2;
+			reqStr = 3; reqAgi = 2; reqInt = 1; fatigue = 2 * difficulty; stress = 1 * difficulty;
 		}
 		if (thisActivity == "Bank Robbery") {
-			reqStr = 1; reqAgi = 1; reqInt = 3; fatigue = 3 * difficulty; stress = 3 * difficulty; casualties = 2 * difficulty;
+			reqStr = 1; reqAgi = 1; reqInt = 3; fatigue = 3 * difficulty; stress = 3 * difficulty;
 		}
 		if (thisActivity == "Burglary") {
-			reqStr = 1; reqAgi = 2; reqInt = 3; fatigue = 1 * difficulty; stress = 3 * difficulty; casualties = (1 * difficulty) / 2;
+			reqStr = 1; reqAgi = 2; reqInt = 3; fatigue = 1 * difficulty; stress = 3 * difficulty;
 		}
 		if (thisActivity == "Kidnapping") {
-			reqStr = 1; reqAgi = 1; reqInt = 3; fatigue = 1 * difficulty; stress = 10 * difficulty; casualties = 1;
+			reqStr = 1; reqAgi = 1; reqInt = 3; fatigue = 1 * difficulty; stress = 10 * difficulty;
 		}
 		if (thisActivity == "Mugging") {
-			reqStr = 2; reqAgi = 2; reqInt = 1; fatigue =  2 * difficulty; stress = 2 * difficulty; casualties = 1 * difficulty;
+			reqStr = 2; reqAgi = 2; reqInt = 1; fatigue =  2 * difficulty; stress = 2 * difficulty;
 		}
 		if (thisActivity == "Robbery") {
-			reqStr = 2; reqAgi = 2; reqInt = 1; fatigue = 3 * difficulty; stress = 1 * difficulty; casualties = 1 * difficulty;
+			reqStr = 2; reqAgi = 2; reqInt = 1; fatigue = 3 * difficulty; stress = 1 * difficulty;
 		}
 		if (thisActivity == "Runaway Train") {
 			//Stuff like this might be considered "mass casualties", which may severely damage the character's stress
-			reqStr = 1; reqAgi = 1; reqInt = 3; fatigue = 5 * difficulty; stress = 5 * difficulty; casualties = 100 * difficulty;
+			reqStr = 1; reqAgi = 1; reqInt = 3; fatigue = 5 * difficulty; stress = 5 * difficulty;
 		}
 
 		reqStr += difficulty;

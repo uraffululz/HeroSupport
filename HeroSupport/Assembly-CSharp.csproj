@@ -59,6 +59,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CivilianActivity.cs" />
+    <Compile Include="Assets\EnemyActivity.cs" />
+    <Compile Include="Assets\EnemyAttack.cs" />
+    <Compile Include="Assets\HeroActivity.cs" />
+    <Compile Include="Assets\HeroAttack.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\ActivityParticipation.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\ClueMaster.cs" />

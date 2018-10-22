@@ -56,6 +56,7 @@ public class CharacterStats : MonoBehaviour {
 		else if (currentFatigue < 0) {
 			currentFatigue = 0;
 		}
+		Debug.Log(currentFatigue);
 	}
 
 	public void DamageStress(int stressDamage) {

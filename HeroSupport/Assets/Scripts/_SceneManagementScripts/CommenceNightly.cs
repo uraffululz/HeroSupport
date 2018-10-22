@@ -22,7 +22,6 @@ public class CommenceNightly : MonoBehaviour {
 
 	//Clue-Finding variables
 	ClueMaster clueMaster;
-	bool eventOngoing = false;
 
 
 

@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Construct
   - Hero
+  - HeroAttack
+  - Civilian
+  - Enemy
+  - EnemyAttack
   layers:
   - Default
   - TransparentFX
