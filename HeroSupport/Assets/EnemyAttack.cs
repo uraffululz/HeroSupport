@@ -27,10 +27,10 @@ public class EnemyAttack : MonoBehaviour {
 					MeleeAttack();
 				}
 	//TOMAYBEDO Maybe they save their ranged attacks for the Player
-				else if (enemyAct.distToTarget <= enemyAct.atkDistRanged) {
+/*				else if (enemyAct.distToTarget <= enemyAct.atkDistRanged) {
 					RangedAttack();
 				}
-				else {
+*/				else {
 					//Reset the timer if there are no targets within range
 					attackTimer = attackSpeed;
 				}
@@ -43,23 +43,11 @@ public class EnemyAttack : MonoBehaviour {
 
 
 	void MeleeAttack(){
-		enemyAct.atkDmg = enemyAct.atkDmgMelee;
-		//Vector3 attackPos = transform.position + (transform.forward * .75f);
-
-		GameObject attackCube = Instantiate(attackPrefab, attackSpawn.transform.position, transform.localRotation, attackSpawn.transform);
-		attackCube.GetComponent<Rigidbody>().AddForce(attackSpawn.transform.forward);
-		Destroy(attackCube, 0.2f);
-		attackTimer = attackSpeed;
+		
 	}
 
 
 	void RangedAttack() {
-		enemyAct.atkDmg = enemyAct.atkDmgRanged;
-		//Vector3 attackPos = transform.position + (transform.forward * .75f);
-
-		GameObject attackCube = Instantiate(attackPrefab, attackSpawn.transform.position, transform.localRotation, attackSpawn.transform);
-		attackCube.GetComponent<Rigidbody>().AddForce(attackSpawn.transform.forward);
-		Destroy(attackCube, 0.2f);
-		attackTimer = attackSpeed;
+		
 	}
 }

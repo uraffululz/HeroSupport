@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ArenaSceneManagement.cs" />
     <Compile Include="Assets\CivilianActivity.cs" />
     <Compile Include="Assets\EnemyActivity.cs" />
     <Compile Include="Assets\EnemyAttack.cs" />

@@ -3,28 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class HeroAttack : MonoBehaviour {
-	[SerializeField] GameObject attackPrefab;
+	Animator anim;
 
 	public int attackDmg = 10;
 
 
 	void Start () {
-		
+		anim = GetComponent<Animator>();
 	}
 
 
 	void Update () {
-		FirstAttack();
+		StartAttack();
 	}
 
 
-	void FirstAttack() {
+	void StartAttack() {
 		if (Input.GetKeyDown(KeyCode.R)) {
-			Vector3 attackPos = transform.position + (transform.forward * .75f);
-
-			GameObject attackCube = Instantiate(attackPrefab, attackPos, transform.localRotation, transform);
-			attackCube.GetComponent<Rigidbody>().AddForce(transform.forward, ForceMode.Impulse);
-			Destroy(attackCube, 0.2f);
+			StartCoroutine("FirstAttack");
 		}
+	}
+
+
+	IEnumerator FirstAttack() {
+		anim.SetBool("isAttacking", true);
+		yield return new WaitForSeconds(1.1f);
+		anim.SetBool("isAttacking", false);
+
 	}
 }

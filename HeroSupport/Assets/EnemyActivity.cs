@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyActivity : MonoBehaviour {
 
+	[SerializeField] ArenaSceneManagement arenaManager;
 	GameObject player;
 	public List <GameObject> civilians;
 
@@ -28,6 +29,7 @@ public class EnemyActivity : MonoBehaviour {
 
 
 	void Start () {
+		arenaManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<ArenaSceneManagement>();
 		player = GameObject.FindWithTag("Player");
 		civilians = new List<GameObject>(GameObject.FindGameObjectsWithTag("Civilian"));
 		enemyNav = GetComponent<NavMeshAgent>();
@@ -55,6 +57,13 @@ public class EnemyActivity : MonoBehaviour {
 
 
 	void Die () {
+		//PlayerMove playerMoveScript = player.GetComponent<PlayerMove>();
+
+		if (arenaManager.enemies.Contains(gameObject)) {
+			arenaManager.enemies.Remove(gameObject);
+		}
+		//GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		//GetComponent<Collider>().isTrigger = true;
 		Destroy(gameObject);
 	}
 
@@ -90,6 +99,7 @@ public class EnemyActivity : MonoBehaviour {
 		}
 		
 		enemyNav.destination = target.transform.position;
+		transform.LookAt(target.transform.position);
 /*		if (distToTarget < .1f) {
 			enemyNav.isStopped = true;
 		}
