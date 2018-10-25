@@ -295,6 +295,7 @@ GameObject:
   - component: {fileID: 114927174524726666}
   - component: {fileID: 114267104884924516}
   - component: {fileID: 195631103197948310}
+  - component: {fileID: 114179172897913702}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -660,6 +661,17 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &114179172897913702
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1930718013645950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5571655f0422c8943ba936e02cc78e73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114267104884924516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -671,6 +683,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 159d8ff497a8ad941a746b11803f49bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arenaManager: {fileID: 0}
   civilians: []
   myState: 0
   health: 50

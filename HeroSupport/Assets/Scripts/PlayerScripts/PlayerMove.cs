@@ -11,18 +11,18 @@ public class PlayerMove : MonoBehaviour {
 
 	float walkSpeed = 2;
 	float runSpeed = 5;
-	public float speedSmoothTime = .2f;
+	[SerializeField] float speedSmoothTime = .2f;
 	float speedSmoothVelocity;
 	float currentSpeed;
 	//int rotSpeed = 10;
-	public float turnSmoothTime = .01f;
+	[SerializeField] float turnSmoothTime = .01f;
 	float turnSmoothVelocity;
 
 	enum levelLevel {above, below };
 	levelLevel myLevel;
 
 	GameObject target = null;
-	bool isTargeting = false;
+	public bool isTargeting = false;
 
 
 

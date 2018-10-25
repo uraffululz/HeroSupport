@@ -334,6 +334,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1990828931149694
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4425884326419882}
+  - component: {fileID: 135539226584769594}
+  - component: {fileID: 114694434634770006}
+  m_Layer: 0
+  m_Name: HitEmptyUpper
+  m_TagString: HeroAttack
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &4053453139411038
 Transform:
   m_ObjectHideFlags: 1
@@ -460,6 +477,19 @@ Transform:
   m_Father: {fileID: 4711539254190680}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4425884326419882
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1990828931149694}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4666273860475500}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4449992788569286
 Transform:
   m_ObjectHideFlags: 1
@@ -541,6 +571,7 @@ Transform:
   m_Children:
   - {fileID: 4879859196969548}
   - {fileID: 4277777579703406}
+  - {fileID: 4425884326419882}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -672,10 +703,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802c33890166fe24fa3d60501fc8691c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arenaManager: {fileID: 0}
   mainCam: {fileID: 0}
   speedSmoothTime: 0.2
   turnSmoothTime: 0.2
-  enemies: []
+  isTargeting: 0
 --- !u!114 &114260350032831068
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -687,6 +719,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 879292ce9d8b9384da53305c9bf8b28b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitColUpper: {fileID: 135539226584769594}
   attackDmg: 10
 --- !u!114 &114270043194077356
 MonoBehaviour:
@@ -711,6 +744,17 @@ MonoBehaviour:
   minStress: 0
   maxStress: 100
   isFullyStressed: 0
+--- !u!114 &114694434634770006
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1990828931149694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55c53163450987d4a895ce7974385997, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114864899337022306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -722,6 +766,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11b83607eb441341b7455437035670f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &135539226584769594
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1990828931149694}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.25
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!136 &136402373239438620
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -38,7 +38,9 @@ public class EnemyActivity : MonoBehaviour {
 
 	void Update () {
 		//if (myState == enemyStates.pursuing) {
-			DetectAndMove();
+			if (enemyNav.enabled) {
+				DetectAndMove();
+			}
 		//}
 	}
 
@@ -57,12 +59,15 @@ public class EnemyActivity : MonoBehaviour {
 
 
 	void Die () {
-		//PlayerMove playerMoveScript = player.GetComponent<PlayerMove>();
+		PlayerMove playerMoveScript = player.GetComponent<PlayerMove>();
+		playerMoveScript.isTargeting = false;
 
 		if (arenaManager.enemies.Contains(gameObject)) {
 			arenaManager.enemies.Remove(gameObject);
 		}
+
 		//GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+		//enemyNav.enabled = false;
 		//GetComponent<Collider>().isTrigger = true;
 		Destroy(gameObject);
 	}
@@ -100,12 +105,11 @@ public class EnemyActivity : MonoBehaviour {
 		
 		enemyNav.destination = target.transform.position;
 		transform.LookAt(target.transform.position);
-/*		if (distToTarget < .1f) {
+		if (distToTarget < 1f) {
 			enemyNav.isStopped = true;
 		}
 		else {
 			enemyNav.isStopped = false;
 		}
-*/
-		}
+	}
 }
