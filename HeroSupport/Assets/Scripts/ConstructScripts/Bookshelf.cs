@@ -11,7 +11,7 @@ public class Bookshelf : MonoBehaviour {
 
 
 	void Start () {
-		player = GameObject.Find("Player");
+		player = GameObject.FindGameObjectWithTag("Player");
 	}
 
 

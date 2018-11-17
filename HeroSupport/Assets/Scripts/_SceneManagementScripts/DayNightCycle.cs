@@ -10,8 +10,8 @@ public class DayNightCycle : MonoBehaviour {
 
 //	Color nightColor;
 
-	public float transition = 0f;
-	float transitionSpeed = .01f;
+	[SerializeField] float transition = 0f;
+	float transitionSpeed = .1f;
 
 	float startYRot = 180f;
 	float locYRot = 0f;
@@ -23,8 +23,14 @@ public class DayNightCycle : MonoBehaviour {
 
 
 	void Start () {
+		hero = GameObject.FindGameObjectWithTag("Player");
+		sidekick = GameObject.FindGameObjectWithTag("Sidekick");
+
 		cycleLight = GetComponent<Light>();
-//		nightColor = new Color(.4f, .4f, 1f);
+		//		nightColor = new Color(.4f, .4f, 1f);
+
+//TODO When loading the scene, set the game time/"sun's transition" to just before Dawn
+		//transition = .4f;
 	}
 
 
@@ -56,10 +62,6 @@ public class DayNightCycle : MonoBehaviour {
 			//During the frame in which it actually BECOMES night
 			if (!isDusk) {
 				NightManager.SetCrimeRates();
-//TODOLATER If these scripts are the only thing I'm referencing on the Hero and Sidekick, then just change the references directly TO the scripts
-	//rather than the GameObjects. Also, don't forget to make sure to check if they are null, to avoid errors
-				hero.GetComponent<ActivityParticipation>().SetTogglesToDefault();
-				sidekick.GetComponent<ActivityParticipation>().SetTogglesToDefault();
 
 				isDusk = true;
 				isDawn = false;

@@ -3,59 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ClueMaster : MonoBehaviour {
+public static class ClueMaster {
 
-	[SerializeField] GameObject hero;
-	[SerializeField] GameObject sidekick;
+	public static bool eventOngoing = false;
 
-	public bool eventOngoing = false;
+	public static bool matchLocation = false;
+	public static bool matchTarget = false;
+	public static bool matchAttackType = false;
 
-	[SerializeField] Image compDisplay;
-	[SerializeField] Image clueDisplay;
-	[SerializeField] Text locationClueText1;
-	[SerializeField] Text locationClueText2;
-	[SerializeField] Text locationClueText3;
-	[SerializeField] Text targetClueText1;
-	[SerializeField] Text targetClueText2;
-	[SerializeField] Text targetClueText3;
-	[SerializeField] Text attackTypeClueText1;
-	[SerializeField] Text attackTypeClueText2;
-	[SerializeField] Text attackTypeClueText3;
-	[SerializeField] Image solveDisplay1;
-	[SerializeField] Image solveDisplay2;
-	[SerializeField] Image solveDisplay3;
-	[SerializeField] Toggle[] solveLocationToggles;
-	[SerializeField] Toggle[] solveTargetToggles;
-	[SerializeField] Toggle[] solveAttackTypeToggles;
 
-	bool matchLocation = false;
-	bool matchTarget = false;
-	bool matchAttackType = false;
-
-	//Hero script references
-	ActivityParticipation heroActPart;
-	CharacterStats heroStats;
-
-	//Sidekick script references
-	ActivityParticipation sideActPart;
-	CharacterStats sideStats;
-
-	int maxNumberOfClues = 9;
-	int numberOfCluesFound = 0;
-	List<int> clueTypes = new List<int>();
+	public static int maxNumberOfClues = 9;
+	public static int numberOfCluesFound = 0;
+	public static List<int> clueTypes = new List<int>();
 
 	//TODO I only really want to use Locations OR targets. Seems weird/redundant to use both.
 	//What do I use in place of the other, then? I want to have at least 3 categories of clues.
 	//Maybe instead of the target (WHO?), the hero focuses on the villain's motivation (WHY?). I mean, Batman tends to figure that shit out eventually
 
 	//Declaring and initializing LOCATION clue variables
-	int whichLocation = 0;
-//TOPROBABLYDO I could clean this up a bit by just merging these two arrays \/ into a single 2-dimensional array,
+	static int whichLocation = 0;
+	//TOPROBABLYDO I could clean this up a bit by just merging these two arrays \/ into a single 2-dimensional array,
 	//with the location NAME taking the place of the [0] index of the second dimension, and the clues taking the places of [1] - [4]
 	//I would just need to switch some 0's to 1's below, when "finding clues" and change the array references of the deleted array to the new one
-	string[] locations = new string[6]
+	static string[] locations = new string[6]
 		{"Bridge", "City Hall", "College Campus","First Bank", "Int. Corp. HQ", "Police Station" };
-	string [,] locationClues = new string[6/*Same # as locations[]*/,3]
+	static string[,] locationClues = new string[6/*Same # as locations[]*/,3]
 		{/*[0] Bridge*/{"Bridge clue #1", "Bridge clue #2", "Bridge clue #3" },
 			/*[1] City Hall*/{"Government Building", "City Hall clue #2", "City Hall clue #3" },
 			/*[2] College Campus*/{"Expansive", "Populated Area", "Several buildings"},
@@ -63,63 +35,49 @@ public class ClueMaster : MonoBehaviour {
 			/*[4] International Corp. HQ*/{"Tall Building", "Financial Building", "Int. Corp. HQ clue #3" }, 
 			/*[5] Police Station*/{"Government Building", "Police Station clue #2", "Police Station clue #3" }
 		};
-	List<string> relevantLocationclues = new List<string>();
-	public string[] knownLocationClues = new string[3] { "", "", "" };
-	int locationCluesFound = 0;
+	public static List<string> relevantLocationclues = new List<string>();
+	public static string[] knownLocationClues = new string[3] { "", "", "" };
+	public static int locationCluesFound = 0;
 
 	//Declaring and initializing TARGET clue variables
-	int whichTarget = 0;
-	string[] targets = new string[] {"Chief of Police", "District Attorney", "Judge", "Mayor", "Mob Boss" };
-	string[,] targetClues = new string[5/*Same # as targets[]*/, 3]
+	static int whichTarget = 0;
+	static string[] targets = new string[] {"Chief of Police", "District Attorney", "Judge", "Mayor", "Mob Boss" };
+	static string[,] targetClues = new string[5/*Same # as targets[]*/, 3]
 		{/*[0] Chief of Police */{"Chief clue #1","Chief clue #2","Chief clue #3"},
 			/*[1] District Attorney*/ {"DA clue #1","DA clue #2","DA clue #3"},
 			/*[2] Judge*/ {"Judge clue #1","Judge clue #2","Judge clue #3"},
 			/*[3] Mayor*/ {"Mayor clue #1","Mayor clue #2","Mayor clue #3"},
 			/*[4] Mob Boss*/ {"Mob Boss clue #1","Mob Boss clue #2","Mob Boss clue #3"}
 		};
-	List<string> relevantTargetclues = new List<string>();
-	public string[] knownTargetClues = new string[3] { "", "", "" };
-	int targetCluesFound = 0;
+	public static List<string> relevantTargetclues = new List<string>();
+	public static string[] knownTargetClues = new string[3] { "", "", "" };
+	public static int targetCluesFound = 0;
 
 	//Declaring and initializing ATTACKTYPE clue variables
-	int whichAttackType = 0;
-	string[] attackTypes = new string[] { "Bombing", "Chemical Attack", "Shooting", "Sniper" };
-	string[,] attackTypeClues = new string[4/*Same # as targets[]*/, 3]
+	static int whichAttackType = 0;
+	static string[] attackTypes = new string[] { "Bombing", "Chemical Attack", "Shooting", "Sniper" };
+	static string[,] attackTypeClues = new string[4/*Same # as targets[]*/, 3]
 		{/*[0] Bombing */{"Bombing clue #1","Bombing clue #2","Bombing clue #3"},
 			/*[1] Chemical Attack*/ {"Chemical Attack clue #1","Chemical Attack clue #2","Chemical Attack clue #3"},
 			/*[2] Shooting*/ {"Shooting clue #1","Shooting clue #2","Shooting clue #3"},
 			/*[3] Sniper*/ {"Sniper clue #1","Sniper clue #2","Sniper clue #3"}
 		};
-	List<string> relevantAttackTypeclues = new List<string>();
-	public string[] knownAttackTypeClues = new string[3] { "", "", "" };
-	int attackTypeCluesFound = 0;
+	public static List<string> relevantAttackTypeclues = new List<string>();
+	public static string[] knownAttackTypeClues = new string[3] { "", "", "" };
+	public static int attackTypeCluesFound = 0;
 
-	public string location = "";
-	public string target = "";
-	public string attackType = "";
+	public static string location = "";
+	public static string target = "";
+	public static string attackType = "";
 
 
-	private void Start() {
-		heroActPart = hero.GetComponent<ActivityParticipation>();
-		heroStats = hero.GetComponent<CharacterStats>();
+	private static void Start() {
 
-		sideActPart = sidekick.GetComponent<ActivityParticipation>();
-		sideStats = sidekick.GetComponent<CharacterStats>();
-
-		locationClueText1.text = "";
-		locationClueText2.text = "";
-		locationClueText3.text = "";
-		targetClueText1.text = "";
-		targetClueText2.text = "";
-		targetClueText3.text = "";
-		attackTypeClueText1.text = "";
-		attackTypeClueText2.text = "";
-		attackTypeClueText3.text = "";
 	}
 
 
 	//This is run when the player finds their FIRST CLUE during random nightly activities, and the event is initialized
-	public void ChooseEventParameters () {
+	public static void ChooseEventParameters () {
 		eventOngoing = true;
 		//Determine WHERE the event will take place
 		whichLocation = Random.Range(0, locations.Length);
@@ -146,71 +104,10 @@ public class ClueMaster : MonoBehaviour {
 		}
 
 		Debug.Log("Location: " + location + ", Target: " + target + ", Attack Type: " + attackType);
-
-		//Enable the toggles associated with this activity (which are then used below in ObtainAdditionalClues to pass into SearchForClues)
-		heroActPart.activityText2.SetActive(true);
-		sideActPart.activityText2.SetActive(true);
 	}
 
 
-	public IEnumerator ObtainAdditionalClues () {
-		//The player can only find up to 9 clues to assist in their investigation
-		if (numberOfCluesFound < maxNumberOfClues) {
-			Debug.Log("Obtaining additional clues");
-			yield return new WaitForSeconds(1f);
-			SearchForClues(heroActPart.toggle2, sideActPart.toggle2);
-		}
-		else {
-			Debug.Log("You have obtained the maximum number of clues to assist in your investigation");
-		}
-		
-	}
-
-
-	public void SearchForClues(Toggle heroDetecting, Toggle sideDetecting) {
-		//Basically the same as CommenceNightly.ProcessActivity(), but with different parameters
-
-		//The characters' ability to find more clues is based on their intellect vs. some kind of difficulty
-		int clueDifficulty = Random.Range(0, 5); //0 to 9? 10? 11? Should it be less random, and more calculated, like the activities?
-
-		int heroRolledInt = 0;
-		int sideRolledInt = 0;
-
-		//If BOTH characters are obtaining more clues
-		if (heroDetecting.isOn && sideDetecting.isOn) {
-			heroRolledInt = (int) (heroStats.intellect.GetValue() * Random.Range(.5f, 1.5f));
-			sideRolledInt = (int) (sideStats.intellect.GetValue() * Random.Range(.5f, 1.5f));
-		}
-		//If the Hero is obtaining clues alone
-		else if (heroDetecting.isOn && !sideDetecting.isOn) {
-			heroRolledInt = (int)(heroStats.intellect.GetValue() * Random.Range(.5f, 1.5f));
-			//sideRolledInt = 0;
-		}
-		//If the Sidekick is obtaining clues alone
-		else if (!heroDetecting.isOn && sideDetecting.isOn) {
-			//heroRolledInt = 0;
-			sideRolledInt = (int)(sideStats.intellect.GetValue() * Random.Range(.5f, 1.5f));
-		}
-
-		int totalRolledInt = (heroRolledInt + sideRolledInt);
-
-		if (totalRolledInt >= clueDifficulty) {
-			GetAClue();
-		}
-		else {
-			Debug.Log("You failed to find another clue");
-		}
-
-
-		//TOMAYBEDO Alternatively, they are guaranteed to find a clue, but there is some equal trade-off to not participating in the current activity
-		//Takes more time to do (longer waitforseconds), less/no experience boost, more mental stress?
-
-
-		Debug.Log(numberOfCluesFound);
-	}
-
-
-	public void GetAClue () {
+	public static void GetAClue() {
 		if (locationCluesFound < 3) {
 			clueTypes.Add(1);
 		}
@@ -223,197 +120,95 @@ public class ClueMaster : MonoBehaviour {
 
 		int clueType = clueTypes[Random.Range(0, clueTypes.Count)];
 
-			switch (clueType) {
-				case 1:
-					GetALocationClue();
-					break;
-				case 2:
-					GetATargetClue();
-					break;
-				case 3:
-					GetAnAttackTypeClue();
-					break;
-			}
+		switch (clueType) {
+			case 1:
+				GetALocationClue();
+				break;
+			case 2:
+				GetATargetClue();
+				break;
+			case 3:
+				GetAnAttackTypeClue();
+				break;
+		}
 
 		clueTypes.Clear();
 		numberOfCluesFound++;
 	}
 
 
-	void GetALocationClue() {
-//TOMAYBEDO Add all of the clues (each of which is probably relevant to at least 2 different buildings) to an array,
-//which are then passed to a list of the 3 location clues. Then, as this method is run, select and remove a random item from that list
+	static void GetALocationClue() {
+		//TOMAYBEDO Add all of the clues (each of which is probably relevant to at least 2 different buildings) to an array,
+		//which are then passed to a list of the 3 location clues. Then, as this method is run, select and remove a random item from that list
 
-//TODO Make sure this method doesn't select the same clue multiple times
+		//TODO Make sure this method doesn't select the same clue multiple times
 
 		int clueNum = Random.Range(0, relevantLocationclues.Count);
 		knownLocationClues[locationCluesFound] = relevantLocationclues[clueNum];
 		relevantLocationclues.RemoveAt(clueNum);
-
-		if (locationClueText1.text == "") {
-			locationClueText1.text = knownLocationClues[locationCluesFound];
-		}
-		else if (locationClueText2.text == "") {
-			locationClueText2.text = knownLocationClues[locationCluesFound];
-		}
-		else {
-			locationClueText3.text = knownLocationClues[locationCluesFound];
-		}
 
 		Debug.Log("You found a LOCATION clue: " + knownLocationClues[locationCluesFound]);
 		locationCluesFound++;
 	}
 
 
-	void GetATargetClue() {
+	static void GetATargetClue() {
 		int clueNum = Random.Range(0, relevantTargetclues.Count);
 		knownTargetClues[targetCluesFound] = relevantTargetclues[clueNum];
 		relevantTargetclues.RemoveAt(clueNum);
-
-		if (targetClueText1.text == "") {
-			targetClueText1.text = knownTargetClues[targetCluesFound];
-		}
-		else if (targetClueText2.text == "") {
-			targetClueText2.text = knownTargetClues[targetCluesFound];
-		}
-		else {
-			targetClueText3.text = knownTargetClues[targetCluesFound];
-		}
 
 		Debug.Log("You found a TARGET clue: " + knownTargetClues[targetCluesFound]);
 		targetCluesFound++;
 	}
 
 
-	void GetAnAttackTypeClue() {
+	static void GetAnAttackTypeClue() {
 		int clueNum = Random.Range(0, relevantAttackTypeclues.Count);
 		knownAttackTypeClues[attackTypeCluesFound] = relevantAttackTypeclues[clueNum];
 		relevantAttackTypeclues.RemoveAt(clueNum);
-
-		if (attackTypeClueText1.text == "") {
-			attackTypeClueText1.text = knownAttackTypeClues[attackTypeCluesFound];
-		}
-		else if (attackTypeClueText2.text == "") {
-			attackTypeClueText2.text = knownAttackTypeClues[attackTypeCluesFound];
-		}
-		else {
-			attackTypeClueText3.text = knownAttackTypeClues[attackTypeCluesFound];
-		}
 
 		Debug.Log("You found an ATTACK TYPE clue: " + knownAttackTypeClues[attackTypeCluesFound]);
 		attackTypeCluesFound++;
 	}
 
 
-	public void OpenClueDisplay () {
-		clueDisplay.GetComponent<Animator>().SetBool("compActivated", true);
-		compDisplay.GetComponent<Animator>().SetBool("compActivated", false);
-	}
-
-
-	public void CloseClueDisplay () {
-		clueDisplay.GetComponent<Animator>().SetBool("compActivated", false);
-		compDisplay.GetComponent<Animator>().SetBool("compActivated", true);
-	}
-
-
-	public void OpenSolver() {
-		clueDisplay.GetComponent<Animator>().SetBool("compActivated", false);
-		StartCoroutine("OpenSolveDisplay");
-	}
-
-
-	public IEnumerator OpenSolveDisplay() {
-		solveDisplay1.GetComponent<Animator>().SetBool("compActivated", true);
-		yield return new WaitForSeconds(0.1f);
-		solveDisplay2.GetComponent<Animator>().SetBool("compActivated", true);
-		yield return new WaitForSeconds(0.1f);
-		solveDisplay3.GetComponent<Animator>().SetBool("compActivated", true);
-	}
-
-
-	public void CloseSolver () {
-		clueDisplay.GetComponent<Animator>().SetBool("compActivated", true);
-		StartCoroutine("CloseSolveDisplay");
-	}
-
-
-	public IEnumerator CloseSolveDisplay() {
-		solveDisplay1.GetComponent<Animator>().SetBool("compActivated", false);
-		yield return new WaitForSeconds(0.1f);
-		solveDisplay2.GetComponent<Animator>().SetBool("compActivated", false);
-		yield return new WaitForSeconds(0.1f);
-		solveDisplay3.GetComponent<Animator>().SetBool("compActivated", false);
-	}
-
-	public void DeselectOtherToggles () {
-		
-	}
-
-
-	public void CompareEventSolution() {
-		print("Comparing event solution...");
-
-		foreach (Toggle locationToggle in solveLocationToggles) {
-			if (locationToggle.isOn) {
-				string locationText = locationToggle.GetComponentInChildren<Text>().text;
-				if (locationText == location) {
-					matchLocation = true;
-				}
-				print(locationText + ": " + location);
-			}
-		}
-		foreach (Toggle targetToggle in solveTargetToggles) {
-			if (targetToggle.isOn) {
-				string targetText = targetToggle.GetComponentInChildren<Text>().text;
-				if (targetText == target) {
-					matchTarget = true;
-				}
-				print(targetText + ": " + target);
-			}
-		}
-		foreach (Toggle attackTypeToggle in solveAttackTypeToggles) {
-			if (attackTypeToggle.isOn) {
-				string attackTypeText = attackTypeToggle.GetComponentInChildren<Text>().text;
-				if (attackTypeText == attackType) {
-					matchAttackType = true;
-				}
-				print(attackTypeText + ": " + attackType);
-			}
-		}
-
-		if (matchLocation && matchTarget && matchAttackType) {
-			EventSuccess();
-		}
-		else {
-			EventFailure();
-		}
-	}
-
-
-	void EventSuccess() {
-		print("You completed the event!");
+	public static void EventSuccess() {
+		Debug.Log("You completed the event!");
 
 		EndEvent();
 	}
 
 
-	void EventFailure() {
-		print("You failed the event");
+	public static void EventFailure() {
+		Debug.Log("You failed the event");
 
 		EndEvent();
 	}
 
-	void EndEvent() {
+
+	static void EndEvent() {
+//TODO Make sure that all event parameters are reset once the event is ended
 		matchLocation = false;
 		matchTarget = false;
 		matchAttackType = false;
 		eventOngoing = false;
 
-		heroActPart.activityText2.SetActive(false);
-		sideActPart.activityText2.SetActive(false);
+		numberOfCluesFound = 0;
+		locationCluesFound = 0;
+		targetCluesFound = 0;
+		attackTypeCluesFound = 0;
 
-		StartCoroutine("CloseSolveDisplay");
-		compDisplay.GetComponent<Animator>().SetBool("compActivated", true);
+		relevantLocationclues.Clear();
+		relevantTargetclues.Clear();
+		relevantAttackTypeclues.Clear();
+
+		knownLocationClues = new string[3] { "", "", "" };
+		knownTargetClues = new string[3] { "", "", "" };
+		knownAttackTypeClues = new string[3] { "", "", "" };
+
+		location = "";
+		target = "";
+		attackType = "";
 	}
+	
 }

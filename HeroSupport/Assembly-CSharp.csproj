@@ -59,31 +59,41 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\ArenaSceneManagement.cs" />
-    <Compile Include="Assets\CivilianActivity.cs" />
-    <Compile Include="Assets\EnemyActivity.cs" />
-    <Compile Include="Assets\EnemyAttack.cs" />
-    <Compile Include="Assets\EnemyStats.cs" />
-    <Compile Include="Assets\HeroActivity.cs" />
-    <Compile Include="Assets\HeroAttack.cs" />
-    <Compile Include="Assets\HeroHitbox.cs" />
+    <Compile Include="Assets\GameManager.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\ActivityParticipation.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\ArenaSceneManagement.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\CameraController.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\ClueMaster.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\ClueUIManager.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\CommenceNightly.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\ComputerDisplay.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\DayNightCycle.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\Dialogue.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\DialogueManager.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\GeneralScriptForEVERYOBJECT.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\MainMenuManager.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\MapLocationManager.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\MapSceneManager.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\NightManager.cs" />
+    <Compile Include="Assets\Scripts\_SceneManagementScripts\SceneTransitionHideoutToMap.cs" />
     <Compile Include="Assets\Scripts\ConstructScripts\Bookshelf.cs" />
     <Compile Include="Assets\Scripts\ConstructScripts\ShutterDoor.cs" />
-    <Compile Include="Assets\Scripts\NPCScripts\CharacterStats.cs" />
+    <Compile Include="Assets\Scripts\NPCScripts\CivilianActivity.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\DialogueTrigger.cs" />
+    <Compile Include="Assets\Scripts\NPCScripts\EnemyActivity.cs" />
+    <Compile Include="Assets\Scripts\NPCScripts\EnemyAttack.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\NPCHero.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\Stat.cs" />
+    <Compile Include="Assets\Scripts\NPCScripts\StatsCivilian.cs" />
+    <Compile Include="Assets\Scripts\NPCScripts\StatsEnemy.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\HeroActivity.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\HeroAttack.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerMove.cs" />
+    <Compile Include="Assets\Scripts\PlayerScripts\StatsPlayer.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\ObjectCivilian.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\ObjectEnemy.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\ObjectEntity.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\ObjectPlayer.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Master/Documents/Git Repositories/Unity Projects/HeroSupport/HeroSupport/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

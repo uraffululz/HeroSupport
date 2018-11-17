@@ -231,9 +231,11 @@ GameObject:
   m_Component:
   - component: {fileID: 4079192234803364}
   - component: {fileID: 95926906048954902}
+  - component: {fileID: 33239200349394758}
   - component: {fileID: 54648578372089342}
   - component: {fileID: 136288449445200334}
   - component: {fileID: 195741644435228632}
+  - component: {fileID: 114581667480398972}
   - component: {fileID: 114225967595407948}
   m_Layer: 0
   m_Name: Civilian
@@ -626,6 +628,13 @@ Transform:
   m_Father: {fileID: 4537279004258430}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &33239200349394758
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717087358989040}
+  m_Mesh: {fileID: 4300000, guid: 256e42f44172c9c4293d0d6c0b164676, type: 3}
 --- !u!54 &54648578372089342
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -670,9 +679,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bee16e6fa0faa14ca3f6f0115c9b210, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneManager: {fileID: 0}
+  arenaManager: {fileID: 0}
   civHealth: 50
   distToEnemy: 0
+--- !u!114 &114581667480398972
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1717087358989040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70d8babda61dca34888a83ab59fbb901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  civilianObject: {fileID: 11400000, guid: eb3d920911d6a1741ad17eee9385442b, type: 2}
+  HP: 0
+  FP: 0
+  FPRegen: 0
+  speed: 0
+  damage: 0
+  attackRate: 0
+  meleeDist: 0
+  rangedDist: 0
+  primaryAttack: {fileID: 0}
+  secondaryAbility: {fileID: 0}
 --- !u!136 &136288449445200334
 CapsuleCollider:
   m_ObjectHideFlags: 1

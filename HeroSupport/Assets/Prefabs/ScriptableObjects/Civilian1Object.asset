@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d568b5888fb0d3e4584187fa572a6251, type: 3}
+  m_Name: Civilian1Object
+  m_EditorClassIdentifier: 
+  mesh: {fileID: 4300000, guid: 256e42f44172c9c4293d0d6c0b164676, type: 3}
+  health: 50
+  focus: 20
+  focusRegenRate: 1
+  moveSpeed: 2
+  attackDmg: 2
+  attackRate: 10
+  meleeDist: 2
+  rangedDist: 5
+  notoriety: 20
+  primaryAttackScript: {fileID: 0}
+  secondaryAbilityScript: {fileID: 0}

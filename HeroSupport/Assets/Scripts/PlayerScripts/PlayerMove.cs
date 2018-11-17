@@ -1,65 +1,52 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMove : MonoBehaviour {
 
-	[SerializeField] ArenaSceneManagement arenaManager;
 	[SerializeField] Camera mainCam;
 
 	Animator anim;
 
-	float walkSpeed = 2;
-	float runSpeed = 5;
+	StatsPlayer playerStats;
+
+	public enum activityStates {idle, Busy, Patrolling, Crimefighting, Fatigued, Stressed};
+	public activityStates myActiveState;
+
+	float walkSpeed;
+	float runSpeed;
 	[SerializeField] float speedSmoothTime = .2f;
 	float speedSmoothVelocity;
 	float currentSpeed;
 	//int rotSpeed = 10;
-	[SerializeField] float turnSmoothTime = .01f;
+	//[SerializeField] float turnSmoothTime = .01f;
 	float turnSmoothVelocity;
 
 	enum levelLevel {above, below };
 	levelLevel myLevel;
 
-	GameObject target = null;
-	public bool isTargeting = false;
-
-
 
 	void Start () {
+
+
 		mainCam = Camera.main;
 
 		anim = GetComponent<Animator>();
 
-		arenaManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<ArenaSceneManagement>();
+		playerStats = GetComponent<StatsPlayer>();
+		walkSpeed = playerStats.valueAgi / 2;
+		runSpeed = playerStats.valueAgi;
 	}
 	
 
 	void Update () {
 		Move ();
-		Targeting();
 		Interact();
 	}
 
 
 	void Move () {
-		/*		if (Input.GetAxis("Horizontal") != 0f) {
-					Vector3 playerPos = transform.position;
-					playerPos += Vector3.right * moveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
-					transform.position = playerPos;
-
-					Vector3 rotHor = Vector3.RotateTowards(transform.position, (Vector3.right * Input.GetAxis("Horizontal")).normalized, rotSpeed, 0.0f);
-					transform.rotation = Quaternion.LookRotation(rotHor);
-				}
-				if (Input.GetAxis("Vertical") != 0f) {
-					Vector3 playerPos = transform.position;
-					playerPos += Vector3.forward * moveSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
-					transform.position = playerPos;
-
-					Vector3 rotVert = Vector3.RotateTowards(transform.position, (Vector3.forward * Input.GetAxis("Vertical")).normalized, rotSpeed, 0.0f);
-					transform.rotation = Quaternion.LookRotation(rotVert);
-				}
-		*/
 		if (Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) {
 			//Get the Hero's position, as well as any directional input from the player
 			Vector3 input = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical"));
@@ -92,57 +79,8 @@ public class PlayerMove : MonoBehaviour {
 	}
 
 
-	void Targeting() {
-		List<GameObject> enemies = arenaManager.enemies;
-
-		if (enemies.Count > 0) {
-			if (!isTargeting) {
-				if (Input.GetKeyDown(KeyCode.Q)) {
-					isTargeting = true;
-
-					float closestDist = 20f;
-					foreach (GameObject enemy in enemies) {
-						float distToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-						if (distToEnemy < closestDist) {
-							closestDist = distToEnemy;
-							target = enemy;
-							//distToTarget = distToEnemy;
-						}
-					}
-				}
-			}
-			else if (isTargeting && target != null) {
-				if (Input.GetKeyDown(KeyCode.Q)) {
-					isTargeting = false;
-					target = null;
-				}
-
-				if (target != null) {
-					if (Input.GetKeyDown(KeyCode.Comma)) {
-						if (enemies[enemies.IndexOf(target)] == enemies[0]) {
-							target = enemies[enemies.Count - 1];
-						}
-						else {
-							target = enemies[enemies.IndexOf(target) - 1];
-						}
-					}
-					else if (Input.GetKeyDown(KeyCode.Period)) {
-						if (enemies.IndexOf(target) == enemies.Count - 1) {
-							target = enemies[0];
-						}
-						else {
-							target = enemies[enemies.IndexOf(target) + 1];
-						}
-					}
-					Vector3 targetPos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
-					transform.LookAt(targetPos);
-				}
-			}
-		}
-	}
-
-
 	void Interact () {
+//TODO Move this function to its own script, where I can find better ways to assign interactive GameObjects
 		float reachDist = 1f;
 		Ray reachRay = new Ray(transform.position, transform.forward);
 		Debug.DrawRay(transform.position, transform.forward, Color.magenta);
@@ -171,11 +109,14 @@ public class PlayerMove : MonoBehaviour {
 						}
 					}
 					else if (reached.collider.name == "Computer") {
-						GameObject compDisplayBox = GameObject.Find("ComputerDisplay");
-//						ComputerDisplay display = compDisplayBox.GetComponent<ComputerDisplay>();
-						Animator compDisplayAnim = compDisplayBox.GetComponent<Animator>();
-
-						compDisplayAnim.SetBool("compActivated", true);
+						if (ClueMaster.eventOngoing) {
+							GameObject clueDisplay = GameObject.Find("ClueDisplay");
+							clueDisplay.GetComponent<Animator>().SetBool("compActivated", true);
+						}
+						else {
+							Debug.Log("There is no event ongoing. Obtain your first clue.");
+						}
+						
 					}
 				}
 			}

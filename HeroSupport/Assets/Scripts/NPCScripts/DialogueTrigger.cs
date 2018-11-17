@@ -12,7 +12,7 @@ public class DialogueTrigger : MonoBehaviour {
 			NPCHero heroScript = gameObject.GetComponent<NPCHero>();
 
 			//Dialogue options for Deek
-			if (dialogue.name == "Hero") {
+			if (dialogue.name == "Deek") {
 				//During Idle state
 				if (heroScript.myActiveState == NPCHero.activityStates.Idle) {
 					int randomDialogue = Random.Range(0, 3);

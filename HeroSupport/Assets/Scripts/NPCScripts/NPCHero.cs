@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class NPCHero : MonoBehaviour {
 
-	CharacterStats charStats;
+	StatsPlayer charStats;
 
 	DayNightCycle lightCycle;
 
