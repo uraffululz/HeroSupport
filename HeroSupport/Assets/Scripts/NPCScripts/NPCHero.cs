@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NPCHero : MonoBehaviour {
-
 	StatsPlayer charStats;
 
 	DayNightCycle lightCycle;
@@ -13,16 +13,20 @@ public class NPCHero : MonoBehaviour {
 
 
 	void Start () {
-		lightCycle = GameObject.Find("Day-Night Light").GetComponent<DayNightCycle>();
+		//lightCycle = GameObject.Find("Day-Night Light").GetComponent<DayNightCycle>();
+
+		transform.position = Vector3.right;
 	}
 
 
 	void Update () {
-		if (lightCycle.dayTime) {
+/*		if (lightCycle.dayTime) {
 			myActiveState = activityStates.Idle;
 		}
 		else {
 			myActiveState = activityStates.Patrolling;
 		}
+*/
 	}
+
 }

@@ -5,8 +5,8 @@ using UnityEngine;
 public class DayNightCycle : MonoBehaviour {
 
 	Light cycleLight;
-	[SerializeField] GameObject hero;
-	[SerializeField] GameObject sidekick;
+	//[SerializeField] GameObject hero;
+	//[SerializeField] GameObject sidekick;
 
 //	Color nightColor;
 
@@ -23,8 +23,8 @@ public class DayNightCycle : MonoBehaviour {
 
 
 	void Start () {
-		hero = GameObject.FindGameObjectWithTag("Player");
-		sidekick = GameObject.FindGameObjectWithTag("Sidekick");
+		//hero = GameObject.FindGameObjectWithTag("Player");
+		//sidekick = GameObject.FindGameObjectWithTag("Sidekick");
 
 		cycleLight = GetComponent<Light>();
 		//		nightColor = new Color(.4f, .4f, 1f);

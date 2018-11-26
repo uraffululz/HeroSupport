@@ -14,6 +14,8 @@ public class ObjectEnemy: ScriptableObject {
 	public int focus; //Stamina/charge/power/MP/whatever
 	public float focusRegenRate;
 
+
+
 	public float moveSpeed;
 
 	public int attackDmg;

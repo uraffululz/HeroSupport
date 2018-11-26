@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class StatsCivilian : MonoBehaviour {
 
+	public static StatsCivilian instance;
+
 	public ObjectCivilian civilianObject;
 
 	public int HP;
@@ -22,10 +24,16 @@ public class StatsCivilian : MonoBehaviour {
 	public Object primaryAttack;
 	public Object secondaryAbility;
 
-	void Start () {
+	void Awake () {
 		GetComponent<MeshFilter>().mesh = civilianObject.mesh;
 
-		HP = civilianObject.health;
+		if (StatsPlayer.notoriety > 0) {
+			HP = civilianObject.health + (int)(StatsPlayer.notoriety / 10); //Fine for testing, but later, divide by 100, 1000, whatever
+		}
+		else {
+			HP = civilianObject.health;
+		}
+
 		FP = civilianObject.focus;
 		FPRegen = civilianObject.focusRegenRate;
 
@@ -36,7 +44,7 @@ public class StatsCivilian : MonoBehaviour {
 		meleeDist = civilianObject.meleeDist;
 		rangedDist = civilianObject.rangedDist;
 
-		worthNotoriety = civilianObject.notoriety;
+		worthNotoriety = civilianObject.notoriety * NightManager.crimeRate;
 
 		primaryAttack = civilianObject.primaryAttackScript;
 		secondaryAbility = civilianObject.secondaryAbilityScript;

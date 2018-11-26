@@ -13,7 +13,7 @@ public class ComputerDisplay : MonoBehaviour {
 
 	//public Text heroStatus;
 	public Text heroVitals;
-	public Text activity1;
+	public Text activity;
 	public Text activity2;
 	public Text activity3;
 
@@ -39,14 +39,14 @@ public class ComputerDisplay : MonoBehaviour {
 //TODO Since I'm ACTIVELY playing as the Hero now, I don't really need this. However, I could use something similar for the sidekick
 			//heroStatus.text = "Hero Status: " + hero.GetComponent<NPCHero>().myActiveState.ToString();
 
-			heroVitals.text = "Hero Vitals: " + "S " + heroStats.valueStr.ToString() + ", " + 
-				"A " + heroStats.valueAgi.ToString() +  ", " +
-				"I " + heroStats.valueInt.ToString() + ", " +
-				"Fa " + heroStats.currentFatigue.ToString() + ", " +
-				"St " + heroStats.currentStress.ToString();
+			heroVitals.text = "Hero Vitals: " + "S " + StatsPlayer.valueStr.ToString() + ", " + 
+				"A " + StatsPlayer.valueAgi.ToString() +  ", " +
+				"I " + StatsPlayer.valueInt.ToString() + ", " +
+				"Fa " + StatsPlayer.currentFatigue.ToString() + ", " +
+				"St " + StatsPlayer.currentStress.ToString();
 			
 			//These text components display the various activities available during the current night
-			activity1.text = ("Activity 1: Stop the " + NightManager.activity1 + NightManager.crimeStars1);
+			activity.text = ("Activity 1: Stop the " + NightManager.activity + NightManager.crimeStars);
 			//activity2.text = ("Activity 2: " + NightManager.activity2 + NightManager.crimeStars2);
 			//activity3.text = ("Activity 3: " + NightManager.activity3 + NightManager.crimeStars3);
 
@@ -57,6 +57,7 @@ public class ComputerDisplay : MonoBehaviour {
 
 	public void OpenCompDisplay() {
 		GetComponent<Animator>().SetBool("compActivated", true);
+		actPart.SetTogglesToDefault();
 
 		if (ClueMaster.eventOngoing) {
 			actPart.activityText2.SetActive(true);

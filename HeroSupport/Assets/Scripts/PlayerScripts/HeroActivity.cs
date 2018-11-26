@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class HeroActivity : MonoBehaviour {
 
-	ArenaSceneManagement arenaManager;
+	[SerializeField] ArenaSceneManagement arenaManager;
 
-	StatsPlayer playerStats;
+	//StatsPlayer playerStats;
+
+	public HealthBar HPParent;
 
 	//public bool isColliding = false;
 
@@ -19,13 +22,16 @@ public class HeroActivity : MonoBehaviour {
 	}
 
 
-	void Start () {
+	void OnEnable () {
 		arenaManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<ArenaSceneManagement>();
-		playerStats = GetComponent<StatsPlayer>();
+		//playerStats = GetComponent<StatsPlayer>();
+
+		HPParent = GameObject.Find("HeroHPBackground").GetComponent<HealthBar>();
 	}
 
 
 	void Update () {
+
 	}
 
 
@@ -38,8 +44,10 @@ public class HeroActivity : MonoBehaviour {
 			else {
 				Debug.Log("Hero isColliding is now true");
 				isColliding = true;*/
-				playerStats.DamageFatigue(other.GetComponentInParent<StatsEnemy>().damage);
-			if (playerStats.currentFatigue >= playerStats.maxFatigue) {
+			StatsPlayer.DamageFatigue(other.GetComponentInParent<StatsEnemy>().damage);
+			HPParent.UpdateFatigueBar();
+
+			if (StatsPlayer.currentFatigue >= StatsPlayer.maxFatigue) {
 				Debug.Log("You have become physically exhausted and cannot fight");
 				arenaManager.ActivityFailed();
 			}

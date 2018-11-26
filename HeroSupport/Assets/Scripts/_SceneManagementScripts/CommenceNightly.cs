@@ -8,14 +8,14 @@ public class CommenceNightly : MonoBehaviour {
 
 	ActivityParticipation actPart;
 
-	[SerializeField] GameObject hero;
-	[SerializeField] GameObject sidekick = null;
+	//[SerializeField] GameObject hero;
+	//[SerializeField] GameObject sidekick = null;
 
 	//Hero script references
-	StatsPlayer heroStats;
+	//StatsPlayer heroStats;
 
 	//Sidekick script references
-	StatsPlayer sideStats;
+	//StatsPlayer sideStats;
 
 	//Local participation bools
 	//bool heroDidIt = false;
@@ -24,13 +24,13 @@ public class CommenceNightly : MonoBehaviour {
 
 	private void Start() {
 		actPart = GetComponent<ActivityParticipation>();
-		hero = GameObject.FindGameObjectWithTag("Player");
-		heroStats = hero.GetComponent<StatsPlayer>();
+		//hero = GameObject.FindGameObjectWithTag("Player");
+		//heroStats = hero.GetComponent<StatsPlayer>();
 
-		sidekick = GameObject.FindGameObjectWithTag("Sidekick");
-		if (sidekick != null) {
-			sideStats = sidekick.GetComponent<StatsPlayer>();
-		}
+		//sidekick = GameObject.FindGameObjectWithTag("Sidekick");
+		//if (sidekick != null) {
+			//sideStats = sidekick.GetComponent<StatsPlayer>();
+		//}
 		
 	}
 
@@ -73,11 +73,11 @@ public class CommenceNightly : MonoBehaviour {
 			
 			//If the Hero is obtaining clues
 			if (heroDetecting.isOn) {
-				heroRolledInt = (int)(heroStats.valueInt * Random.Range(.5f, 1.5f));
+				heroRolledInt = (int)(StatsPlayer.valueInt * Random.Range(.5f, 1.5f));
 			}
 			//If the Sidekick is obtaining clues
 			if (sideDetecting.isOn) {
-				sideRolledInt = (int)(sideStats.valueInt * Random.Range(.5f, 1.5f));
+				sideRolledInt = (int)(StatsSidekick.valueInt * Random.Range(.5f, 1.5f));
 			}
 
 			int totalRolledInt = (heroRolledInt + sideRolledInt);

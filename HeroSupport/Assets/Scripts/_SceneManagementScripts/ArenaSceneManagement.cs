@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class ArenaSceneManagement : MonoBehaviour {
 
+	GameObject player;
+	GameObject sidekick;
+
 	[SerializeField] GameObject enemyPrefab;
 	[SerializeField] GameObject civilianPrefab;
 
@@ -18,10 +21,24 @@ public class ArenaSceneManagement : MonoBehaviour {
 	public List<GameObject> enemies;
 	public List<GameObject> civilians;
 
-	public int gainedNotoriety = NightManager.baseNotoriety1;
+	public int gainedNotoriety = NightManager.baseNotoriety;
 
 
 	private void Awake() {
+		player = GameObject.FindWithTag("Player");
+		sidekick = GameObject.FindWithTag("Sidekick");
+
+		if (player != null) {
+			player.transform.position = Vector3.zero;
+			player.GetComponent<HeroActivity>().enabled = true;
+			player.GetComponent<HeroAttack>().enabled = true;
+			player.GetComponent<PlayerInteracting>().enabled = false; //until I can figure out how to use the "scene loading" events
+		}
+
+		if (sidekick != null) {
+			sidekick.transform.position = Vector3.right;
+		}
+
 		SpawnCivilians();
 		SpawnEnemies();
 	}
@@ -78,6 +95,7 @@ public class ArenaSceneManagement : MonoBehaviour {
 
 			//%chance of finding a "First Clue" on accomplishing the activity
 			//TODO Knock down to 10% or so later
+				//or have it influenced by the activity's difficulty/rarity/whatever
 			if (chanceFirstClueFound < 100) {
 				Debug.Log("You found your FIRST CLUE");
 				ClueMaster.ChooseEventParameters();

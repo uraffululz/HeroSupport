@@ -731,18 +731,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: daba7d4e9223bf94db1e65b18bc998c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityObject: {fileID: 11400000, guid: 6f49350efbf143e419f13b5e8a9393c0, type: 2}
   enemyObject: {fileID: 11400000, guid: c341919930efd4f44bc40a158b476cc3, type: 2}
-  HP: 0
+  maxHP: 0
+  currentHP: 0
   FP: 0
   FPRegen: 0
+  speed: 0
   damage: 0
   attackRate: 0
   meleeDist: 0
   rangedDist: 0
-  speed: 0
+  worthNotoriety: 0
   primaryAttack: {fileID: 0}
   secondaryAbility: {fileID: 0}
+  HPBar: {fileID: 1144523192886782, guid: 6e1b7957a0b19794bb244fd6b09efe19, type: 2}
 --- !u!114 &114927174524726666
 MonoBehaviour:
   m_ObjectHideFlags: 1

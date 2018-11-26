@@ -73,6 +73,7 @@ GameObject:
   - component: {fileID: 114120137316741946}
   - component: {fileID: 114260350032831068}
   - component: {fileID: 114864899337022306}
+  - component: {fileID: 114331821573393106}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Player
@@ -565,7 +566,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1225774218195310}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00000005843824, y: 0.00000011920929, z: 0.299985}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4879859196969548}
@@ -709,7 +710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802c33890166fe24fa3d60501fc8691c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCam: {fileID: 0}
   myActiveState: 0
   speedSmoothTime: 0.2
 --- !u!114 &114260350032831068
@@ -725,6 +725,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitColUpper: {fileID: 135539226584769594}
   isTargeting: 0
+--- !u!114 &114331821573393106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1225774218195310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8642868ee8241e74eac662859d3520cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCam: {fileID: 0}
 --- !u!114 &114522448163689526
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -737,13 +749,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 11400000, guid: 16cb2f5daaf2bc444aced7da2109d5d3, type: 2}
-  valueStr: 5
-  valueAgi: 5
-  valueInt: 5
-  notoriety: 0
-  maxFatigue: 100
-  maxStress: 100
-  damage: 10
+  valueStr: 0
+  valueAgi: 0
+  valueInt: 0
+  maxFatigue: 0
+  maxStress: 0
+  damage: 0
   primaryAttack: {fileID: 0}
   secondaryAbility: {fileID: 0}
 --- !u!114 &114864899337022306
@@ -757,6 +768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c11b83607eb441341b7455437035670f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  arenaManager: {fileID: 0}
 --- !u!135 &135539226584769594
 SphereCollider:
   m_ObjectHideFlags: 1

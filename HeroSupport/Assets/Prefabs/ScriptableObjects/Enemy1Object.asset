@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Name: Enemy1Object
   m_EditorClassIdentifier: 
   mesh: {fileID: 4300000, guid: 256e42f44172c9c4293d0d6c0b164676, type: 3}
-  health: 50
+  health: 40
   focus: 50
   focusRegenRate: 2
   moveSpeed: 2

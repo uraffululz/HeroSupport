@@ -6,7 +6,8 @@ public class StatsEnemy : MonoBehaviour {
 
 	public ObjectEnemy enemyObject;
 
-	public int HP;
+	public int maxHP;
+	public int currentHP;
 	public int FP;
 	public float FPRegen;
 
@@ -22,11 +23,16 @@ public class StatsEnemy : MonoBehaviour {
 	public Object primaryAttack;
 	public Object secondaryAbility;
 
+	[SerializeField] GameObject HPBar;
+	GameObject myHPBar;
+
+
 	void Awake () {
 		GetComponent<MeshFilter>().mesh = enemyObject.mesh;
 
-		HP = enemyObject.health;
-		FP = enemyObject.focus;
+		maxHP = enemyObject.health + NightManager.enemyHPBonus;
+		currentHP = maxHP;
+		FP = enemyObject.focus + NightManager.enemyFPBonus;
 		FPRegen = enemyObject.focusRegenRate;
 
 		speed = enemyObject.moveSpeed;
@@ -40,6 +46,35 @@ public class StatsEnemy : MonoBehaviour {
 
 		primaryAttack = enemyObject.primaryAttackScript;
 		secondaryAbility = enemyObject.secondaryAbilityScript;
+
+		SetupHPBar();
+	}
+
+
+	void LateUpdate() {
+		
+	}
+
+
+	public void UpdateStats () {
+
+	}
+
+
+	public void TakeDamage (int damageTaken) {
+		currentHP -= damageTaken;
+
+		if (currentHP > maxHP) {
+			currentHP = maxHP;
+		}
+		myHPBar.GetComponent<EnemyHPBar>().UpdateHPBar();
+	}
+
+
+	void SetupHPBar () {
+		Canvas canvas = GameObject.FindObjectOfType<Canvas>();
+		myHPBar = Instantiate(HPBar, canvas.transform) as GameObject;
+		myHPBar.GetComponent<EnemyHPBar>().myEnemy = this.gameObject.transform;
 	}
 	
 }

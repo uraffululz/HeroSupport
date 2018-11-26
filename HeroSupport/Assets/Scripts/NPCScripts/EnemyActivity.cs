@@ -12,6 +12,7 @@ public class EnemyActivity : MonoBehaviour {
 	public NavMeshAgent enemyNav;
 
 	StatsEnemy enemyStats;
+	EnemyHPBar HPBar;
 
 	public enum enemyStates {idle, pursuing, readyToAttack, stunned};
 	public enemyStates myState;
@@ -37,10 +38,11 @@ public class EnemyActivity : MonoBehaviour {
 		civilians = arenaManager.civilians;
 		enemyNav = GetComponent<NavMeshAgent>();
 		enemyStats = GetComponent<StatsEnemy>();
+		HPBar = GetComponentInChildren<EnemyHPBar>();
 
 		enemyNav.speed = enemyStats.speed;
 
-		health = enemyStats.HP;
+		health = enemyStats.currentHP;
 
 		atkDistMelee = enemyStats.meleeDist;
 		atkDistRanged = enemyStats.rangedDist;
@@ -68,11 +70,11 @@ public class EnemyActivity : MonoBehaviour {
 			else {
 				isColliding = true;
 			*/
-				health = health - other.gameObject.GetComponentInParent<StatsPlayer>().damage;
-				Debug.Log("Enemy was hit");
+				enemyStats.TakeDamage(StatsPlayer.damage);
+				//Debug.Log("Enemy was hit");
 
 				//If the Enemy's health drops to (or below) zero, he dies
-				if (health <= 0) {
+				if (enemyStats.currentHP <= 0) {
 					Die();
 				}
 			//}

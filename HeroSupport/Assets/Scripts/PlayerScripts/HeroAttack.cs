@@ -22,14 +22,14 @@ public class HeroAttack : MonoBehaviour {
 	//public int attackDmg = 10;
 
 
-	private void Awake() {
+	void Awake() {
 		if (SceneManager.GetActiveScene().name != "SampleActivityArena") {
 			this.enabled = false;
 		}
 	}
 
 
-	void Start () {
+	void OnEnable () {
 		arenaManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<ArenaSceneManagement>();
 		anim = GetComponent<Animator>();
 		//charStats = GetComponent<StatsPlayer>();
@@ -101,7 +101,7 @@ public class HeroAttack : MonoBehaviour {
 
 	void AttackHit() {
 		hitColUpper.enabled = true;
-		Debug.Log("Hero AttackHit event function activated");
+		//Debug.Log("Hero AttackHit event function activated");
 	}
 
 
@@ -124,7 +124,7 @@ public class HeroAttack : MonoBehaviour {
 		yield return new WaitForSeconds(.9f);
 
 		//hitColUpper.enabled = true;
-		Debug.Log("Player Hitbox collider enabled");
+		//Debug.Log("Player Hitbox collider enabled");
 		allowAttack2 = true;
 		yield return new WaitForSeconds(.2f);
 
@@ -145,7 +145,7 @@ public class HeroAttack : MonoBehaviour {
 		yield return new WaitForSeconds(.9f);
 
 		//hitColUpper.enabled = true;
-		Debug.Log("Player Hitbox collider enabled");
+		//Debug.Log("Player Hitbox collider enabled");
 		//allowAttack3 = true;
 		yield return new WaitForSeconds(.2f);
 

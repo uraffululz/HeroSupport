@@ -158,10 +158,7 @@ GameObject:
   - component: {fileID: 33480296978189994}
   - component: {fileID: 54688146117213482}
   - component: {fileID: 136858968173723148}
-  - component: {fileID: 114896308483751666}
-  - component: {fileID: 114419655369096838}
-  - component: {fileID: 114460757825178746}
-  - component: {fileID: 114359988322699606}
+  - component: {fileID: 114274320276106474}
   - component: {fileID: 114559084942896690}
   - component: {fileID: 114125681096568830}
   m_Layer: 0
@@ -712,7 +709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myActiveState: 0
---- !u!114 &114359988322699606
+--- !u!114 &114274320276106474
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -720,40 +717,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1470576407171086}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6a802d618f7980458144936f4babd18, type: 3}
+  m_Script: {fileID: 11500000, guid: 402c283ed1bc7d7428c4ea4ecb50b9b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activityText1: {fileID: 0}
-  activityText2: {fileID: 0}
-  activityText3: {fileID: 0}
-  toggle1: {fileID: 0}
-  toggle2: {fileID: 0}
-  toggle3: {fileID: 0}
-  toggleNightOff: {fileID: 0}
---- !u!114 &114419655369096838
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1470576407171086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 879292ce9d8b9384da53305c9bf8b28b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hitColUpper: {fileID: 135862364612246306}
-  attackDmg: 10
---- !u!114 &114460757825178746
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1470576407171086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c11b83607eb441341b7455437035670f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  sideObject: {fileID: 11400000, guid: 9bc779e5f85a6a9469653750c69fe751, type: 2}
+  valueStr: 0
+  valueAgi: 0
+  valueInt: 0
+  maxFatigue: 0
+  maxStress: 0
+  damage: 0
+  primaryAttack: {fileID: 0}
+  secondaryAbility: {fileID: 0}
 --- !u!114 &114559084942896690
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -768,27 +743,6 @@ MonoBehaviour:
   dialogue:
     name: 
     sentences: []
---- !u!114 &114896308483751666
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1470576407171086}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab2a0745314b4064ea222c03943f1d39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerObject: {fileID: 11400000, guid: fb08857a316c4814d9af7c8effb2b6b0, type: 2}
-  valueStr: 0
-  valueAgi: 0
-  valueInt: 0
-  notoriety: 0
-  maxFatigue: 0
-  maxStress: 0
-  damage: 0
-  primaryAttack: {fileID: 0}
-  secondaryAbility: {fileID: 0}
 --- !u!135 &135862364612246306
 SphereCollider:
   m_ObjectHideFlags: 1

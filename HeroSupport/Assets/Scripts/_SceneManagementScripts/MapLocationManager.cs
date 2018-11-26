@@ -18,9 +18,16 @@ public class MapLocationManager : MonoBehaviour {
 	}
 
 
-	void OnCollisionEnter(Collision collision) {
-		if (collision.gameObject.CompareTag("Player")) {
+	void OnTriggerEnter(Collider enterCol) {
+		if (enterCol.gameObject.CompareTag("Player")) {
 			compDisplay.OpenCompDisplay();
+		}
+	}
+
+
+	private void OnTriggerExit(Collider exitCol) {
+		if (exitCol.gameObject.CompareTag("Player")) {
+			compDisplay.CloseDisplay();
 		}
 	}
 }

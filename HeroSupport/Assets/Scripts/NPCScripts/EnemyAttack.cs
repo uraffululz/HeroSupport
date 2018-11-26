@@ -67,7 +67,7 @@ public class EnemyAttack : MonoBehaviour {
 
 	void AttackHit() {
 		hitboxUpper.enabled = true;
-		Debug.Log("Enemy AttackHit event function activated");
+		//Debug.Log("Enemy AttackHit event function activated");
 	}
 
 

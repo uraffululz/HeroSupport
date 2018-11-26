@@ -9,38 +9,38 @@ public static class NightManager {
 
 	public static string activitySceneToLoad;
 
-	public static int crimeRate1;
+	public static int crimeRate;
 
-	public static string crimeStars1;
+	public static string crimeStars;
 
-	public static string activity1;
+	public static string activity;
 	static string[] activities = new string[] { "Arson", "Assault", "Bank Robbery", "Burglary", "Kidnapping", "Mugging", "Robbery", "Runaway Train" };
 
-	public static int enemyHPBonus1 = 0;
-	public static int enemyFPBonus1 = 0;
-	public static int enemyStrBonus1 = 0;
-	public static int enemyAgiBonus1 = 0;
-	public static int enemyIntBonus1 = 0;
+	public static int enemyHPBonus = 0;
+	public static int enemyFPBonus = 0;
+	public static int enemyStrBonus = 0;
+	public static int enemyAgiBonus = 0;
+	public static int enemyIntBonus = 0;
 
-	public static int baseFatigueDmg1 = 0;
-	public static int baseStressDmg1 = 0;
+	public static int baseFatigueDmg = 0;
+	public static int baseStressDmg = 0;
 
-	public static int baseNotoriety1 = 0;
+	public static int baseNotoriety = 0;
 
 
 	public static void SetCrimeRates () {
-		crimeStars1 = "";
+		crimeStars = "";
 	
-		crimeRate1 = Random.Range(1, 6);
+		crimeRate = Random.Range(1, 6);
 		
-		for (int i = 1; i <= crimeRate1; i++) {
-			crimeStars1 += "*";
+		for (int i = 1; i <= crimeRate; i++) {
+			crimeStars += "*";
 		}
 	
-		activity1 = activities[Random.Range(0, activities.Length)];
+		activity = activities[Random.Range(0, activities.Length)];
 
-		SetActivityParameters(activity1, enemyHPBonus1, enemyFPBonus1, enemyStrBonus1, enemyAgiBonus1, enemyIntBonus1,
-			crimeRate1, baseFatigueDmg1, baseStressDmg1, baseNotoriety1);
+		SetActivityParameters(activity, enemyHPBonus, enemyFPBonus, enemyStrBonus, enemyAgiBonus, enemyIntBonus,
+			crimeRate, baseFatigueDmg, baseStressDmg, baseNotoriety);
 		
 		//Debug.Log(activity1 + " requires: " + reqStr1 + ", " + reqAgi1 + ", " + reqInt1 + ". Will damage Fatigue: " + baseFatigueDmg1 + " Stress: " + baseStressDmg1);
 	}
@@ -72,10 +72,10 @@ public static class NightManager {
 */
 			default:
 				activitySceneToLoad = "SampleActivityArena";
-				HPBonus += 10; FPBonus += 10;
-				strBonus += 1; agiBonus += 1; intBonus += 1;
-				fatigue += difficulty; stress += difficulty;
-				notoriety = 10;
+				HPBonus = 10; FPBonus = 10; //Later, formulate these based on the activity's difficulty
+				//Not really sure if enemies should have these stats: strBonus = 1; agiBonus = 1; intBonus = 1;
+				fatigue = difficulty; stress = difficulty;
+				notoriety = 10 * difficulty;
 				break;
 		}
 
@@ -116,12 +116,12 @@ public static class NightManager {
 //TODO Actually, if getting rid of the activity2 and activity3 variables, this \/ may be obsolete
 //TODO See if there is a more efficient way to return/apply these values to their proper variables
 //Maybe by altering the return-type of the function or whatever. This works for now.
-			enemyHPBonus1 = HPBonus;
-			enemyFPBonus1 = FPBonus;
-			enemyStrBonus1 = strBonus;
-			enemyAgiBonus1 = agiBonus;
-			enemyIntBonus1 = intBonus;
-			baseFatigueDmg1 = fatigue;
-			baseStressDmg1 = stress;
+			enemyHPBonus = HPBonus;
+			enemyFPBonus = FPBonus;
+			enemyStrBonus = strBonus;
+			enemyAgiBonus = agiBonus;
+			enemyIntBonus = intBonus;
+			baseFatigueDmg = fatigue;
+			baseStressDmg = stress;
 	}
 }
