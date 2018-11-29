@@ -12,6 +12,8 @@ TagManager:
   - EnemyAttack
   - SceneManager
   - Sidekick
+  - MapLocation
+  - UI
   layers:
   - Default
   - TransparentFX

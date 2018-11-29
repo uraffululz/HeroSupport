@@ -54,11 +54,13 @@ public class EnemyHPBar : MonoBehaviour {
 		}
 	}
 
-
+//TODO This doesn't work as intended. Get back to work on it
+	//Position the enemy's HP bar over their head
 	void RepositionHPBar () {
 		Vector2 ViewportPosition = Camera.main.WorldToViewportPoint(myEnemy.position);
-				Vector3 worldObject_ScreenPos = new Vector3(((ViewportPosition.x * targetCanvas.sizeDelta.x) - (targetCanvas.sizeDelta.x * .5f)),
-					((ViewportPosition.y * targetCanvas.sizeDelta.y) - (targetCanvas.sizeDelta.y * .5f)), Vector3.Distance(Camera.main.transform.position, myEnemy.position));
+				Vector2 worldObject_ScreenPos = new Vector2(
+					((ViewportPosition.x * targetCanvas.sizeDelta.x) - (targetCanvas.sizeDelta.x * .5f)),
+					((ViewportPosition.y * targetCanvas.sizeDelta.y) - (targetCanvas.sizeDelta.y * .5f)));
 		
 		//Vector2 worldObject_ScreenPos = new Vector2(ViewportPosition.x * (targetCanvas.sizeDelta.x * 5), ViewportPosition.y * (targetCanvas.sizeDelta.y * 5));
 		HPBarTransform.anchoredPosition3D = worldObject_ScreenPos;

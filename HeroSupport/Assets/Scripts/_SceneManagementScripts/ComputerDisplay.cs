@@ -44,13 +44,18 @@ public class ComputerDisplay : MonoBehaviour {
 				"I " + StatsPlayer.valueInt.ToString() + ", " +
 				"Fa " + StatsPlayer.currentFatigue.ToString() + ", " +
 				"St " + StatsPlayer.currentStress.ToString();
-			
+
 			//These text components display the various activities available during the current night
-			activity.text = ("Activity 1: Stop the " + NightManager.activity + NightManager.crimeStars);
+			if (NightHighTierManager.activity != null && NightHighTierManager.activity != "Blank") {
+				activity.text = ("Activity 1: Stop the " + NightHighTierManager.activity + NightHighTierManager.crimeStars);
+			}
+			else {
+				activity.text = ("Activity 1: Stop the " + NightManager.activity + NightManager.crimeStars);
+			}
 			//activity2.text = ("Activity 2: " + NightManager.activity2 + NightManager.crimeStars2);
 			//activity3.text = ("Activity 3: " + NightManager.activity3 + NightManager.crimeStars3);
 
-//TODO If the hero and sidekick's "Taking night off" toggles are BOTH on, disable the commenceButton
+			//TODO If the hero and sidekick's "Taking night off" toggles are BOTH on, disable the commenceButton
 		}
 	}
 

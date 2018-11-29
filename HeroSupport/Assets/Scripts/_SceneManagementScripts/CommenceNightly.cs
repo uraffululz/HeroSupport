@@ -6,9 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class CommenceNightly : MonoBehaviour {
 
+	public MapSceneManager mapManager;
+
 	ActivityParticipation actPart;
 
-	//[SerializeField] GameObject hero;
+	[SerializeField] GameObject hero;
 	//[SerializeField] GameObject sidekick = null;
 
 	//Hero script references
@@ -23,8 +25,9 @@ public class CommenceNightly : MonoBehaviour {
 
 
 	private void Start() {
+		mapManager = GameObject.Find("MapSceneManager").GetComponent<MapSceneManager>();
 		actPart = GetComponent<ActivityParticipation>();
-		//hero = GameObject.FindGameObjectWithTag("Player");
+		hero = GameObject.FindGameObjectWithTag("Player");
 		//heroStats = hero.GetComponent<StatsPlayer>();
 
 		//sidekick = GameObject.FindGameObjectWithTag("Sidekick");
@@ -44,7 +47,14 @@ public class CommenceNightly : MonoBehaviour {
 //Just an "else" statement? If there are only two options -- This way seems ok to me
 		else {
 			if (actPart.heroToggle1.isOn || actPart.sideToggle1.isOn) {
-				KickSomeAss(NightManager.activitySceneToLoad);
+				if (NightHighTierManager.activitySceneToLoad != null && mapManager.mapLoc == mapManager.currentLocation) {
+					Debug.Log("Loading high-tier activity");
+					KickSomeAss(NightHighTierManager.activitySceneToLoad);
+				}
+				else {
+					Debug.Log("Loading normal-tier activity");
+					KickSomeAss(NightManager.activitySceneToLoad);
+				}
 			}
 			if (actPart.heroToggle2.isOn || actPart.sideToggle2.isOn) {
 				SearchForClues(actPart.heroToggle2, actPart.sideToggle2);

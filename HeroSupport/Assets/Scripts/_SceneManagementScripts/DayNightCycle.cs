@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DayNightCycle : MonoBehaviour {
+	static DayNightCycle instance;
 
 	Light cycleLight;
 	//[SerializeField] GameObject hero;
@@ -10,8 +11,8 @@ public class DayNightCycle : MonoBehaviour {
 
 //	Color nightColor;
 
-	[SerializeField] float transition = 0f;
-	float transitionSpeed = .1f;
+	public float transition = 0f;
+	float transitionSpeed = .05f;
 
 	float startYRot = 180f;
 	float locYRot = 0f;
@@ -20,6 +21,17 @@ public class DayNightCycle : MonoBehaviour {
 	public bool dayTime = false;
 	public bool isDawn = false;
 	public bool isDusk = false;
+
+
+	void Awake() {
+		if (instance != null && instance != this) {
+			Destroy(this.gameObject);
+		}
+		else {
+			instance = this;
+		}
+		DontDestroyOnLoad(this.gameObject);
+	}
 
 
 	void Start () {
