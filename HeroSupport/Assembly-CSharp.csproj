@@ -63,6 +63,8 @@
     <Compile Include="Assets\GameManager.cs" />
     <Compile Include="Assets\HealthBar.cs" />
     <Compile Include="Assets\HideoutManager.cs" />
+    <Compile Include="Assets\NodeDetails.cs" />
+    <Compile Include="Assets\NodeManager.cs" />
     <Compile Include="Assets\PlayerInteracting.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\ActivityParticipation.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\ArenaSceneManagement.cs" />
@@ -98,6 +100,8 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\ObjectCivilian.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\ObjectEnemy.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\ObjectEntity.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\ObjectLocation.cs" />
+    <Compile Include="Assets\Scripts\ScriptableObjects\ObjectMapNode.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\ObjectPlayer.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\ObjectSidekick.cs" />
     <Compile Include="Assets\StatsSidekick.cs" />

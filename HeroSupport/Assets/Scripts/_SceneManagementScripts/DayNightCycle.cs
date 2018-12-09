@@ -12,7 +12,7 @@ public class DayNightCycle : MonoBehaviour {
 //	Color nightColor;
 
 	public float transition = 0f;
-	float transitionSpeed = .05f;
+	float transitionSpeed = .25f;
 
 	float startYRot = 180f;
 	float locYRot = 0f;
@@ -65,6 +65,8 @@ public class DayNightCycle : MonoBehaviour {
 			dayTime = true;
 			//During the frame in which it actually BECOMES Day
 			if (!isDawn) {
+//TODO Here is where I should trigger a "DaylightCome" event for all scripts listening (MapSceneManager, NodeManager)
+//It should also disable/reset any of the still-active high-tier activities going on in the city
 				isDawn = true;
 				isDusk = false;
 			}
@@ -73,8 +75,6 @@ public class DayNightCycle : MonoBehaviour {
 			dayTime = false;
 			//During the frame in which it actually BECOMES night
 			if (!isDusk) {
-				NightManager.SetCrimeRates();
-
 				isDusk = true;
 				isDawn = false;
 			}

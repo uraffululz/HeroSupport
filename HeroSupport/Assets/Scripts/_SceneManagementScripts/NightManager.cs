@@ -9,12 +9,14 @@ public static class NightManager {
 
 	public static string activitySceneToLoad;
 
+	public static string gangInvolved;
+
 	public static int crimeRate;
 
 	public static string crimeStars;
 
 	public static string activity;
-	static string[] activities = new string[] { "Arson", "Assault", "Bank Robbery", "Burglary", "Kidnapping", "Mugging", "Robbery", "Runaway Train" };
+	static string[] activities = new string[] { "Assault", "Burglary", "Car Theft", "Gang War", "Mugging", "Robbery", "Runaway Train" };
 
 	public static int enemyHPBonus = 0;
 	public static int enemyFPBonus = 0;
@@ -28,16 +30,17 @@ public static class NightManager {
 	public static int baseNotoriety = 0;
 
 
-	public static void SetCrimeRates () {
+	public static void SetCrimeRates (string gangInControl) {
+		gangInvolved = gangInControl;
+
 		crimeStars = "";
-	
 		crimeRate = Random.Range(1, 6);
-		
 		for (int i = 1; i <= crimeRate; i++) {
 			crimeStars += "*";
 		}
 	
 		activity = activities[Random.Range(0, activities.Length)];
+		Debug.Log(activity);
 
 		SetActivityParameters(activity, enemyHPBonus, enemyFPBonus, enemyStrBonus, enemyAgiBonus, enemyIntBonus,
 			crimeRate, baseFatigueDmg, baseStressDmg, baseNotoriety);
@@ -53,15 +56,9 @@ public static class NightManager {
 		//For now, I just want to keep going, but it's something to keep in mind
 		
 		switch (thisActivity) {
-	/*		case "Arson":
-				break;
-			case "Assault":
-				break;
-			case "Bank Robbery":
+	/*		case "Assault":
 				break;
 			case "Burglary":
-				break;
-			case "Kidnapping":
 				break;
 			case "Mugging":
 				break;
@@ -123,5 +120,22 @@ public static class NightManager {
 			enemyIntBonus = intBonus;
 			baseFatigueDmg = fatigue;
 			baseStressDmg = stress;
+
+		//Debug.Log("Activity parameters set");
+	}
+
+
+	static void ResetValues() {
+		enemyHPBonus = 0;
+		enemyFPBonus = 0;
+
+		enemyStrBonus = 0;
+		enemyAgiBonus = 0;
+		enemyIntBonus = 0;
+
+		baseFatigueDmg = 0;
+		baseStressDmg = 0;
+
+		baseNotoriety = 0;
 	}
 }

@@ -17,6 +17,7 @@ public class ClueUIManager : MonoBehaviour {
 	//StatsPlayer sideStats;
 
 	[SerializeField] Image clueDisplay;
+	[SerializeField] Text gangText;
 	[SerializeField] Text locationClueText1;
 	[SerializeField] Text locationClueText2;
 	[SerializeField] Text locationClueText3;
@@ -35,6 +36,9 @@ public class ClueUIManager : MonoBehaviour {
 
 
 	void Start () {
+		if (ClueMaster.eventOngoing) {
+			gangText.text = (ClueMaster.gangInvolvedInEvent + " is planning something");
+		}
 		locationClueText1.text = ClueMaster.knownLocationClues[0];
 		locationClueText2.text = ClueMaster.knownLocationClues[1];
 		locationClueText3.text = ClueMaster.knownLocationClues[2];
@@ -167,7 +171,7 @@ public class ClueUIManager : MonoBehaviour {
 		}
 
 		if (ClueMaster.matchLocation && ClueMaster.matchTarget && ClueMaster.matchAttackType) {
-			ClueMaster.EventSuccess();
+			ClueMaster.EventUncovered();
 			EndEventUI();
 		}
 		else {

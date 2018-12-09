@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public static class ClueMaster {
 
 	public static bool eventOngoing = false;
+	public static bool eventUncovered = false;
 
 	public static bool matchLocation = false;
 	public static bool matchTarget = false;
@@ -14,7 +15,11 @@ public static class ClueMaster {
 
 	public static int maxNumberOfClues = 9;
 	public static int numberOfCluesFound = 0;
+	public static string mostRecentClue = "";
 	public static List<int> clueTypes = new List<int>();
+
+	public static string[] gangs = new string[] {"The Jackals", "The Clone Army", "The Ember-kin"};
+	public static string gangInvolvedInEvent;
 
 	//TODO I only really want to use Locations OR targets. Seems weird/redundant to use both.
 	//What do I use in place of the other, then? I want to have at least 3 categories of clues.
@@ -22,11 +27,12 @@ public static class ClueMaster {
 
 	//Declaring and initializing LOCATION clue variables
 	static int whichLocation = 0;
+//TODO Add more locations: Amphitheater, Sport Stadium, Clock Tower, Subway Terminal, Museum, Local News Station, General Hospital
 	//TOPROBABLYDO I could clean this up a bit by just merging these two arrays \/ into a single 2-dimensional array,
 	//with the location NAME taking the place of the [0] index of the second dimension, and the clues taking the places of [1] - [4]
 	//I would just need to switch some 0's to 1's below, when "finding clues" and change the array references of the deleted array to the new one
 	static string[] locations = new string[6]
-		{"Bridge", "City Hall", "College Campus","First Bank", "Int. Corp. HQ", "Police Station" };
+		{"Bridge", "City Hall", "College Campus","First Bank", "International Corporation HQ", "Police Station" };
 	static string[,] locationClues = new string[6/*Same # as locations[]*/,3]
 		{/*[0] Bridge*/{"Bridge clue #1", "Bridge clue #2", "Bridge clue #3" },
 			/*[1] City Hall*/{"Government Building", "City Hall clue #2", "City Hall clue #3" },
@@ -79,6 +85,10 @@ public static class ClueMaster {
 	//This is run when the player finds their FIRST CLUE during random nightly activities, and the event is initialized
 	public static void ChooseEventParameters () {
 		eventOngoing = true;
+
+		//Determine WHO IS PLANNING the event
+		gangInvolvedInEvent = gangs[Random.Range(0, gangs.Length)];
+
 		//Determine WHERE the event will take place
 		whichLocation = Random.Range(0, locations.Length);
 		//Debug.Log("Location # " + whichLocation);
@@ -147,6 +157,7 @@ public static class ClueMaster {
 		knownLocationClues[locationCluesFound] = relevantLocationclues[clueNum];
 		relevantLocationclues.RemoveAt(clueNum);
 
+		mostRecentClue = knownLocationClues[locationCluesFound];
 		Debug.Log("You found a LOCATION clue: " + knownLocationClues[locationCluesFound]);
 		locationCluesFound++;
 	}
@@ -157,6 +168,7 @@ public static class ClueMaster {
 		knownTargetClues[targetCluesFound] = relevantTargetclues[clueNum];
 		relevantTargetclues.RemoveAt(clueNum);
 
+		mostRecentClue = knownTargetClues[targetCluesFound];
 		Debug.Log("You found a TARGET clue: " + knownTargetClues[targetCluesFound]);
 		targetCluesFound++;
 	}
@@ -167,13 +179,20 @@ public static class ClueMaster {
 		knownAttackTypeClues[attackTypeCluesFound] = relevantAttackTypeclues[clueNum];
 		relevantAttackTypeclues.RemoveAt(clueNum);
 
+		mostRecentClue = knownAttackTypeClues[attackTypeCluesFound];
 		Debug.Log("You found an ATTACK TYPE clue: " + knownAttackTypeClues[attackTypeCluesFound]);
 		attackTypeCluesFound++;
 	}
 
 
+	public static void EventUncovered() {
+		Debug.Log("You uncovered the event!");
+		eventUncovered = true;
+	}
+
+
 	public static void EventSuccess() {
-		Debug.Log("You completed the event!");
+		Debug.Log("You successfully completed the event");
 
 		EndEvent();
 	}
@@ -186,17 +205,21 @@ public static class ClueMaster {
 	}
 
 
-	static void EndEvent() {
-//TODO Make sure that all event parameters are reset once the event is ended
+	public static void EndEvent() {
+		//TODO Make sure that all event parameters are reset once the event is ended
+		eventOngoing = false;
+		eventUncovered = false;
+		NightHighTierManager.isEvent = false;
+
 		matchLocation = false;
 		matchTarget = false;
 		matchAttackType = false;
-		eventOngoing = false;
 
 		numberOfCluesFound = 0;
 		locationCluesFound = 0;
 		targetCluesFound = 0;
 		attackTypeCluesFound = 0;
+		mostRecentClue = "";
 
 		relevantLocationclues.Clear();
 		relevantTargetclues.Clear();

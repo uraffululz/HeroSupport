@@ -30,9 +30,15 @@ public class StatsEnemy : MonoBehaviour {
 	void Awake () {
 		GetComponent<MeshFilter>().mesh = enemyObject.mesh;
 
-		maxHP = enemyObject.health + NightManager.enemyHPBonus;
+		if (NightHighTierManager.isHighTierActivityHere) {
+			maxHP = enemyObject.health + NightHighTierManager.enemyHPBonus;
+			FP = enemyObject.focus + NightHighTierManager.enemyFPBonus;
+		}
+		else {
+			maxHP = enemyObject.health + NightManager.enemyHPBonus;
+			FP = enemyObject.focus + NightManager.enemyFPBonus;
+		}
 		currentHP = maxHP;
-		FP = enemyObject.focus + NightManager.enemyFPBonus;
 		FPRegen = enemyObject.focusRegenRate;
 
 		speed = enemyObject.moveSpeed;

@@ -4,17 +4,21 @@ using UnityEngine;
 
 [System.Serializable]
 public static class NightHighTierManager {
+	public static bool isHighTierActivityHere = false;
+	public static bool isEvent = false;
 
 	public static string activitySceneToLoad;
 
+	public static string gangInvolved;
+
 	public static int crimeRate;
+	static bool HTCrimeRateSet = false;
+	static int eventCrimeRate;
+	static bool eventCrimeRateSet = false;
 
 	public static string crimeStars;
 
 	public static string activity;
-
-//Deprecated. Just keeping for reference
-	//static string[] activities = new string[] { "Arson", "Assault", "Bank Robbery", "Burglary", "Kidnapping", "Mugging", "Robbery", "Runaway Train" };
 
 	public static int enemyHPBonus = 0;
 	public static int enemyFPBonus = 0;
@@ -28,14 +32,41 @@ public static class NightHighTierManager {
 	public static int baseNotoriety = 0;
 
 
-	public static void SetHTCrimeRates(string myHTActivity) {
-		crimeStars = "";
+	public static void SetHTCrimeRates(string myHTActivity, bool isAnEvent, string gangInControl) {
+		isEvent = isAnEvent;
 
-		crimeRate = Random.Range(1, 6);
+		gangInvolved = gangInControl;
 
-		for (int i = 1; i <= crimeRate; i++) {
-			crimeStars += "*";
+		if (isEvent) {
+			if (!eventCrimeRateSet) {
+				eventCrimeRate = Random.Range(1, 6);
+				
+				eventCrimeRateSet = true;
+			}
+			crimeStars = "";
+			for (int i = 1; i <= eventCrimeRate; i++) {
+				crimeStars += "*";
+			}
 		}
+		else {
+			if (isHighTierActivityHere) {
+				if (!HTCrimeRateSet) {
+					crimeRate = Random.Range(1, 6);
+
+					HTCrimeRateSet = true;
+				}
+				crimeStars = "";
+				for (int i = 1; i <= crimeRate; i++) {
+					crimeStars += "*";
+				}
+			}
+			else {
+				//Abort, because this script shouldn't have been called in the first place if there is no HTActivity or Event here
+				Debug.Log("This script shouldn't have been called. Find out why.");
+				return;
+			}
+		}
+		
 
 		activity = myHTActivity;
 
@@ -55,28 +86,36 @@ public static class NightHighTierManager {
 		switch (thisActivity) {
 			/*		case "Arson":
 						break;
-					case "Assault":
-						break;
 					case "Bank Robbery":
 						break;
-					case "Burglary":
+					case "Bomb Threat":
+						break;
+					case "Chemical Attack":
 						break;
 					case "Kidnapping":
 						break;
-					case "Mugging":
-						break;
-					case "Robbery":
-						break;
-					case "Runaway Train":
+					case "Mass Shooting":
 						break;
 			*/
 			default:
-				activitySceneToLoad = "SampleActivityArena";
-				HPBonus = 10; FPBonus = 10; //Later, formulate these based on the activity's difficulty
-											//Not really sure if enemies should have these stats: strBonus = 1; agiBonus = 1; intBonus = 1;
-				fatigue = difficulty; stress = difficulty;
-				notoriety = 10 * difficulty;
+				if (isEvent) {
+					//activitySceneToLoad = "SampleEventActivityScene";
+					//TODO Adjust other "stat bonuses" and variables
+					HPBonus = 30; FPBonus = 30; notoriety = 30 * difficulty;
+				}
+				else {
+					activitySceneToLoad = "SampleActivityArena";
+					HPBonus = 20; FPBonus = 20; //Later, formulate these based on the activity's difficulty
+//Not really sure if enemies should have these stats: strBonus = 1; agiBonus = 1; intBonus = 1;
+					//fatigue = difficulty; stress = difficulty;
+					notoriety = 10 * difficulty;
+				}
+				
 				break;
+		}
+
+		if (isEvent) {
+			Debug.Log("An event is happening here! Get ready!");
 		}
 
 
@@ -121,7 +160,28 @@ public static class NightHighTierManager {
 		enemyStrBonus = strBonus;
 		enemyAgiBonus = agiBonus;
 		enemyIntBonus = intBonus;
-		baseFatigueDmg = fatigue;
-		baseStressDmg = stress;
+		//baseFatigueDmg = fatigue;
+		//baseStressDmg = stress;
+
+		//Debug.Log("High-Tier parameters set");
+	}
+
+
+	public static void ResetValues() {
+		isHighTierActivityHere = false;
+		HTCrimeRateSet = false;
+		eventCrimeRateSet = false;
+
+		enemyHPBonus = 0;
+		enemyFPBonus = 0;
+
+		enemyStrBonus = 0;
+		enemyAgiBonus = 0;
+		enemyIntBonus = 0;
+
+		baseFatigueDmg = 0;
+		baseStressDmg = 0;
+
+		baseNotoriety = 0;
 	}
 }

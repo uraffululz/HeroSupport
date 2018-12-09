@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7489919c89c6ed746857dae3bc4c8cbd, type: 3}
+  m_Name: Northbank
+  m_EditorClassIdentifier: 
+  gangInCharge: The Clone Army
+  landmarks:
+  - College Campus
+  - Police Station
+  lm1HPBonus: 0
+  lm1FPBonus: 0
+  lm2HPBonus: 0
+  lm2FPBonus: 0

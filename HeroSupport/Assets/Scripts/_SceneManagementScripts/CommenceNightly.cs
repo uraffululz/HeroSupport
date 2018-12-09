@@ -10,7 +10,7 @@ public class CommenceNightly : MonoBehaviour {
 
 	ActivityParticipation actPart;
 
-	[SerializeField] GameObject hero;
+	//[SerializeField] GameObject hero;
 	//[SerializeField] GameObject sidekick = null;
 
 	//Hero script references
@@ -27,7 +27,7 @@ public class CommenceNightly : MonoBehaviour {
 	private void Start() {
 		mapManager = GameObject.Find("MapSceneManager").GetComponent<MapSceneManager>();
 		actPart = GetComponent<ActivityParticipation>();
-		hero = GameObject.FindGameObjectWithTag("Player");
+		//hero = GameObject.FindGameObjectWithTag("Player");
 		//heroStats = hero.GetComponent<StatsPlayer>();
 
 		//sidekick = GameObject.FindGameObjectWithTag("Sidekick");
@@ -47,7 +47,7 @@ public class CommenceNightly : MonoBehaviour {
 //Just an "else" statement? If there are only two options -- This way seems ok to me
 		else {
 			if (actPart.heroToggle1.isOn || actPart.sideToggle1.isOn) {
-				if (NightHighTierManager.activitySceneToLoad != null && mapManager.mapLoc == mapManager.currentLocation) {
+				if (NightHighTierManager.isHighTierActivityHere && NightHighTierManager.activitySceneToLoad != null && mapManager.mapLoc == mapManager.currentLocation) {
 					Debug.Log("Loading high-tier activity");
 					KickSomeAss(NightHighTierManager.activitySceneToLoad);
 				}

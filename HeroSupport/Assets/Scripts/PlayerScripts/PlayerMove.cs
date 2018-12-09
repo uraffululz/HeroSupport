@@ -26,7 +26,7 @@ public class PlayerMove : MonoBehaviour {
 	levelLevel myLevel;
 
 
-	private void Awake() {
+	void Awake() {
 		
 	}
 
@@ -39,7 +39,7 @@ public class PlayerMove : MonoBehaviour {
 		walkSpeed = StatsPlayer.valueAgi / 2;
 		runSpeed = StatsPlayer.valueAgi;
 
-		transform.position = Vector3.zero;
+		//transform.position = Vector3.zero;
 	}
 	
 

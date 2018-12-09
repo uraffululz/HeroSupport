@@ -6,37 +6,38 @@ using UnityEngine.UI;
 public class ComputerDisplay : MonoBehaviour {
 	ActivityParticipation actPart;
 
-	[SerializeField] DayNightCycle lightCycle;
-	[SerializeField] GameObject hero;
-	[SerializeField] StatsPlayer heroStats;
+	//[SerializeField] DayNightCycle lightCycle;
+	//[SerializeField] GameObject hero;
+
 	Animator compAnim;
 
 	//public Text heroStatus;
 	public Text heroVitals;
+	public Text gangName;
 	public Text activity;
-	public Text activity2;
-	public Text activity3;
+	//public Text activity2;
 
-	//public Toggle selector1;
+	[SerializeField] Toggle selectorNightOff;
+	[SerializeField] Toggle selector1;
 	//public Toggle selector2;
-	//public Toggle selector3;
 	public Button commenceButton;
 	public Button backButton;
+
+	bool highTierHappening = false;
 
 
 	void Start () {
 		actPart = GetComponent<ActivityParticipation>();
 		compAnim = gameObject.GetComponent<Animator>();
 
-		hero = GameObject.FindGameObjectWithTag("Player");
-		heroStats = hero.GetComponent<StatsPlayer>();
+		//hero = GameObject.FindGameObjectWithTag("Player");
 	}
 
 
 	void Update () {
 		if (compAnim.GetBool("compActivated") == true) {
 			//These text components display the Hero's current stats and vitals
-//TODO Since I'm ACTIVELY playing as the Hero now, I don't really need this. However, I could use something similar for the sidekick
+//TODO Since I'm ACTIVELY playing as the Hero now, I don't really need this \/. However, I could use something similar for the sidekick
 			//heroStatus.text = "Hero Status: " + hero.GetComponent<NPCHero>().myActiveState.ToString();
 
 			heroVitals.text = "Hero Vitals: " + "S " + StatsPlayer.valueStr.ToString() + ", " + 
@@ -45,17 +46,34 @@ public class ComputerDisplay : MonoBehaviour {
 				"Fa " + StatsPlayer.currentFatigue.ToString() + ", " +
 				"St " + StatsPlayer.currentStress.ToString();
 
-			//These text components display the various activities available during the current night
-			if (NightHighTierManager.activity != null && NightHighTierManager.activity != "Blank") {
-				activity.text = ("Activity 1: Stop the " + NightHighTierManager.activity + NightHighTierManager.crimeStars);
+			//Disable the Commence button if the hero is taking the night off
+			if (selectorNightOff.isOn) {
+				commenceButton.interactable = false;
 			}
 			else {
-				activity.text = ("Activity 1: Stop the " + NightManager.activity + NightManager.crimeStars);
+				commenceButton.interactable = true;
 			}
-			//activity2.text = ("Activity 2: " + NightManager.activity2 + NightManager.crimeStars2);
-			//activity3.text = ("Activity 3: " + NightManager.activity3 + NightManager.crimeStars3);
 
-			//TODO If the hero and sidekick's "Taking night off" toggles are BOTH on, disable the commenceButton
+			//These text components display the various activities available during the current night
+			//TODO This doesn't seem to be updating while the player is standing at the location, even when a high-tier activity appears there. Find out why.
+			if (highTierHappening != NightHighTierManager.isHighTierActivityHere && !selector1.isOn) {
+				highTierHappening = !highTierHappening;
+			}
+
+			if (NightHighTierManager.isEvent) {
+				activity.text = ("Activity 1: Stop the " + NightHighTierManager.activity + NightHighTierManager.crimeStars);
+				activity.color = Color.green;
+			}
+			else if (highTierHappening) {
+				gangName.text = ("Gang: " + NightHighTierManager.gangInvolved);
+				activity.text = ("Activity 1: Stop the " + NightHighTierManager.activity + NightHighTierManager.crimeStars);
+				activity.color = Color.yellow;
+			}
+			else {
+				gangName.text = ("Gang: " + NightManager.gangInvolved);
+				activity.text = ("Activity 1: Stop the " + NightManager.activity + NightManager.crimeStars);
+				activity.color = Color.white;
+			}
 		}
 	}
 
@@ -64,7 +82,7 @@ public class ComputerDisplay : MonoBehaviour {
 		GetComponent<Animator>().SetBool("compActivated", true);
 		actPart.SetTogglesToDefault();
 
-		if (ClueMaster.eventOngoing) {
+		if (ClueMaster.eventOngoing && !ClueMaster.eventUncovered) {
 			actPart.activityText2.SetActive(true);
 		}
 		else {
