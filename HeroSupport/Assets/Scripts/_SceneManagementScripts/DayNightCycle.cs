@@ -12,7 +12,7 @@ public class DayNightCycle : MonoBehaviour {
 //	Color nightColor;
 
 	public float transition = 0f;
-	float transitionSpeed = .25f;
+	float transitionSpeed = .05f;
 
 	float startYRot = 180f;
 	float locYRot = 0f;

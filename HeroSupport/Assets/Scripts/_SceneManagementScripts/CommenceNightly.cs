@@ -47,7 +47,7 @@ public class CommenceNightly : MonoBehaviour {
 //Just an "else" statement? If there are only two options -- This way seems ok to me
 		else {
 			if (actPart.heroToggle1.isOn || actPart.sideToggle1.isOn) {
-				if (NightHighTierManager.isHighTierActivityHere && NightHighTierManager.activitySceneToLoad != null && mapManager.mapLoc == mapManager.currentLocation) {
+				if (NightHighTierManager.isHighTierActivityHere && NightHighTierManager.activitySceneToLoad != null && MapSceneManager.mapLoc == MapSceneManager.currentLocation) {
 					Debug.Log("Loading high-tier activity");
 					KickSomeAss(NightHighTierManager.activitySceneToLoad);
 				}

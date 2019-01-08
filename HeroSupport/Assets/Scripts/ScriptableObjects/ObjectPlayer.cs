@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Entity", menuName = "New Entity Object/New Hero")]
 public class ObjectPlayer : ScriptableObject {
 
+	public string heroName;
+
 	public Mesh mesh;
 	public RuntimeAnimatorController animator;
 

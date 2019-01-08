@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour {
 
 	Camera thisCam;
 
-	[SerializeField]GameObject player;
+	[SerializeField] GameObject player;
 
 	public enum camStates {above, below, transitioning};
 	public camStates myCamState;

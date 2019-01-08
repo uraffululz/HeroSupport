@@ -14,9 +14,15 @@ public class MapSceneManager : MonoBehaviour {
 	PointerEventData UIRayEvent;
 	EventSystem eventSys;
 
+	[SerializeField] Image policeAlertBG;
+	[SerializeField] Text policeAlertText;
+	Color bgOnColor = new Color(1, 1, 1, .2f);
+	Color bgOffColor = new Color(1, 1, 1, 0f);
+
 	[SerializeField] List<GameObject> mapNodes;
-	public GameObject mapLoc;
-	public GameObject currentLocation;
+	public static GameObject mapLoc;
+	static int mapLocNum;
+	public static GameObject currentLocation;
 
 	GameObject player;
 	GameObject sidekick;
@@ -24,7 +30,8 @@ public class MapSceneManager : MonoBehaviour {
 	enum mapState {Idle, Grappling, Moving};
 	[SerializeField] mapState myMapState;
 
-	bool highTierActSet = false;
+	public static bool highTierActSet = false;
+	bool nightOver = false;
 
 
 	void Awake () {
@@ -50,9 +57,12 @@ public class MapSceneManager : MonoBehaviour {
 
 		myMapState = mapState.Idle;
 
-//TODO This is probably unnecessary at this point
+		policeAlertBG.color = bgOffColor;
+		policeAlertText.text = "";
+
+		//TODO This is probably unnecessary at this point
 		//Set the first nightly activity
-		NightManager.SetCrimeRates(ClueMaster.gangs[Random.Range(0, ClueMaster.gangs.Length)]);
+		//NightManager.SetCrimeRates(ClueMaster.gangs[Random.Range(0, ClueMaster.gangs.Length)]);
 	}
 
 
@@ -107,35 +117,55 @@ public class MapSceneManager : MonoBehaviour {
 		if (dayNightLight != null) {
 			DayNightCycle DNCycle = dayNightLight.GetComponent<DayNightCycle>();
 
-			if (DNCycle.dayTime == true) {
+			if (DNCycle.dayTime && !nightOver) {
 //TODO Have this trigger the "DaylightCome" event on the DayNightCycle script (Not implemented yet), and move all of these related processes,
 //including the "OpenDaylightReturnUI" method, into that event trigger method somewhere below on this script
 				highTierActSet = false;
 				NightHighTierManager.ResetValues();
+				if (currentLocation != null) {
+					NightManager.SetCrimeRates(currentLocation.GetComponent<NodeDetails>().gangName);
+				}
 				foreach (GameObject node in mapNodes) {
-					node.GetComponent<NodeDetails>().myHighTierActivity = "";
+					//NodeDetails.myHighTierActivity = "";
 					node.GetComponent<MeshRenderer>().material.color = node.GetComponent<NodeDetails>().gangColor;
 				}
+				policeAlertBG.color = bgOffColor;
+				policeAlertText.text = "";
 				//StartCoroutine("OpenDaylightReturnUI");
+				nightOver = true;
 			}
-			else if (DNCycle.transition > .1f && DNCycle.isDusk && highTierActSet == false) {
+			else if (DNCycle.transition > .01f && !DNCycle.dayTime) {
 				//Once per night (for now), determine if there are any high-tier activities happening in the city
-				mapLoc = mapNodes[Random.Range(0, mapNodes.Count)];
+
+				if (!highTierActSet) {
+					mapLocNum = Random.Range(0, mapNodes.Count);
+				}
+
+				mapLoc = mapNodes[mapLocNum];
 				NodeDetails nodeDeets = mapLoc.GetComponent<NodeDetails>();
 
-				if (!nodeDeets.isEventHappeningHere) {
-					nodeDeets.myHighTierActivity = nodeDeets.highTierActivities[Random.Range(0, nodeDeets.highTierActivities.Length)];
+				if (!highTierActSet && !nodeDeets.isEventHappeningHere) {
+					NodeDetails.myHighTierActivity = nodeDeets.highTierActivities[Random.Range(0, nodeDeets.highTierActivities.Length)];
+				}
 
-					if (nodeDeets.myHighTierActivity != null && nodeDeets.myHighTierActivity != "Blank") {
-						mapLoc.GetComponent<MeshRenderer>().material.color = Color.yellow;
-						Debug.Log("High-Tier Activity happening at " + mapLoc.name + ": " + nodeDeets.myHighTierActivity);
-					}
-					else {
-						Debug.Log("No high-tier activity happening tonight.");
-					}
+				if (NodeDetails.myHighTierActivity != null && NodeDetails.myHighTierActivity != "" && NodeDetails.myHighTierActivity != "Blank") {
+					mapLoc.GetComponent<MeshRenderer>().material.color = Color.yellow;
+
+					policeAlertBG.color = bgOnColor;
+					policeAlertText.color = Color.yellow;
+					policeAlertText.text = (StatsPlayer.myName + "! We need your assistance! There is a " +
+						NodeDetails.myHighTierActivity + " happening at the " + nodeDeets.myLandmark);
+
+					//Debug.Log("High-Tier Activity happening at " + mapLoc.name + ": " + nodeDeets.myHighTierActivity);
+				}
+				else {
+					policeAlertBG.color = bgOffColor;
+					policeAlertText.text = "";
+					Debug.Log("No high-tier activity happening tonight.");
 				}
 
 				highTierActSet = true;
+				nightOver = false;
 			}
 		}
 	}
@@ -152,8 +182,17 @@ public class MapSceneManager : MonoBehaviour {
 
 	public void ReturnToHideout () {
 		Time.timeScale = 1f;
-		highTierActSet = false;
-		NightHighTierManager.ResetValues();
+		//highTierActSet = false;
+		//NightHighTierManager.ResetValues();
 		SceneManager.LoadScene("HideoutScene");
+	}
+
+
+	public static void ResetHighTier () {
+		mapLoc = null;
+		currentLocation = null;
+		highTierActSet = false;
+
+		NodeDetails.myHighTierActivity = null;
 	}
 }

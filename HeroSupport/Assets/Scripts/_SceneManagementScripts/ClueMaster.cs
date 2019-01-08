@@ -27,23 +27,29 @@ public static class ClueMaster {
 
 	//Declaring and initializing LOCATION clue variables
 	static int whichLocation = 0;
-//TODO Add more locations: Amphitheater, Sport Stadium, Clock Tower, Subway Terminal, Museum, Local News Station, General Hospital
+//TOMAYBEDO Add more locations: Subway Terminal, etc.
 	//TOPROBABLYDO I could clean this up a bit by just merging these two arrays \/ into a single 2-dimensional array,
 	//with the location NAME taking the place of the [0] index of the second dimension, and the clues taking the places of [1] - [4]
 	//I would just need to switch some 0's to 1's below, when "finding clues" and change the array references of the deleted array to the new one
-	static string[] locations = new string[6]
-		{"Bridge", "City Hall", "College Campus","First Bank", "International Corporation HQ", "Police Station" };
-	static string[,] locationClues = new string[6/*Same # as locations[]*/,3]
-		{/*[0] Bridge*/{"Bridge clue #1", "Bridge clue #2", "Bridge clue #3" },
+	static string[] locations = new string[]
+		{"Amphitheater", "City Hall", "Clock Tower", "College Campus","First Bank", "Hospital", "International Corporation HQ",
+			"Museum", "News Station", "Police Station" };
+	static string[,] locationClues = new string[10/*Same # as locations[]*/,3]
+		{/*[0] Amphitheater*/{"Amphitheater clue #1", "Amphitheater clue #2", "Amphitheater clue #3" },
 			/*[1] City Hall*/{"Government Building", "City Hall clue #2", "City Hall clue #3" },
-			/*[2] College Campus*/{"Expansive", "Populated Area", "Several buildings"},
-			/*[3] First Bank*/{"Financial Building", "First Bank clue #2", "First Bank clue #3" },
-			/*[4] International Corp. HQ*/{"Tall Building", "Financial Building", "Int. Corp. HQ clue #3" }, 
-			/*[5] Police Station*/{"Government Building", "Police Station clue #2", "Police Station clue #3" }
+			/*[2] Clock Tower*/{"Clock Tower clue #1",  "Clock Tower clue #2", "Clock Tower clue #3"},
+			/*[3] College Campus*/{"Expansive", "Populated Area", "Several buildings"},
+			/*[4] First Bank*/{"Financial Building", "First Bank clue #2", "First Bank clue #3" },
+			/*[5] Hospital*/{"Medical Building", "Hospital clue #2", "Hospital clue #3" },
+			/*[6] International Corp. HQ*/{"Tall Building", "Financial Building", "Int. Corp. HQ clue #3" }, 
+			/*[7] Museum*/{"Museum clue #1", "Museum clue #2", "Museum clue #3" },
+			/*[8] News Station*/{"News Station clue #1", "News Station clue #2", "News Station clue #3" },
+			/*[9] Police Station*/{"Government Building", "Police Station clue #2", "Police Station clue #3" }
 		};
 	public static List<string> relevantLocationclues = new List<string>();
 	public static string[] knownLocationClues = new string[3] { "", "", "" };
 	public static int locationCluesFound = 0;
+
 
 	//Declaring and initializing TARGET clue variables
 	static int whichTarget = 0;
@@ -59,14 +65,19 @@ public static class ClueMaster {
 	public static string[] knownTargetClues = new string[3] { "", "", "" };
 	public static int targetCluesFound = 0;
 
+
 	//Declaring and initializing ATTACKTYPE clue variables
 	static int whichAttackType = 0;
-	static string[] attackTypes = new string[] { "Bombing", "Chemical Attack", "Shooting", "Sniper" };
-	static string[,] attackTypeClues = new string[4/*Same # as targets[]*/, 3]
-		{/*[0] Bombing */{"Bombing clue #1","Bombing clue #2","Bombing clue #3"},
-			/*[1] Chemical Attack*/ {"Chemical Attack clue #1","Chemical Attack clue #2","Chemical Attack clue #3"},
-			/*[2] Shooting*/ {"Shooting clue #1","Shooting clue #2","Shooting clue #3"},
-			/*[3] Sniper*/ {"Sniper clue #1","Sniper clue #2","Sniper clue #3"}
+	static string[] attackTypes = new string[] {"Arson", "Bomb Threat", "Chemical Attack", "Hostage Situation", "Kidnapping",
+												"Mass Shooting", "Robbery"};
+	static string[,] attackTypeClues = new string[7/*Same # as targets[]*/, 3]
+		{/*[0] Arson*/{"Arson clue #1","Arson clue #2","Arson clue #3"},
+			/*[1] Bomb Threat */{"Bomb Threat clue #1","Bomb Threat clue #2","Bomb Threat clue #3"},
+			/*[2] Chemical Attack*/ {"Chemical Attack clue #1","Chemical Attack clue #2","Chemical Attack clue #3"},
+			/*[3] Hostage Situation*/ {"Hostage Situation clue #1","Hostage Situation clue #2","Hostage Situation clue #3"},
+			/*[4] Kidnapping*/ {"Kidnapping clue #1", "Kidnapping clue #2", "Kidnapping clue #3"},
+			/*[5] Mass Shooting*/ {"Mass Shooting clue #1","Mass Shooting clue #2","Mass Shooting clue #3"},
+			/*[6] Robbery*/ {"Robbery clue #1","Robbery clue #2","Robbery clue #3"}
 		};
 	public static List<string> relevantAttackTypeclues = new List<string>();
 	public static string[] knownAttackTypeClues = new string[3] { "", "", "" };

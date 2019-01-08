@@ -16,7 +16,7 @@ public static class NightManager {
 	public static string crimeStars;
 
 	public static string activity;
-	static string[] activities = new string[] { "Assault", "Burglary", "Car Theft", "Gang War", "Mugging", "Robbery", "Runaway Train" };
+	static string[] activities = new string[] { "Assault", "Burglary", "Car Theft", "Gang War", "Mugging", "Robbery", "Runaway Train", "Vandalism"};
 
 	public static int enemyHPBonus = 0;
 	public static int enemyFPBonus = 0;

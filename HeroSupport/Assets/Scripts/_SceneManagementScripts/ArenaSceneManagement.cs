@@ -32,7 +32,8 @@ public class ArenaSceneManagement : MonoBehaviour {
 		sidekick = GameObject.FindWithTag("Sidekick");
 
 		if (player != null) {
-			player.transform.position = Vector3.zero;
+			Vector3 playerSpawnPos = new Vector3(10, 0, 10);
+			player.transform.position = playerSpawnPos;
 			player.GetComponent<HeroActivity>().enabled = true;
 			player.GetComponent<HeroAttack>().enabled = true;
 			player.GetComponent<PlayerInteracting>().enabled = false; //until I can figure out how to use the "scene loading" events
@@ -61,8 +62,8 @@ public class ArenaSceneManagement : MonoBehaviour {
 	void SpawnCivilians () {
 		for (int i = 0; i < civSpawnNum; i++) {
 			//TOMAYBEDO Adjust the civilian spawn points to that they are closer to an enemy (May need to declare their lists up here first)
-			float civSpawnX = Random.Range(-10, 10);
-			float civSpawnZ = Random.Range(-10, 10);
+			float civSpawnX = Random.Range(0, 20);
+			float civSpawnZ = Random.Range(0, 20);
 			Vector3 civSpawnPoint = new Vector3(civSpawnX, 0, civSpawnZ);
 
 			GameObject spawnedCiv = Instantiate(civilianPrefab, civSpawnPoint, Quaternion.identity);
@@ -73,8 +74,8 @@ public class ArenaSceneManagement : MonoBehaviour {
 
 	void SpawnEnemies () {
 		for (int i = 0; i < enemySpawnNum; i++) {
-			float enemySpawnX = Random.Range(-10, 10);
-			float enemySpawnZ = Random.Range(-10, 10);
+			float enemySpawnX = Random.Range(0, 20);
+			float enemySpawnZ = Random.Range(0, 20);
 			Vector3 enemySpawnPoint = new Vector3(enemySpawnX, 0, enemySpawnZ);
 
 			GameObject spawnedEnemy = Instantiate(enemyPrefab, enemySpawnPoint, Quaternion.identity);
@@ -125,6 +126,12 @@ public class ArenaSceneManagement : MonoBehaviour {
 
 
 	void FinishActivity() {
+		if (MapSceneManager.currentLocation == MapSceneManager.mapLoc && NodeDetails.myHighTierActivity != null &&
+									NodeDetails.myHighTierActivity != "" && NodeDetails.myHighTierActivity != "Blank") {
+
+			MapSceneManager.ResetHighTier();
+		}
+
 		//Display "activity completion" UI menu
 		completionDisplay.GetComponent<Animator>().SetBool("compActivated", true);
 

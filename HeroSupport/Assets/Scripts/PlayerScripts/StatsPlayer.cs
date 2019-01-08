@@ -5,6 +5,8 @@ using UnityEngine;
 public class StatsPlayer : MonoBehaviour {
 	[SerializeField] ObjectPlayer playerObject;
 
+	public static string myName;
+
 //Functional Stat Variables (for calling/comparing via other scripts)
 	public static int valueStr { get; private set; }
 	public static int valueAgi { get; private set; }
@@ -47,6 +49,7 @@ public class StatsPlayer : MonoBehaviour {
 
 
 	void Awake () {
+		myName = playerObject.heroName;
 		InitializeStats();
 		UpdateStats();
 	}

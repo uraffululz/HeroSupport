@@ -31,9 +31,11 @@ public class CivilianActivity : MonoBehaviour {
 	}
 
 	private void OnTriggerEnter(Collider other) {
-		if (other.tag == "EnemyAttack") {
-			civStats.HP -= other.GetComponentInParent<StatsEnemy>().damage;
-			if (civStats.HP <= 0) {
+		if (other.CompareTag("EnemyAttack")) {
+			civStats.TakeDamage(other.GetComponentInParent<StatsEnemy>().damage);
+			//civStats.currentHP -= other.GetComponentInParent<StatsEnemy>().damage;
+
+			if (civStats.currentHP <= 0) {
 				//other.GetComponentInParent<EnemyActivity>().target = null;
 				Die();
 			}

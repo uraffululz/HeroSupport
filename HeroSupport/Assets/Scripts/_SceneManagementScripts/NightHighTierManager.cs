@@ -7,6 +7,7 @@ public static class NightHighTierManager {
 	public static bool isHighTierActivityHere = false;
 	public static bool isEvent = false;
 
+	public static string locationName;
 	public static string activitySceneToLoad;
 
 	public static string gangInvolved;
@@ -32,15 +33,17 @@ public static class NightHighTierManager {
 	public static int baseNotoriety = 0;
 
 
-	public static void SetHTCrimeRates(string myHTActivity, bool isAnEvent, string gangInControl) {
+	public static void SetHTCrimeRates(string myHTActivity, bool isAnEvent, string gangInControl, string HTActivityLocation) {
 		isEvent = isAnEvent;
 
-		gangInvolved = gangInControl;
 
 		if (isEvent) {
 			if (!eventCrimeRateSet) {
 				eventCrimeRate = Random.Range(1, 6);
-				
+				activity = myHTActivity;
+				locationName = HTActivityLocation;
+				gangInvolved = gangInControl;
+
 				eventCrimeRateSet = true;
 			}
 			crimeStars = "";
@@ -52,6 +55,9 @@ public static class NightHighTierManager {
 			if (isHighTierActivityHere) {
 				if (!HTCrimeRateSet) {
 					crimeRate = Random.Range(1, 6);
+					activity = myHTActivity;
+					locationName = HTActivityLocation;
+					gangInvolved = gangInControl;
 
 					HTCrimeRateSet = true;
 				}
@@ -68,12 +74,9 @@ public static class NightHighTierManager {
 		}
 		
 
-		activity = myHTActivity;
 
 		SetHTActivityParameters(activity, enemyHPBonus, enemyFPBonus, enemyStrBonus, enemyAgiBonus, enemyIntBonus,
 			crimeRate, baseFatigueDmg, baseStressDmg, baseNotoriety);
-
-		//Debug.Log(activity1 + " requires: " + reqStr1 + ", " + reqAgi1 + ", " + reqInt1 + ". Will damage Fatigue: " + baseFatigueDmg1 + " Stress: " + baseStressDmg1);
 	}
 
 
@@ -169,6 +172,8 @@ public static class NightHighTierManager {
 
 	public static void ResetValues() {
 		isHighTierActivityHere = false;
+		locationName = "";
+		activity = "";
 		HTCrimeRateSet = false;
 		eventCrimeRateSet = false;
 

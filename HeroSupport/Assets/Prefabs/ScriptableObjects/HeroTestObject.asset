@@ -11,6 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfa3615d131a81644ba0c48487f8014b, type: 3}
   m_Name: HeroTestObject
   m_EditorClassIdentifier: 
+  heroName: Hero
   mesh: {fileID: 4300000, guid: 256e42f44172c9c4293d0d6c0b164676, type: 3}
   animator: {fileID: 9100000, guid: b33ac992718956448bfac534acbb4313, type: 2}
   strength:

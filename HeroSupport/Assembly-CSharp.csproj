@@ -59,13 +59,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\EnemyHPBar.cs" />
-    <Compile Include="Assets\GameManager.cs" />
-    <Compile Include="Assets\HealthBar.cs" />
-    <Compile Include="Assets\HideoutManager.cs" />
-    <Compile Include="Assets\NodeDetails.cs" />
-    <Compile Include="Assets\NodeManager.cs" />
-    <Compile Include="Assets\PlayerInteracting.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\ActivityParticipation.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\ArenaSceneManagement.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\CameraController.cs" />
@@ -83,8 +76,15 @@
     <Compile Include="Assets\Scripts\_SceneManagementScripts\NightHighTierManager.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\NightManager.cs" />
     <Compile Include="Assets\Scripts\_SceneManagementScripts\SceneTransitionHideoutToMap.cs" />
+    <Compile Include="Assets\Scripts\CivHPBar.cs" />
     <Compile Include="Assets\Scripts\ConstructScripts\Bookshelf.cs" />
     <Compile Include="Assets\Scripts\ConstructScripts\ShutterDoor.cs" />
+    <Compile Include="Assets\Scripts\EnemyHPBar.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\HealthBar.cs" />
+    <Compile Include="Assets\Scripts\HideoutManager.cs" />
+    <Compile Include="Assets\Scripts\NodeDetails.cs" />
+    <Compile Include="Assets\Scripts\NodeManager.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\CivilianActivity.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\DialogueTrigger.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\EnemyActivity.cs" />
@@ -93,6 +93,7 @@
     <Compile Include="Assets\Scripts\NPCScripts\Stat.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\StatsCivilian.cs" />
     <Compile Include="Assets\Scripts\NPCScripts\StatsEnemy.cs" />
+    <Compile Include="Assets\Scripts\PlayerInteracting.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\HeroActivity.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\HeroAttack.cs" />
     <Compile Include="Assets\Scripts\PlayerScripts\PlayerMove.cs" />
@@ -104,7 +105,7 @@
     <Compile Include="Assets\Scripts\ScriptableObjects\ObjectMapNode.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\ObjectPlayer.cs" />
     <Compile Include="Assets\Scripts\ScriptableObjects\ObjectSidekick.cs" />
-    <Compile Include="Assets\StatsSidekick.cs" />
+    <Compile Include="Assets\Scripts\StatsSidekick.cs" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/Master/Documents/Git Repositories/Unity Projects/HeroSupport/HeroSupport/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>

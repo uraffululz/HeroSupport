@@ -23,8 +23,8 @@ public class StatsEnemy : MonoBehaviour {
 	public Object primaryAttack;
 	public Object secondaryAbility;
 
-	[SerializeField] GameObject HPBar;
-	GameObject myHPBar;
+	//[SerializeField] GameObject HPBar;
+	[SerializeField] GameObject myHPBar;
 
 
 	void Awake () {
@@ -53,7 +53,7 @@ public class StatsEnemy : MonoBehaviour {
 		primaryAttack = enemyObject.primaryAttackScript;
 		secondaryAbility = enemyObject.secondaryAbilityScript;
 
-		SetupHPBar();
+		//SetupHPBar();
 	}
 
 
@@ -77,10 +77,10 @@ public class StatsEnemy : MonoBehaviour {
 	}
 
 
-	void SetupHPBar () {
-		Canvas canvas = GameObject.FindObjectOfType<Canvas>();
-		myHPBar = Instantiate(HPBar, canvas.transform) as GameObject;
-		myHPBar.GetComponent<EnemyHPBar>().myEnemy = this.gameObject.transform;
-	}
+	//void SetupHPBar () {
+	//	Canvas myCanvas = GetComponentInChildren<Canvas>();
+	//	//myHPBar = Instantiate(HPBar, myCanvas.transform) as GameObject;
+	//	//myHPBar.GetComponent<EnemyHPBar>().myEnemy = gameObject.transform;
+	//}
 	
 }
