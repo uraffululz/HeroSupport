@@ -101,7 +101,7 @@ public class HeroAttack : MonoBehaviour {
 
 	void AttackHit() {
 		hitColUpper.enabled = true;
-		//Debug.Log("Hero AttackHit event function activated");
+		//Debug.Log("Hero AttackHit animation event function activated");
 	}
 
 
@@ -115,20 +115,16 @@ public class HeroAttack : MonoBehaviour {
 			StartCoroutine("SecondAttack");
 		}
 	}
+	
 
-//TODO Speed up the "AttackChop" animation in Blender, and then adjust these "WaitForSeconds" to match
-//Also adjust "WaitForSeconds" below, in SecondAttack(), and on the EnemyAttack script
 	IEnumerator FirstAttack() {
 		allowAttack1 = false;
 		anim.SetBool("isAttacking", true);
-		yield return new WaitForSeconds(.9f);
+		yield return new WaitForSeconds(.55f);
 
-		//hitColUpper.enabled = true;
-		//Debug.Log("Player Hitbox collider enabled");
 		allowAttack2 = true;
 		yield return new WaitForSeconds(.2f);
 
-		//hitColUpper.enabled = false;
 		allowAttack2 = false;
 		yield return new WaitForSeconds(.2f);
 
@@ -136,20 +132,18 @@ public class HeroAttack : MonoBehaviour {
 		allowAttack1 = true;
 	}
 
+
 	IEnumerator SecondAttack() {
 		//hitColUpper.enabled = false;
 		allowAttack1 = false;
 		allowAttack2 = false;
 		anim.SetBool("isAttacking", false);
 		anim.SetBool("isAttacking2", true);
-		yield return new WaitForSeconds(.9f);
+		yield return new WaitForSeconds(.55f);
 
-		//hitColUpper.enabled = true;
-		//Debug.Log("Player Hitbox collider enabled");
 		//allowAttack3 = true;
 		yield return new WaitForSeconds(.2f);
 
-		//hitColUpper.enabled = false;
 		//allowAttack3 = false;
 		yield return new WaitForSeconds(.2f);
 

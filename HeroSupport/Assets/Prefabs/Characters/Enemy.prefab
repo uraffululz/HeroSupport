@@ -878,7 +878,6 @@ MonoBehaviour:
   worthNotoriety: 0
   primaryAttack: {fileID: 0}
   secondaryAbility: {fileID: 0}
-  HPBar: {fileID: 1144523192886782, guid: 6e1b7957a0b19794bb244fd6b09efe19, type: 2}
   myHPBar: {fileID: 1241506682995590}
 --- !u!114 &114614472704873736
 MonoBehaviour:

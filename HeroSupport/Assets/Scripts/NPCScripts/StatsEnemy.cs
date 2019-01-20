@@ -33,22 +33,31 @@ public class StatsEnemy : MonoBehaviour {
 		if (NightHighTierManager.isHighTierActivityHere) {
 			maxHP = enemyObject.health + NightHighTierManager.enemyHPBonus;
 			FP = enemyObject.focus + NightHighTierManager.enemyFPBonus;
+			FPRegen = enemyObject.focusRegenRate + NightHighTierManager.enemyIntBonus;
+
+			speed = enemyObject.moveSpeed + NightHighTierManager.enemyAgiBonus;
+
+			damage = enemyObject.attackDmg + NightHighTierManager.enemyStrBonus;
+			attackRate = enemyObject.attackRate - (NightHighTierManager.enemyAgiBonus/10);
+
+			worthNotoriety = enemyObject.notoriety + NightHighTierManager.enemyNotorietyBonus;
 		}
 		else {
 			maxHP = enemyObject.health + NightManager.enemyHPBonus;
 			FP = enemyObject.focus + NightManager.enemyFPBonus;
+			FPRegen = enemyObject.focusRegenRate + NightManager.enemyIntBonus;
+
+			speed = enemyObject.moveSpeed + NightManager.enemyAgiBonus;
+
+			damage = enemyObject.attackDmg + NightManager.enemyStrBonus;
+			attackRate = enemyObject.attackRate - (NightManager.enemyAgiBonus/10);
+
+			worthNotoriety = enemyObject.notoriety + NightManager.enemyNotBonus;
 		}
+
 		currentHP = maxHP;
-		FPRegen = enemyObject.focusRegenRate;
-
-		speed = enemyObject.moveSpeed;
-
-		damage = enemyObject.attackDmg;
-		attackRate = enemyObject.attackRate;
 		meleeDist = enemyObject.meleeDist;
 		rangedDist = enemyObject.rangedDist;
-
-		worthNotoriety = enemyObject.notoriety;
 
 		primaryAttack = enemyObject.primaryAttackScript;
 		secondaryAbility = enemyObject.secondaryAbilityScript;

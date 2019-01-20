@@ -22,6 +22,9 @@ public class DayNightCycle : MonoBehaviour {
 	public bool isDawn = false;
 	public bool isDusk = false;
 
+	public delegate void DaylightCome();
+	public event DaylightCome daylightEvent;
+
 
 	void Awake() {
 		if (instance != null && instance != this) {
@@ -63,10 +66,19 @@ public class DayNightCycle : MonoBehaviour {
 		//"dayTime" bool becomes true while light is mostly white, and false while it is mostly blue
 		if (transition >= .5f) {
 			dayTime = true;
+
+			if (daylightEvent != null) {
+				daylightEvent();
+			}
 			//During the frame in which it actually BECOMES Day
 			if (!isDawn) {
-//TODO Here is where I should trigger a "DaylightCome" event for all scripts listening (MapSceneManager, NodeManager)
-//It should also disable/reset any of the still-active high-tier activities going on in the city
+				if (ClueMaster.eventOngoing) {
+					ClueMaster.nightsUntilEventEnds--;
+					if (ClueMaster.nightsUntilEventEnds <= 0) {
+						ClueMaster.EventFailure();
+					}
+				}
+
 				isDawn = true;
 				isDusk = false;
 			}

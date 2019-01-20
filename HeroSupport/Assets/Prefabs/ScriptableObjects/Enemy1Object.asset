@@ -17,9 +17,9 @@ MonoBehaviour:
   focusRegenRate: 2
   moveSpeed: 2
   attackDmg: 10
-  attackRate: 4
+  attackRate: 3
   meleeDist: 2
-  rangedDist: 5
+  rangedDist: 4
   notoriety: 10
   primaryAttackScript: {fileID: 11500000, guid: 48d56a7a757d4544ea16146a92e29904,
     type: 3}

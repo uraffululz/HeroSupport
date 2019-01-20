@@ -15,7 +15,12 @@ MonoBehaviour:
   landmarks:
   - College Campus
   - Police Station
+  - Amphitheater
   lm1HPBonus: 0
   lm1FPBonus: 0
   lm2HPBonus: 0
   lm2FPBonus: 0
+  lm3HPBonus: 0
+  lm3FPBonus: 0
+  lm4HPBonus: 0
+  lm4FPBonus: 0

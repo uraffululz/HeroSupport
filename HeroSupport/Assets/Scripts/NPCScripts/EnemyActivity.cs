@@ -10,6 +10,7 @@ public class EnemyActivity : MonoBehaviour {
 	public List <GameObject> civilians;
 
 	public NavMeshAgent enemyNav;
+	Animator enemyAnim;
 
 	StatsEnemy enemyStats;
 	EnemyHPBar HPBar;
@@ -37,6 +38,7 @@ public class EnemyActivity : MonoBehaviour {
 		player = GameObject.FindWithTag("Player");
 		civilians = arenaManager.civilians;
 		enemyNav = GetComponent<NavMeshAgent>();
+		enemyAnim = GetComponent<Animator>();
 		enemyStats = GetComponent<StatsEnemy>();
 		HPBar = GetComponentInChildren<EnemyHPBar>();
 
@@ -97,10 +99,14 @@ public class EnemyActivity : MonoBehaviour {
 			}
 		}
 
-		//GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
-		//enemyNav.enabled = false;
-		//GetComponent<Collider>().isTrigger = true;
-		Destroy(gameObject);
+		GetComponent<Rigidbody>().useGravity = false;
+		enemyNav.enabled = false;
+		GetComponent<Collider>().isTrigger = true;
+
+		enemyAnim.StopPlayback();
+		enemyAnim.SetBool("IsDead", true);
+
+		//Destroy(gameObject);
 	}
 
 

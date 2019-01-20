@@ -11,7 +11,6 @@ public class EnemyAttack : MonoBehaviour {
 	StatsEnemy enemyStats;
 	EnemyActivity enemyAct;
 
-	float attackDelay;
 	[SerializeField] float attackTimer;
 
 
@@ -20,8 +19,7 @@ public class EnemyAttack : MonoBehaviour {
 		enemyStats = GetComponent<StatsEnemy>();
 		enemyAct = gameObject.GetComponent<EnemyActivity>();
 
-		attackDelay = enemyStats.attackRate;
-		attackTimer = attackDelay;
+		attackTimer = enemyStats.attackRate;
 	}
 
 
@@ -29,6 +27,7 @@ public class EnemyAttack : MonoBehaviour {
 		if (hitboxUpper.enabled) {
 			hitboxUpper.enabled = false;
 		}
+
 		if (attackTimer <= 0f) {
 			if (enemyAct.myState == EnemyActivity.enemyStates.readyToAttack) {
 				if (enemyAct.distToTarget <= enemyAct.atkDistMelee) {
@@ -41,13 +40,20 @@ public class EnemyAttack : MonoBehaviour {
 */			}
 		}
 		else {
-			attackTimer -= Time.deltaTime;
+			if (enemyAct.distToTarget <= enemyStats.rangedDist) {
+				attackTimer -= Time.deltaTime;
+			}
+			else {
+				attackTimer = enemyStats.attackRate;
+			}
 		}
 	}
 
 
 	IEnumerator MeleeAttack(){
-		enemyAct.enemyNav.destination = transform.position;
+		if (enemyAct.enemyNav.enabled) {
+			enemyAct.enemyNav.destination = transform.position;
+		}
 		Anim.SetBool("isAttacking", true);
 		yield return new WaitForSeconds(1.3f);
 
@@ -58,8 +64,8 @@ public class EnemyAttack : MonoBehaviour {
 		*/
 
 		Anim.SetBool("isAttacking", false);
-		attackTimer = attackDelay;
-		if (enemyAct.target != null) {
+		attackTimer = enemyStats.attackRate;
+		if (enemyAct.enemyNav.enabled && enemyAct.target != null) {
 			enemyAct.enemyNav.destination = enemyAct.target.transform.position;
 		}
 	}

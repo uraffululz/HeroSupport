@@ -11,6 +11,9 @@ public class MapLocationManager : MonoBehaviour {
 	public ObjectLocation locObject;
 	[SerializeField] string locLandmark1;
 	[SerializeField] string locLandmark2;
+	[SerializeField] string locLandmark3;
+	[SerializeField] string locLandmark4;
+
 
 
 	void Awake () {
@@ -18,6 +21,12 @@ public class MapLocationManager : MonoBehaviour {
 
 		locLandmark1 = locObject.landmarks[0];
 		locLandmark2 = locObject.landmarks[1];
+		if (locObject.landmarks.Length > 2) {
+			locLandmark3 = locObject.landmarks[2];
+		}
+		if (locObject.landmarks.Length > 3) {
+			locLandmark4 = locObject.landmarks[3];
+		}
 	}
 
 

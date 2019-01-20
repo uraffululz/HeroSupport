@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HideoutManager : MonoBehaviour {
+	[SerializeField] Image nightlyOverviewUI;
+
 	GameObject player;
 	GameObject sidekick;
 
@@ -21,10 +24,18 @@ public class HideoutManager : MonoBehaviour {
 		if (sidekick != null) {
 			sidekick.transform.position = Vector3.right;
 		}
+
+
+		nightlyOverviewUI.GetComponent<Animator>().SetBool("compActivated", true);
 	}
 
 
 	void Update () {
 		
+	}
+
+
+	public void CloseNightlyOverviewUI() {
+		nightlyOverviewUI.GetComponent<Animator>().SetBool("compActivated", false);
 	}
 }

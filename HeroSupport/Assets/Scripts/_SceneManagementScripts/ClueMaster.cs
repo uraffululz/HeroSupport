@@ -8,23 +8,18 @@ public static class ClueMaster {
 	public static bool eventOngoing = false;
 	public static bool eventUncovered = false;
 
-	public static bool matchLocation = false;
-	public static bool matchTarget = false;
-	public static bool matchAttackType = false;
+	public static int nightsUntilEventEnds = 7;
+	public static bool notifyResultsOfEventFailure = true;
 
+	public static bool matchLocation = false;
+	public static bool matchGang = false;
+	public static bool matchAttackType = false;
 
 	public static int maxNumberOfClues = 9;
 	public static int numberOfCluesFound = 0;
 	public static string mostRecentClue = "";
 	public static List<int> clueTypes = new List<int>();
-
-	public static string[] gangs = new string[] {"The Jackals", "The Clone Army", "The Ember-kin"};
-	public static string gangInvolvedInEvent;
-
-	//TODO I only really want to use Locations OR targets. Seems weird/redundant to use both.
-	//What do I use in place of the other, then? I want to have at least 3 categories of clues.
-	//Maybe instead of the target (WHO?), the hero focuses on the villain's motivation (WHY?). I mean, Batman tends to figure that shit out eventually
-
+	
 	//Declaring and initializing LOCATION clue variables
 	static int whichLocation = 0;
 //TOMAYBEDO Add more locations: Subway Terminal, etc.
@@ -50,27 +45,25 @@ public static class ClueMaster {
 	public static string[] knownLocationClues = new string[3] { "", "", "" };
 	public static int locationCluesFound = 0;
 
-
-	//Declaring and initializing TARGET clue variables
-	static int whichTarget = 0;
-	static string[] targets = new string[] {"Chief of Police", "District Attorney", "Judge", "Mayor", "Mob Boss" };
-	static string[,] targetClues = new string[5/*Same # as targets[]*/, 3]
-		{/*[0] Chief of Police */{"Chief clue #1","Chief clue #2","Chief clue #3"},
-			/*[1] District Attorney*/ {"DA clue #1","DA clue #2","DA clue #3"},
-			/*[2] Judge*/ {"Judge clue #1","Judge clue #2","Judge clue #3"},
-			/*[3] Mayor*/ {"Mayor clue #1","Mayor clue #2","Mayor clue #3"},
-			/*[4] Mob Boss*/ {"Mob Boss clue #1","Mob Boss clue #2","Mob Boss clue #3"}
+	//Declaring and initializing GANG INVOLVED clue variables
+	static int whichGang = 0;
+	public static string[] gangs = new string[] { "The Jackals", "The Clone Army", "The Ember-kin", "The Lezzies" };
+	public static string gangInvolvedInEvent;
+	static string[,] gangClues = new string[4/*Same as gangs[]*/, 3] 
+		{/*[0] The Jackals*/ {"The Jackals Clue #1", "The Jackals Clue #2", "The Jackals Clue #3"},
+			/*[1] The Clone Army*/ {"The Clone Army Clue #1", "The Clone Army Clue #2", "The Clone Army Clue #3"},
+			/*[2] The Ember-kin*/ {"The Ember-kin Clue #1", "The Ember-kin Clue #2", "The Ember-kin Clue #3"},
+			/*[3] The Lezzies*/ {"The Lezzies Clue #1", "The Lezzies Clue #2", "The Lezzies Clue #3"}
 		};
-	public static List<string> relevantTargetclues = new List<string>();
-	public static string[] knownTargetClues = new string[3] { "", "", "" };
-	public static int targetCluesFound = 0;
-
+	public static List<string> relevantGangClues = new List<string>();
+	public static string[] knownGangClues = new string[3] { "", "", "" };
+	public static int gangCluesFound = 0;
 
 	//Declaring and initializing ATTACKTYPE clue variables
 	static int whichAttackType = 0;
 	static string[] attackTypes = new string[] {"Arson", "Bomb Threat", "Chemical Attack", "Hostage Situation", "Kidnapping",
 												"Mass Shooting", "Robbery"};
-	static string[,] attackTypeClues = new string[7/*Same # as targets[]*/, 3]
+	static string[,] attackTypeClues = new string[7/*Same # as attackTypes[]*/, 3]
 		{/*[0] Arson*/{"Arson clue #1","Arson clue #2","Arson clue #3"},
 			/*[1] Bomb Threat */{"Bomb Threat clue #1","Bomb Threat clue #2","Bomb Threat clue #3"},
 			/*[2] Chemical Attack*/ {"Chemical Attack clue #1","Chemical Attack clue #2","Chemical Attack clue #3"},
@@ -84,7 +77,7 @@ public static class ClueMaster {
 	public static int attackTypeCluesFound = 0;
 
 	public static string location = "";
-	public static string target = "";
+	public static string gang = "";
 	public static string attackType = "";
 
 
@@ -97,9 +90,6 @@ public static class ClueMaster {
 	public static void ChooseEventParameters () {
 		eventOngoing = true;
 
-		//Determine WHO IS PLANNING the event
-		gangInvolvedInEvent = gangs[Random.Range(0, gangs.Length)];
-
 		//Determine WHERE the event will take place
 		whichLocation = Random.Range(0, locations.Length);
 		//Debug.Log("Location # " + whichLocation);
@@ -110,11 +100,11 @@ public static class ClueMaster {
 			//Debug.Log(locationClues[whichLocation, i]);
 		}
 
-		//Determine WHO the target is
-		whichTarget = Random.Range(0, targets.Length);
-		target = targets[whichTarget];
+		//Determine WHICH GANG is planning the event
+		whichGang = Random.Range(0, gangs.Length);
+		gangInvolvedInEvent = gangs[whichGang];
 		for (int i = 0; i < 3; i++) {
-			relevantTargetclues.Add(targetClues[whichTarget, i]);
+			relevantGangClues.Add(gangClues[whichGang, i]);
 		}
 
 		//Determine HOW the attack will happen
@@ -124,7 +114,7 @@ public static class ClueMaster {
 			relevantAttackTypeclues.Add(attackTypeClues[whichAttackType, i]);
 		}
 
-		Debug.Log("Location: " + location + ", Target: " + target + ", Attack Type: " + attackType);
+		Debug.Log("Location: " + location + ", Gang: " + gangInvolvedInEvent + ", Attack Type: " + attackType);
 	}
 
 
@@ -132,7 +122,7 @@ public static class ClueMaster {
 		if (locationCluesFound < 3) {
 			clueTypes.Add(1);
 		}
-		if (targetCluesFound < 3) {
+		if (gangCluesFound < 3) {
 			clueTypes.Add(2);
 		}
 		if (attackTypeCluesFound < 3) {
@@ -146,7 +136,7 @@ public static class ClueMaster {
 				GetALocationClue();
 				break;
 			case 2:
-				GetATargetClue();
+				GetAGangClue();
 				break;
 			case 3:
 				GetAnAttackTypeClue();
@@ -174,14 +164,14 @@ public static class ClueMaster {
 	}
 
 
-	static void GetATargetClue() {
-		int clueNum = Random.Range(0, relevantTargetclues.Count);
-		knownTargetClues[targetCluesFound] = relevantTargetclues[clueNum];
-		relevantTargetclues.RemoveAt(clueNum);
+	static void GetAGangClue() {
+		int clueNum = Random.Range(0, relevantGangClues.Count);
+		knownGangClues[gangCluesFound] = relevantGangClues[clueNum];
+		relevantGangClues.RemoveAt(clueNum);
 
-		mostRecentClue = knownTargetClues[targetCluesFound];
-		Debug.Log("You found a TARGET clue: " + knownTargetClues[targetCluesFound]);
-		targetCluesFound++;
+		mostRecentClue = knownGangClues[gangCluesFound];
+		Debug.Log("You found a GANG clue: " + knownGangClues[gangCluesFound]);
+		gangCluesFound++;
 	}
 
 
@@ -205,12 +195,16 @@ public static class ClueMaster {
 	public static void EventSuccess() {
 		Debug.Log("You successfully completed the event");
 
+		notifyResultsOfEventFailure = false;
+
 		EndEvent();
 	}
 
 
 	public static void EventFailure() {
 		Debug.Log("You failed the event");
+
+		notifyResultsOfEventFailure = true;
 
 		EndEvent();
 	}
@@ -222,26 +216,28 @@ public static class ClueMaster {
 		eventUncovered = false;
 		NightHighTierManager.isEvent = false;
 
+		nightsUntilEventEnds = 7;
+
 		matchLocation = false;
-		matchTarget = false;
+		matchGang = false;
 		matchAttackType = false;
 
 		numberOfCluesFound = 0;
 		locationCluesFound = 0;
-		targetCluesFound = 0;
+		gangCluesFound = 0;
 		attackTypeCluesFound = 0;
 		mostRecentClue = "";
 
 		relevantLocationclues.Clear();
-		relevantTargetclues.Clear();
+		relevantGangClues.Clear();
 		relevantAttackTypeclues.Clear();
 
 		knownLocationClues = new string[3] { "", "", "" };
-		knownTargetClues = new string[3] { "", "", "" };
+		knownGangClues = new string[3] { "", "", "" };
 		knownAttackTypeClues = new string[3] { "", "", "" };
 
 		location = "";
-		target = "";
+		gangInvolvedInEvent = "";
 		attackType = "";
 	}
 	

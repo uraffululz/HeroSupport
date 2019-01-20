@@ -843,7 +843,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 195832337}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.84, y: 0, z: 0}
+  m_LocalPosition: {x: 1.9, y: 0, z: 1.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 483494756}
@@ -1666,6 +1666,7 @@ MonoBehaviour:
   - {fileID: 1636495693}
   - {fileID: 600288936}
   - {fileID: 2066347165}
+  - {fileID: 1675762577}
   nodeList:
   - {fileID: 195832337}
   - {fileID: 1406249621}
@@ -2058,6 +2059,8 @@ MonoBehaviour:
   locObject: {fileID: 11400000, guid: 1df98a8e82a7cfb4e9791da6c825b6d9, type: 2}
   locLandmark1: 
   locLandmark2: 
+  locLandmark3: 
+  locLandmark4: 
 --- !u!1 &619313897
 GameObject:
   m_ObjectHideFlags: 0
@@ -3237,7 +3240,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1260373078}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.22, y: 0, z: 5.63}
+  m_LocalPosition: {x: 4.25, y: 0, z: -3.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 483494756}
@@ -3572,7 +3575,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1352723117}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.71, y: 0, z: 0.37}
+  m_LocalPosition: {x: 5.71, y: 0, z: 3.43}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 483494756}
@@ -4573,11 +4576,11 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1636495693}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: 0, z: 0}
+  m_LocalPosition: {x: 2, y: 0, z: 2}
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_Children: []
   m_Father: {fileID: 1988030729}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1636495695
 BoxCollider:
@@ -4648,6 +4651,8 @@ MonoBehaviour:
   locObject: {fileID: 11400000, guid: 036ea5398540b504f94d3c7e5eeb4699, type: 2}
   locLandmark1: 
   locLandmark2: 
+  locLandmark3: 
+  locLandmark4: 
 --- !u!1 &1637508820
 GameObject:
   m_ObjectHideFlags: 0
@@ -4785,6 +4790,109 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1645192825}
+--- !u!1 &1675762577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1675762578}
+  - component: {fileID: 1675762582}
+  - component: {fileID: 1675762581}
+  - component: {fileID: 1675762580}
+  - component: {fileID: 1675762579}
+  m_Layer: 0
+  m_Name: FILLER LOCATION2
+  m_TagString: MapLocation
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1675762578
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1675762577}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2, y: 0, z: -2}
+  m_LocalScale: {x: 4, y: 0.5, z: 4}
+  m_Children: []
+  m_Father: {fileID: 1988030729}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1675762579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1675762577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ddb238247af67d341bc7a4073a877a5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gangControllingLoc: 
+  locObject: {fileID: 11400000, guid: 372aec6deb4694e4d86099e6b52736ca, type: 2}
+  locLandmark1: 
+  locLandmark2: 
+  locLandmark3: 
+  locLandmark4: 
+--- !u!65 &1675762580
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1675762577}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &1675762581
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1675762577}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: a2f16af9470aa854ea94449daca96798, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1675762582
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1675762577}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1690603265
 GameObject:
   m_ObjectHideFlags: 0
@@ -5448,9 +5556,10 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 1, z: 2}
   m_Children:
-  - {fileID: 1636495694}
-  - {fileID: 600288937}
   - {fileID: 2066347166}
+  - {fileID: 600288937}
+  - {fileID: 1636495694}
+  - {fileID: 1675762578}
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5558,7 +5667,7 @@ Transform:
   m_LocalScale: {x: 4, y: 0.5, z: 4}
   m_Children: []
   m_Father: {fileID: 1988030729}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2066347167
 MonoBehaviour:
@@ -5575,6 +5684,8 @@ MonoBehaviour:
   locObject: {fileID: 11400000, guid: 624c730ff1cf2a04bb5f36730f3326c5, type: 2}
   locLandmark1: 
   locLandmark2: 
+  locLandmark3: 
+  locLandmark4: 
 --- !u!65 &2066347168
 BoxCollider:
   m_ObjectHideFlags: 0

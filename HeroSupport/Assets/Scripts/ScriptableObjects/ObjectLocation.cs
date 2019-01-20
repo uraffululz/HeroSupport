@@ -14,4 +14,10 @@ public class ObjectLocation : ScriptableObject {
 
 	public int lm2HPBonus;
 	public int lm2FPBonus;
+
+	public int lm3HPBonus;
+	public int lm3FPBonus;
+
+	public int lm4HPBonus;
+	public int lm4FPBonus;
 }

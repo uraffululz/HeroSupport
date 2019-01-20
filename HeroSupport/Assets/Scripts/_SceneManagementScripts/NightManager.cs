@@ -16,13 +16,15 @@ public static class NightManager {
 	public static string crimeStars;
 
 	public static string activity;
-	static string[] activities = new string[] { "Assault", "Burglary", "Car Theft", "Gang War", "Mugging", "Robbery", "Runaway Train", "Vandalism"};
+	static string[] activities = new string[] { "Armed Robbery", "Assault", "Burglary", "Car Theft", "Gang War", "Mugging",
+												"Vandalism"/*Meaning destruction of property, not just graffiti*/};
 
 	public static int enemyHPBonus = 0;
 	public static int enemyFPBonus = 0;
 	public static int enemyStrBonus = 0;
 	public static int enemyAgiBonus = 0;
 	public static int enemyIntBonus = 0;
+	public static int enemyNotBonus = 0;
 
 	public static int baseFatigueDmg = 0;
 	public static int baseStressDmg = 0;
@@ -70,7 +72,7 @@ public static class NightManager {
 			default:
 				activitySceneToLoad = "SampleActivityArena";
 				HPBonus = 10; FPBonus = 10; //Later, formulate these based on the activity's difficulty
-				//Not really sure if enemies should have these stats: strBonus = 1; agiBonus = 1; intBonus = 1;
+				strBonus = 1 * difficulty; agiBonus = 1 * difficulty; intBonus = 1 * difficulty;
 				fatigue = difficulty; stress = difficulty;
 				notoriety = 10 * difficulty;
 				break;
@@ -113,13 +115,15 @@ public static class NightManager {
 //TODO Actually, if getting rid of the activity2 and activity3 variables, this \/ may be obsolete
 //TODO See if there is a more efficient way to return/apply these values to their proper variables
 //Maybe by altering the return-type of the function or whatever. This works for now.
-			enemyHPBonus = HPBonus;
-			enemyFPBonus = FPBonus;
-			enemyStrBonus = strBonus;
-			enemyAgiBonus = agiBonus;
-			enemyIntBonus = intBonus;
-			baseFatigueDmg = fatigue;
-			baseStressDmg = stress;
+		enemyHPBonus = HPBonus;
+		enemyFPBonus = FPBonus;
+		enemyStrBonus = strBonus;
+		enemyAgiBonus = agiBonus;
+		enemyIntBonus = intBonus;
+		enemyNotBonus = notoriety;
+
+		baseFatigueDmg = fatigue;
+		baseStressDmg = stress;
 
 		//Debug.Log("Activity parameters set");
 	}
@@ -132,10 +136,11 @@ public static class NightManager {
 		enemyStrBonus = 0;
 		enemyAgiBonus = 0;
 		enemyIntBonus = 0;
+		enemyNotBonus = 0;
 
 		baseFatigueDmg = 0;
 		baseStressDmg = 0;
 
-		baseNotoriety = 0;
+		//baseNotoriety = 0; Redundant, because it's ALWAYS 0
 	}
 }

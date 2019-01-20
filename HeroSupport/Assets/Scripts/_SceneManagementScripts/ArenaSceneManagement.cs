@@ -18,11 +18,13 @@ public class ArenaSceneManagement : MonoBehaviour {
 	[SerializeField] Text eventResults;
 	[SerializeField] Text clueText;
 
-	int enemySpawnNum = 2; //For now
-	int civSpawnNum = 2; //For now
+	int enemySpawnNum = 3; //For now
+	int civSpawnNum = 3; //For now
 
 	public List<GameObject> enemies;
 	public List<GameObject> civilians;
+
+	[SerializeField] public List<Bounds> spawnBounds;
 
 	public int gainedNotoriety = NightManager.baseNotoriety;
 
@@ -31,16 +33,23 @@ public class ArenaSceneManagement : MonoBehaviour {
 		player = GameObject.FindWithTag("Player");
 		sidekick = GameObject.FindWithTag("Sidekick");
 
+		spawnBounds = new List<Bounds>();
+
 		if (player != null) {
 			Vector3 playerSpawnPos = new Vector3(10, 0, 10);
 			player.transform.position = playerSpawnPos;
 			player.GetComponent<HeroActivity>().enabled = true;
 			player.GetComponent<HeroAttack>().enabled = true;
 			player.GetComponent<PlayerInteracting>().enabled = false; //until I can figure out how to use the "scene loading" events
+
+			spawnBounds.Add(player.GetComponent<CapsuleCollider>().bounds);
 		}
 
 		if (sidekick != null) {
 			sidekick.transform.position = Vector3.right;
+
+			spawnBounds.Add(sidekick.GetComponent<CapsuleCollider>().bounds);
+
 		}
 
 		SpawnCivilians();
@@ -60,26 +69,48 @@ public class ArenaSceneManagement : MonoBehaviour {
 
 
 	void SpawnCivilians () {
-		for (int i = 0; i < civSpawnNum; i++) {
+		for (int c = 0; c < civSpawnNum; c++) {
 			//TOMAYBEDO Adjust the civilian spawn points to that they are closer to an enemy (May need to declare their lists up here first)
 			float civSpawnX = Random.Range(0, 20);
 			float civSpawnZ = Random.Range(0, 20);
 			Vector3 civSpawnPoint = new Vector3(civSpawnX, 0, civSpawnZ);
 
 			GameObject spawnedCiv = Instantiate(civilianPrefab, civSpawnPoint, Quaternion.identity);
-			spawnedCiv.transform.LookAt(Vector3.zero);
+
+			foreach (Bounds colBounds in spawnBounds) {
+				if (spawnedCiv.GetComponent<CapsuleCollider>().bounds.Intersects(colBounds)) {
+					Destroy(spawnedCiv);
+					c--;
+				}
+			}
+
+			if (spawnedCiv != null) {
+				spawnBounds.Add(spawnedCiv.GetComponent<CapsuleCollider>().bounds);
+				spawnedCiv.transform.LookAt(Vector3.zero);
+			}
 		}
 	}
 
 
 	void SpawnEnemies () {
-		for (int i = 0; i < enemySpawnNum; i++) {
+		for (int e = 0; e < enemySpawnNum; e++) {
 			float enemySpawnX = Random.Range(0, 20);
 			float enemySpawnZ = Random.Range(0, 20);
 			Vector3 enemySpawnPoint = new Vector3(enemySpawnX, 0, enemySpawnZ);
 
 			GameObject spawnedEnemy = Instantiate(enemyPrefab, enemySpawnPoint, Quaternion.identity);
-			spawnedEnemy.transform.LookAt(Vector3.zero);
+
+			foreach (Bounds colBounds in spawnBounds) {
+				if (spawnedEnemy.GetComponent<CapsuleCollider>().bounds.Intersects(colBounds)) {
+					Destroy(spawnedEnemy);
+					e--;
+				}
+			}
+
+			if (spawnedEnemy != null) {
+				spawnBounds.Add(spawnedEnemy.GetComponent<CapsuleCollider>().bounds);
+				spawnedEnemy.transform.LookAt(Vector3.zero);
+			}
 		}
 	}
 
@@ -96,7 +127,7 @@ public class ArenaSceneManagement : MonoBehaviour {
 				ClueMaster.EventSuccess();
 			}
 			else {
-				eventResults.text = (ClueMaster.gangInvolvedInEvent + " is planning something");
+				eventResults.text = ("One of the city's gangs is planning something big");
 				DetermineIfClueFound();
 			}
 		}
@@ -104,7 +135,7 @@ public class ArenaSceneManagement : MonoBehaviour {
 			ClueMaster.ChooseEventParameters();
 			DetermineIfClueFound();
 
-			eventResults.text = (ClueMaster.gangInvolvedInEvent + " is planning something");			
+			eventResults.text = ("One of the city's gangs is planning something big");			
 		}
 
 		FinishActivity();
@@ -155,22 +186,22 @@ public class ArenaSceneManagement : MonoBehaviour {
 
 		if (ClueMaster.numberOfCluesFound < ClueMaster.maxNumberOfClues) {
 			if (NightHighTierManager.isHighTierActivityHere) {
-				if (NightHighTierManager.gangInvolved == ClueMaster.gangInvolvedInEvent) {
+				//if (NightHighTierManager.gangInvolved == ClueMaster.gangInvolvedInEvent) {
 					if (chanceClueFound < 100) {
 						ClueMaster.GetAClue();
 						//Display each clue when found
 						clueText.text = ("Clue found: " + ClueMaster.mostRecentClue);
 					}
-				}
+				//}
 			}
 			else {
-				if (NightManager.gangInvolved == ClueMaster.gangInvolvedInEvent) {
+				//if (NightManager.gangInvolved == ClueMaster.gangInvolvedInEvent) {
 					if (chanceClueFound < 100) {
 						ClueMaster.GetAClue();
 						//Display each clue when found
 						clueText.text = ("Clue found: " + ClueMaster.mostRecentClue);
 					}
-				}
+				//}
 			}
 		}
 	}

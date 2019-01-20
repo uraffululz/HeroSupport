@@ -23,13 +23,13 @@ public class NodeManager : MonoBehaviour {
 
 
 	void Start () {
-		
+		DNCycle.daylightEvent += GangWarOnNode;
+
 	}
 
 
 	void Update () {
 		if (DNCycle.dayTime && !gangWarStarted) {
-			GangWarOnNode();
 			gangWarStarted = true;
 		}
 		else if (!DNCycle.dayTime && DNCycle.isDusk) {
@@ -39,7 +39,9 @@ public class NodeManager : MonoBehaviour {
 
 
 	void GangWarOnNode() {
-//TODO Set this as part of the listener for the "DaylightCome" event method when it is triggered on the DayNightCycle script (Not yet implemented)
+		DNCycle.daylightEvent -= GangWarOnNode;
+
+		//TODO Set this as part of the listener for the "DaylightCome" event method when it is triggered on the DayNightCycle script (Not yet implemented)
 		//Here, the gangs of the city fight for control of the map's nodes
 		foreach (GameObject node in nodeList) {
 			NodeDetails nodeDeets = node.GetComponent<NodeDetails>();

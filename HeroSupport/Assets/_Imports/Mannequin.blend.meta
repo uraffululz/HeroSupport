@@ -55,6 +55,8 @@ ModelImporter:
     7400006: Run
     7400008: TPose
     7400010: Walk
+    7400012: HitTaken
+    7400014: HitTakenDeath
     9500000: //RootNode
     13700000: Mannequin
     2186277476908879412: ImportLogs
@@ -73,29 +75,41 @@ ModelImporter:
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Idle' has import animation warnings that might
-      lower retargeting quality:\nNote: Activate translation DOF on avatar to improve
-      retargeting quality.\n\t'LowerLeg_L' has scale animation that will be discarded.\n\t'Foot_L'
-      has scale animation that will be discarded.\n\t'LowerLeg_R' has scale animation
-      that will be discarded.\n\t'Foot_R' has scale animation that will be discarded.\n\nClip
-      'MeleeChop' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'UpperLeg_L'
-      has scale animation that will be discarded.\n\t'LowerLeg_L' has scale animation
+    animationImportWarnings: "\nClip 'Default Take' has import animation warnings
+      that might lower retargeting quality:\n\t'UpperLeg_L' has scale animation that
+      will be discarded.\n\t'LowerLeg_L' has scale animation that will be discarded.\n\t'Foot_L'
+      has scale animation that will be discarded.\n\t'UpperLeg_R' has scale animation
+      that will be discarded.\n\t'LowerLeg_R' has scale animation that will be discarded.\n\t'Foot_R'
+      has scale animation that will be discarded.\n\nClip 'HitTaken' has import animation
+      warnings that might lower retargeting quality:\n\t'UpperLeg_L' has scale animation
+      that will be discarded.\n\t'LowerLeg_L' has scale animation that will be discarded.\n\t'Foot_L'
+      has scale animation that will be discarded.\n\t'UpperLeg_R' has scale animation
+      that will be discarded.\n\t'LowerLeg_R' has scale animation that will be discarded.\n\t'Foot_R'
+      has scale animation that will be discarded.\n\nClip 'HitTakenDeath' has import
+      animation warnings that might lower retargeting quality:\n\t'UpperLeg_L' has
+      scale animation that will be discarded.\n\t'LowerLeg_L' has scale animation
       that will be discarded.\n\t'Foot_L' has scale animation that will be discarded.\n\t'UpperLeg_R'
       has scale animation that will be discarded.\n\t'LowerLeg_R' has scale animation
       that will be discarded.\n\t'Foot_R' has scale animation that will be discarded.\n\nClip
-      'Run' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'UpperLeg_L'
-      has scale animation that will be discarded.\n\t'LowerLeg_L' has scale animation
-      that will be discarded.\n\t'Foot_L' has scale animation that will be discarded.\n\t'UpperLeg_R'
-      has scale animation that will be discarded.\n\t'LowerLeg_R' has scale animation
-      that will be discarded.\n\t'Foot_R' has scale animation that will be discarded.\n\nClip
-      'Walk' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'UpperLeg_L'
-      has scale animation that will be discarded.\n\t'LowerLeg_L' has scale animation
-      that will be discarded.\n\t'Foot_L' has scale animation that will be discarded.\n\t'UpperLeg_R'
-      has scale animation that will be discarded.\n\t'LowerLeg_R' has scale animation
-      that will be discarded.\n\t'Foot_R' has scale animation that will be discarded.\n"
+      'Idle' has import animation warnings that might lower retargeting quality:\n\t'LowerLeg_L'
+      has scale animation that will be discarded.\n\t'Foot_L' has scale animation
+      that will be discarded.\n\t'LowerLeg_R' has scale animation that will be discarded.\n\t'Foot_R'
+      has scale animation that will be discarded.\n\nClip 'MeleeChop' has import animation
+      warnings that might lower retargeting quality:\n\t'UpperLeg_L' has scale animation
+      that will be discarded.\n\t'LowerLeg_L' has scale animation that will be discarded.\n\t'Foot_L'
+      has scale animation that will be discarded.\n\t'UpperLeg_R' has scale animation
+      that will be discarded.\n\t'LowerLeg_R' has scale animation that will be discarded.\n\t'Foot_R'
+      has scale animation that will be discarded.\n\nClip 'Run' has import animation
+      warnings that might lower retargeting quality:\n\t'UpperLeg_L' has scale animation
+      that will be discarded.\n\t'LowerLeg_L' has scale animation that will be discarded.\n\t'Foot_L'
+      has scale animation that will be discarded.\n\t'UpperLeg_R' has scale animation
+      that will be discarded.\n\t'LowerLeg_R' has scale animation that will be discarded.\n\t'Foot_R'
+      has scale animation that will be discarded.\n\nClip 'Walk' has import animation
+      warnings that might lower retargeting quality:\n\t'UpperLeg_L' has scale animation
+      that will be discarded.\n\t'LowerLeg_L' has scale animation that will be discarded.\n\t'Foot_L'
+      has scale animation that will be discarded.\n\t'UpperLeg_R' has scale animation
+      that will be discarded.\n\t'LowerLeg_R' has scale animation that will be discarded.\n\t'Foot_R'
+      has scale animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -167,8 +181,8 @@ ModelImporter:
     - serializedVersion: 16
       name: MeleeChop
       takeName: MeleeChop
-      firstFrame: -1
-      lastFrame: 35
+      firstFrame: 0
+      lastFrame: 25
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -188,7 +202,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.7446809
+      - time: 0.6952227
         functionName: AttackHit
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -202,7 +216,7 @@ ModelImporter:
     - serializedVersion: 16
       name: Run
       takeName: Run
-      firstFrame: -1
+      firstFrame: 0
       lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 0
@@ -267,6 +281,62 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: HitTaken
+      takeName: HitTaken
+      firstFrame: 0
+      lastFrame: 14
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: HitTakenDeath
+      takeName: HitTakenDeath
+      firstFrame: 0
+      lastFrame: 20
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -567,7 +637,7 @@ ModelImporter:
     feetSpacing: 0
     rootMotionBoneName: 
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
-    hasTranslationDoF: 0
+    hasTranslationDoF: 1
     hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}

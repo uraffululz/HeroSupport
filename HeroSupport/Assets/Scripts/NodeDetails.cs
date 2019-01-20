@@ -131,7 +131,7 @@ public class NodeDetails : MonoBehaviour {
 
 
 	void DetermineIfEventHappeningHere() {
-		if (ClueMaster.eventOngoing && ClueMaster.eventUncovered) {
+		if (ClueMaster.eventOngoing && ClueMaster.eventUncovered && ClueMaster.nightsUntilEventEnds > 0) {
 			if (ClueMaster.location == myLandmark) {
 				GetComponent<MeshRenderer>().material.color = Color.green;
 				isEventHappeningHere = true;

@@ -26,6 +26,7 @@ public static class NightHighTierManager {
 	public static int enemyStrBonus = 0;
 	public static int enemyAgiBonus = 0;
 	public static int enemyIntBonus = 0;
+	public static int enemyNotorietyBonus = 0;
 
 	public static int baseFatigueDmg = 0;
 	public static int baseStressDmg = 0;
@@ -104,14 +105,16 @@ public static class NightHighTierManager {
 				if (isEvent) {
 					//activitySceneToLoad = "SampleEventActivityScene";
 					//TODO Adjust other "stat bonuses" and variables
-					HPBonus = 30; FPBonus = 30; notoriety = 30 * difficulty;
+					HPBonus = 30; FPBonus = 30;
+					strBonus = 3 * difficulty; agiBonus = 3 * difficulty; intBonus = 3 * difficulty;
+					notoriety += 20 * difficulty;
 				}
 				else {
 					activitySceneToLoad = "SampleActivityArena";
 					HPBonus = 20; FPBonus = 20; //Later, formulate these based on the activity's difficulty
-//Not really sure if enemies should have these stats: strBonus = 1; agiBonus = 1; intBonus = 1;
+					strBonus = 2 * difficulty; agiBonus = 2 * difficulty; intBonus = 2 * difficulty;
 					//fatigue = difficulty; stress = difficulty;
-					notoriety = 10 * difficulty;
+					notoriety += 10 * difficulty;
 				}
 				
 				break;
@@ -163,6 +166,7 @@ public static class NightHighTierManager {
 		enemyStrBonus = strBonus;
 		enemyAgiBonus = agiBonus;
 		enemyIntBonus = intBonus;
+		enemyNotorietyBonus = notoriety;
 		//baseFatigueDmg = fatigue;
 		//baseStressDmg = stress;
 
@@ -183,10 +187,11 @@ public static class NightHighTierManager {
 		enemyStrBonus = 0;
 		enemyAgiBonus = 0;
 		enemyIntBonus = 0;
+		enemyNotorietyBonus = 0;
 
 		baseFatigueDmg = 0;
 		baseStressDmg = 0;
 
-		baseNotoriety = 0;
+		//baseNotoriety = 0; Unnecessary, because it's ALWAYS 0 anyway
 	}
 }

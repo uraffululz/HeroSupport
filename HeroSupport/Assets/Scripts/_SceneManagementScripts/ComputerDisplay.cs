@@ -76,6 +76,7 @@ public class ComputerDisplay : MonoBehaviour {
 			}
 
 			if (NightHighTierManager.isEvent) {
+				gangName.text = ("Gang: " + ClueMaster.gangInvolvedInEvent);
 				activity.text = ("Stop the " + NightHighTierManager.activity + NightHighTierManager.crimeStars);
 				activity.color = Color.green;
 			}

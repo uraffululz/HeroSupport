@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class MapSceneManager : MonoBehaviour {
 	[SerializeField] GameObject dayNightLight;
 	[SerializeField] GameObject daylightUI;
+	DayNightCycle DNCycle;
 
 	Canvas canvas;
 	GraphicRaycaster UIRay;
@@ -35,7 +36,11 @@ public class MapSceneManager : MonoBehaviour {
 
 
 	void Awake () {
-		dayNightLight = GameObject.Find("Day-Night Light");
+		dayNightLight = GameObject.FindGameObjectWithTag("DayNightLight");
+		if (dayNightLight != null) {
+			DNCycle = dayNightLight.GetComponent<DayNightCycle>();
+		}
+
 		canvas = GameObject.FindObjectOfType<Canvas>();
 		eventSys = GameManager.FindObjectOfType<EventSystem>().GetComponent<EventSystem>();
 
@@ -63,6 +68,9 @@ public class MapSceneManager : MonoBehaviour {
 		//TODO This is probably unnecessary at this point
 		//Set the first nightly activity
 		//NightManager.SetCrimeRates(ClueMaster.gangs[Random.Range(0, ClueMaster.gangs.Length)]);
+
+		DNCycle.daylightEvent += DaylightCame;
+
 	}
 
 
@@ -114,27 +122,8 @@ public class MapSceneManager : MonoBehaviour {
 
 
 	void DayNightFunctions () {
-		if (dayNightLight != null) {
-			DayNightCycle DNCycle = dayNightLight.GetComponent<DayNightCycle>();
-
-			if (DNCycle.dayTime && !nightOver) {
-//TODO Have this trigger the "DaylightCome" event on the DayNightCycle script (Not implemented yet), and move all of these related processes,
-//including the "OpenDaylightReturnUI" method, into that event trigger method somewhere below on this script
-				highTierActSet = false;
-				NightHighTierManager.ResetValues();
-				if (currentLocation != null) {
-					NightManager.SetCrimeRates(currentLocation.GetComponent<NodeDetails>().gangName);
-				}
-				foreach (GameObject node in mapNodes) {
-					//NodeDetails.myHighTierActivity = "";
-					node.GetComponent<MeshRenderer>().material.color = node.GetComponent<NodeDetails>().gangColor;
-				}
-				policeAlertBG.color = bgOffColor;
-				policeAlertText.text = "";
-				//StartCoroutine("OpenDaylightReturnUI");
-				nightOver = true;
-			}
-			else if (DNCycle.transition > .01f && !DNCycle.dayTime) {
+		if (DNCycle != null) {
+			if (/*DNCycle.transition > .01f && */!DNCycle.dayTime) {
 				//Once per night (for now), determine if there are any high-tier activities happening in the city
 
 				if (!highTierActSet) {
@@ -159,9 +148,11 @@ public class MapSceneManager : MonoBehaviour {
 					//Debug.Log("High-Tier Activity happening at " + mapLoc.name + ": " + nodeDeets.myHighTierActivity);
 				}
 				else {
-					policeAlertBG.color = bgOffColor;
-					policeAlertText.text = "";
-					Debug.Log("No high-tier activity happening tonight.");
+					if (policeAlertBG.color != bgOffColor) {
+						policeAlertBG.color = bgOffColor;
+						policeAlertText.text = "";
+						Debug.Log("No high-tier activity happening tonight.");
+					}
 				}
 
 				highTierActSet = true;
@@ -170,6 +161,26 @@ public class MapSceneManager : MonoBehaviour {
 		}
 	}
 
+	void DaylightCame() {
+		DNCycle.daylightEvent -= DaylightCame;
+
+		highTierActSet = false;
+		NightHighTierManager.ResetValues();
+
+		if (currentLocation != null) {
+			NightManager.SetCrimeRates(currentLocation.GetComponent<NodeDetails>().gangName);
+		}
+
+		foreach (GameObject node in mapNodes) {
+			//NodeDetails.myHighTierActivity = "";
+			node.GetComponent<MeshRenderer>().material.color = node.GetComponent<NodeDetails>().gangColor;
+		}
+
+		policeAlertBG.color = bgOffColor;
+		policeAlertText.text = "";
+		StartCoroutine("OpenDaylightReturnUI");
+		nightOver = true;
+	}
 
 	IEnumerator OpenDaylightReturnUI () {
 		daylightUI.GetComponent<Animator>().SetBool("compActivated", true);
