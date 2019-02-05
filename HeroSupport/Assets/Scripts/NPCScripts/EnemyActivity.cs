@@ -13,7 +13,7 @@ public class EnemyActivity : MonoBehaviour {
 	Animator enemyAnim;
 
 	StatsEnemy enemyStats;
-	EnemyHPBar HPBar;
+	//EnemyHPBar HPBar;
 
 	public enum enemyStates {idle, pursuing, readyToAttack, stunned};
 	public enemyStates myState;
@@ -40,7 +40,7 @@ public class EnemyActivity : MonoBehaviour {
 		enemyNav = GetComponent<NavMeshAgent>();
 		enemyAnim = GetComponent<Animator>();
 		enemyStats = GetComponent<StatsEnemy>();
-		HPBar = GetComponentInChildren<EnemyHPBar>();
+		//HPBar = GetComponentInChildren<EnemyHPBar>();
 
 		enemyNav.speed = enemyStats.speed;
 
@@ -51,7 +51,7 @@ public class EnemyActivity : MonoBehaviour {
 	}
 
 
-	void Update () {
+	void LateUpdate () {
 		//isColliding = false;
 		//if (myState == enemyStates.pursuing) {
 			if (enemyNav.enabled) {
@@ -120,13 +120,15 @@ public class EnemyActivity : MonoBehaviour {
 		}
 		//Otherwise, attack the nearest Civilian
 		else {
-			float closestDist = 20f;
-			foreach (GameObject civ in civilians) {
-				float distToCiv = Vector3.Distance(gameObject.transform.position, civ.transform.position);
-				if (distToCiv < closestDist) {
-					closestDist = distToCiv;
-					target = civ;
-					distToTarget = distToCiv;
+			if (civilians.Count > 0) {
+				float closestDist = 20f;
+				foreach (GameObject civ in civilians) {
+					float distToCiv = Vector3.Distance(gameObject.transform.position, civ.transform.position);
+					if (distToCiv < closestDist) {
+						closestDist = distToCiv;
+						target = civ;
+						distToTarget = distToCiv;
+					}
 				}
 			}
 		}
@@ -154,7 +156,7 @@ public class EnemyActivity : MonoBehaviour {
 
 		if (target != null) {
 			enemyNav.destination = target.transform.position;
-			transform.LookAt(target.transform.position);
+			transform.LookAt(new Vector3 (target.transform.position.x, transform.position.y, target.transform.position.z));
 
 			if (distToTarget <= 1.05f) {
 				enemyNav.isStopped = true;

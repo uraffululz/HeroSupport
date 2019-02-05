@@ -29,7 +29,7 @@ public class MapSceneManager : MonoBehaviour {
 	GameObject sidekick;
 
 	enum mapState {Idle, Grappling, Moving};
-	[SerializeField] mapState myMapState;
+	//[SerializeField] mapState myMapState;
 
 	public static bool highTierActSet = false;
 	bool nightOver = false;
@@ -60,7 +60,7 @@ public class MapSceneManager : MonoBehaviour {
 			sidekick.transform.position = Vector3.back;
 		}
 
-		myMapState = mapState.Idle;
+		//myMapState = mapState.Idle;
 
 		policeAlertBG.color = bgOffColor;
 		policeAlertText.text = "";
@@ -71,6 +71,11 @@ public class MapSceneManager : MonoBehaviour {
 
 		DNCycle.daylightEvent += DaylightCame;
 
+	}
+
+
+	private void OnDisable() {
+		DNCycle.daylightEvent -= DaylightCame;
 	}
 
 
@@ -110,12 +115,12 @@ public class MapSceneManager : MonoBehaviour {
 
 	void MoveToLocation () {
 		if (currentLocation != null && player.transform.position != currentLocation.transform.position) {
-			myMapState = mapState.Moving;
+			//myMapState = mapState.Moving;
 			player.transform.position = Vector3.Lerp(player.transform.position, currentLocation.transform.position, .1f);
 
 			float distPlayerToLoc = Vector3.Distance(player.transform.position, currentLocation.transform.position);
 			if (distPlayerToLoc <= .1f) {
-				myMapState = mapState.Idle;
+				//myMapState = mapState.Idle;
 			}
 		}
 	}

@@ -55,7 +55,7 @@ public class StatsPlayer : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (Input.GetKeyDown(KeyCode.G)) {
+		if (Input.GetKeyDown(KeyCode.V)) {
 			alteredDmg += 10;
 			UpdateStats();
 			Debug.Log(damage);

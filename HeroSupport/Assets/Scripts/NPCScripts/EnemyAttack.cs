@@ -20,6 +20,7 @@ public class EnemyAttack : MonoBehaviour {
 		enemyAct = gameObject.GetComponent<EnemyActivity>();
 
 		attackTimer = enemyStats.attackRate;
+		Anim.SetBool("inCombat", true);
 	}
 
 

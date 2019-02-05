@@ -25,7 +25,7 @@ public class CivilianActivity : MonoBehaviour {
 	}
 
 
-	void Update () {
+	void LateUpdate () {
 		DetectEnemies();
 		
 	}
@@ -45,20 +45,26 @@ public class CivilianActivity : MonoBehaviour {
 
 	void DetectEnemies () {
 		float closestEnemyDist = 20f;
-		foreach (GameObject enemy in arenaManager.enemies) {
-			distToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-			if (distToEnemy < closestEnemyDist) {
-				closestEnemyDist = distToEnemy;
-				targetEnemy = enemy;
+		if (arenaManager.enemies.Count > 0) {
+			foreach (GameObject enemy in arenaManager.enemies) {
+				distToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+				if (distToEnemy < closestEnemyDist) {
+					closestEnemyDist = distToEnemy;
+					targetEnemy = enemy;
+				}
+			}
+
+			if (targetEnemy != null && closestEnemyDist <= 5.0f) {
+				civNav.destination = Vector3.MoveTowards(transform.position, targetEnemy.transform.position, -1);
+				transform.LookAt(civNav.nextPosition);
+			}
+			else {
+				//For now they stand still when not being pursued. In the future maybe they keep running for an exit/some kind of safety
+				civNav.destination = transform.position;
 			}
 		}
-
-		if (targetEnemy != null && closestEnemyDist <= 5.0f) {
-			civNav.destination = Vector3.MoveTowards(transform.position, targetEnemy.transform.position, -1);
-			transform.LookAt(civNav.nextPosition);
-		}
 		else {
-//For now they stand still when not being pursued. In the future maybe they keep running for an exit/some kind of safety
+			//For now they stand still when not being pursued. In the future maybe they keep running for an exit/some kind of safety
 			civNav.destination = transform.position;
 		}
 	}

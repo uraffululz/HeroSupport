@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 114260350032831068}
   - component: {fileID: 114864899337022306}
   - component: {fileID: 114331821573393106}
+  - component: {fileID: 114991081358673644}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Player
@@ -261,6 +262,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1805129318786972
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4960161179650082}
+  m_Layer: 0
+  m_Name: EquipRight
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1847572626501034
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,6 +302,21 @@ GameObject:
   - component: {fileID: 4366343627041454}
   m_Layer: 0
   m_Name: LowerArm_L
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1903262064716790
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4445440907254132}
+  m_Layer: 0
+  m_Name: GadgetHolster
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -475,6 +506,7 @@ Transform:
   m_LocalScale: {x: 0.99999994, y: 1.0012922, z: 1.0008092}
   m_Children:
   - {fileID: 4648540608951022}
+  - {fileID: 4445440907254132}
   m_Father: {fileID: 4711539254190680}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -490,6 +522,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4666273860475500}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4445440907254132
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1903262064716790}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.09711943, y: -0.07590052, z: 0.01856926}
+  m_LocalScale: {x: 0.99871933, y: 1.0001199, z: 0.99920654}
+  m_Children: []
+  m_Father: {fileID: 4393408305277464}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4449992788569286
 Transform:
@@ -514,7 +559,8 @@ Transform:
   m_LocalRotation: {x: -0.1986823, y: 0.07933, z: -0.065661535, w: 0.9746387}
   m_LocalPosition: {x: -0.28964394, y: 0.00000004749746, z: 0.00000003003946}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 4960161179650082}
   m_Father: {fileID: 4053453139411038}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -659,6 +705,19 @@ Transform:
   m_Father: {fileID: 4666273860475500}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4960161179650082
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1805129318786972}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.1, y: 0.014, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4516433655911124}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!33 &33399444024667000
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -749,14 +808,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerObject: {fileID: 11400000, guid: 16cb2f5daaf2bc444aced7da2109d5d3, type: 2}
-  valueStr: 0
-  valueAgi: 0
-  valueInt: 0
-  maxFatigue: 0
-  maxStress: 0
-  damage: 0
-  primaryAttack: {fileID: 0}
-  secondaryAbility: {fileID: 0}
 --- !u!114 &114864899337022306
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -769,6 +820,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arenaManager: {fileID: 0}
+  HPParent: {fileID: 0}
+--- !u!114 &114991081358673644
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1225774218195310}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa5e4f5b3a253f94f89328a6199b038f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holster: {fileID: 4445440907254132}
+  equipRightHand: {fileID: 4960161179650082}
 --- !u!135 &135539226584769594
 SphereCollider:
   m_ObjectHideFlags: 1

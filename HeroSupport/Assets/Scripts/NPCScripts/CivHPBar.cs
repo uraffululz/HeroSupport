@@ -9,7 +9,7 @@ public class CivHPBar : MonoBehaviour {
 
 	//Vector2 posCorrection = new Vector2(0, 100);
 	RectTransform targetCanvas;
-	RectTransform HPBarTransform;
+	//RectTransform HPBarTransform;
 
 	StatsCivilian civStats;
 
@@ -39,7 +39,7 @@ public class CivHPBar : MonoBehaviour {
 
 	void InitializeHPBar() {
 		targetCanvas = GetComponentInParent<RectTransform>();
-		HPBarTransform = GetComponent<RectTransform>();
+		//HPBarTransform = GetComponent<RectTransform>();
 	}
 
 

@@ -22,6 +22,11 @@ public class NodeManager : MonoBehaviour {
 	}
 
 
+	void OnDisable() {
+		DNCycle.daylightEvent -= GangWarOnNode;
+	}
+
+
 	void Start () {
 		DNCycle.daylightEvent += GangWarOnNode;
 

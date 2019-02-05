@@ -9,11 +9,13 @@ public class HeroAttack : MonoBehaviour {
 
 	[SerializeField] SphereCollider hitColUpper;
 
-	Animator anim;
+	public Animator anim;
 	//StatsPlayer charStats;
+	HeroEquipment myEquipment;
 
+	public bool allowTargeting = true;
 	public bool isTargeting = false;
-	GameObject target = null;
+	public GameObject target = null;
 
 	bool allowAttack1 = true;
 	bool allowAttack2 = false;
@@ -21,10 +23,16 @@ public class HeroAttack : MonoBehaviour {
 
 	//public int attackDmg = 10;
 
+	public bool allowGadget = true;
+	GameObject projectile;
+
 
 	void Awake() {
 		if (SceneManager.GetActiveScene().name != "SampleActivityArena") {
 			this.enabled = false;
+		}
+		else {
+			this.enabled = true;
 		}
 	}
 
@@ -32,20 +40,29 @@ public class HeroAttack : MonoBehaviour {
 	void OnEnable () {
 		arenaManager = GameObject.FindGameObjectWithTag("SceneManager").GetComponent<ArenaSceneManagement>();
 		anim = GetComponent<Animator>();
+		anim.SetBool("inCombat", true);
 		//charStats = GetComponent<StatsPlayer>();
+		myEquipment = GetComponent<HeroEquipment>();
 	}
 
 
 	void Update () {
-		if (this.enabled) {
+		//if (this.enabled) {
 			if (hitColUpper.enabled) {
 				hitColUpper.enabled = false;
 			}
 
 			Targeting();
 			StartAttack();
-		}
+		UseGadget();
+		//}
 	
+	}
+
+
+	void AttackHit() { //Event triggered by the "Combat_Melee_Chop" animation
+		hitColUpper.enabled = true;
+		//Debug.Log("Hero AttackHit animation event function activated");
 	}
 
 
@@ -53,55 +70,51 @@ public class HeroAttack : MonoBehaviour {
 		List<GameObject> enemies = arenaManager.enemies;
 
 		if (enemies.Count > 0) {
-			if (!isTargeting) {
-				if (Input.GetKeyDown(KeyCode.Q)) {
-					isTargeting = true;
+			if (allowTargeting) {
+				if (!isTargeting) {
+					if (Input.GetKeyDown(KeyCode.Q)) {
+						isTargeting = true;
 
-					float closestDist = 20f;
-					foreach (GameObject enemy in enemies) {
-						float distToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
-						if (distToEnemy < closestDist) {
-							closestDist = distToEnemy;
-							target = enemy;
-							//distToTarget = distToEnemy;
+						float closestDist = 20f;
+						foreach (GameObject enemy in enemies) {
+							float distToEnemy = Vector3.Distance(transform.position, enemy.transform.position);
+							if (distToEnemy < closestDist) {
+								closestDist = distToEnemy;
+								target = enemy;
+								//distToTarget = distToEnemy;
+							}
 						}
 					}
 				}
-			}
-			else if (isTargeting && target != null) {
-				if (Input.GetKeyDown(KeyCode.Q)) {
-					isTargeting = false;
-					target = null;
-				}
+				else if (isTargeting && target != null) {
+					if (Input.GetKeyDown(KeyCode.Q)) {
+						isTargeting = false;
+						target = null;
+					}
 
-				if (target != null) {
-					if (Input.GetKeyDown(KeyCode.Comma)) {
-						if (enemies[enemies.IndexOf(target)] == enemies[0]) {
-							target = enemies[enemies.Count - 1];
+					if (target != null) {
+						if (Input.GetKeyDown(KeyCode.Comma)) {
+							if (enemies[enemies.IndexOf(target)] == enemies[0]) {
+								target = enemies[enemies.Count - 1];
+							}
+							else {
+								target = enemies[enemies.IndexOf(target) - 1];
+							}
 						}
-						else {
-							target = enemies[enemies.IndexOf(target) - 1];
+						else if (Input.GetKeyDown(KeyCode.Period)) {
+							if (enemies.IndexOf(target) == enemies.Count - 1) {
+								target = enemies[0];
+							}
+							else {
+								target = enemies[enemies.IndexOf(target) + 1];
+							}
 						}
+						Vector3 targetPos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
+						transform.LookAt(targetPos);
 					}
-					else if (Input.GetKeyDown(KeyCode.Period)) {
-						if (enemies.IndexOf(target) == enemies.Count - 1) {
-							target = enemies[0];
-						}
-						else {
-							target = enemies[enemies.IndexOf(target) + 1];
-						}
-					}
-					Vector3 targetPos = new Vector3(target.transform.position.x, transform.position.y, target.transform.position.z);
-					transform.LookAt(targetPos);
 				}
 			}
 		}
-	}
-
-
-	void AttackHit() {
-		hitColUpper.enabled = true;
-		//Debug.Log("Hero AttackHit animation event function activated");
 	}
 
 
@@ -151,4 +164,79 @@ public class HeroAttack : MonoBehaviour {
 		allowAttack1 = true;
 		allowAttack2 = false;
 	}
+
+
+	void UseGadget() {
+		if (HeroEquipment.equippedGadget != null && allowGadget && Input.GetKeyDown(KeyCode.G)) {
+			switch (HeroEquipment.equippedGadget.name) {
+				case "GrappleGun":
+					Transform projectileSpawn = myEquipment.myGadget.transform.GetChild(0);
+
+//TODO Just instantiate this in the HeroEquipment script, right along with spawning the gadget itself
+					if (projectile == null) {
+						projectile = Instantiate(HeroEquipment.equippedAmmo, projectileSpawn.position, Quaternion.identity, projectileSpawn);
+					}
+					projectile.transform.localEulerAngles = Vector3.zero;
+					GrappleHook hookScript = projectile.GetComponent<GrappleHook>();
+						if (!hookScript.wasFired && !hookScript.retracting) {
+							StartCoroutine(UseGrappleGun());
+						}
+					break;
+
+				default:
+					break;
+			}
+		}
+	}
+
+
+	IEnumerator UseGrappleGun() {
+		allowGadget = false;
+
+		anim.SetBool("firedGun", true);
+		yield return new WaitForSeconds(.3f);
+
+		//Put the gun in the Hero's hand
+		myEquipment.myGadget.transform.parent = myEquipment.equipRightHand;
+		myEquipment.myGadget.transform.localPosition = Vector3.zero;
+		myEquipment.myGadget.transform.localRotation = Quaternion.Euler(Vector3.up * 90);
+
+		
+		//yield return new WaitForSeconds(.44f);
+
+	}
+
+	void PlayerFiredProjectile() {
+		anim.speed = 0;
+
+		projectile.GetComponent<GrappleHook>().HookFired();
+	}
+
+	void HookHeroLanding() {
+		projectile.GetComponent<GrappleHook>().HookedFinalize();
+	}
+
+	void HeroOverheadSmash () {
+		hitColUpper.enabled = true;
+
+		projectile.GetComponent<GrappleHook>().HookedFinalize();
+
+	}
+
+	void PlayerHolsteredWeapon() {
+		StartCoroutine("HolsterWeapon");
+	}
+
+
+	IEnumerator HolsterWeapon() {
+		yield return new WaitForSeconds(.40f);
+
+		//Re-attach the gun to the Hip Holster
+		//Destroy(projectile);
+		myEquipment.myGadget.transform.parent = myEquipment.holster;
+		myEquipment.myGadget.transform.localPosition = Vector3.zero;
+		myEquipment.myGadget.transform.localRotation = Quaternion.Euler(Vector3.zero);
+		yield return new WaitForSeconds(.36f);
+	}
+
 }

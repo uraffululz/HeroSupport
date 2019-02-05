@@ -18,7 +18,7 @@ public class ArenaSceneManagement : MonoBehaviour {
 	[SerializeField] Text eventResults;
 	[SerializeField] Text clueText;
 
-	int enemySpawnNum = 3; //For now
+	int enemySpawnNum = 1; //For now
 	int civSpawnNum = 3; //For now
 
 	public List<GameObject> enemies;
